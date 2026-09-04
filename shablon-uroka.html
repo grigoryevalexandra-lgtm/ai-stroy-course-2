@@ -475,12 +475,10 @@
             <textarea id="sRes" rows="4" placeholder="Результат, который выдал ИИ"></textarea>
             <label>Ваш e-mail для ответа куратора</label>
             <input id="sEmail" type="email" placeholder="you@example.ru">
-            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
-              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
           </div>
           <div class="transfer-note">
             <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-            ЗАМЕНИ: здесь платформа подключает отправку куратору — проверка №N. В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
+            ЗАМЕНИ: здесь платформа подключает отправку куратору — проверка №N.
           </div>
           <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «ЗАМЕНИ: название навыка».</b> Что забрать: ЗАМЕНИ — три коротких вывода урока через точку с запятой.</div>
         </section>
@@ -642,25 +640,7 @@
   upd();
 })();
 
-/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально (без бэкенда, без отправки; было mailto) ── */
-(function(){
-  var btn=document.getElementById('sendRev');if(!btn)return;
-  btn.addEventListener('click',function(){
-    var res=document.getElementById('sRes').value.trim(),
-        email=document.getElementById('sEmail').value.trim(),
-        m=document.getElementById('revMsg');
-    if(!res){m.textContent='Вставьте результат';return;}
-    /* ЗАМЕНИ: номер и название шага в теле файла */
-    var raw='Шаг NN (ЗАМЕНИ: название) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
-    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url;a.download='zadanie-shag-NN.txt';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    setTimeout(function(){URL.revokeObjectURL(url);},1000);
-    m.textContent='Файл скачан ✓';
-  });
-})();
+
 </script>
 </body>
 </html>

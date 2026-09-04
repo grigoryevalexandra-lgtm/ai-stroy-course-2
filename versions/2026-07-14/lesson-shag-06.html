@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Шаг 6. Когда ИИ отказывает или ошибается — Высшая инженерная школа</title>
+<style>
+  /* ── Дизайн-токены Актион (единые для всех уроков) ── */
+  :root{--bg:#ffffff;--card:#faf8f5;--card2:#f3efe9;--ink:#1a1814;--muted:#6f7280;--line:#e9e4dc;--brand:#e2231a;--blue:#237cf9;--green:#1f9d57;--yellow:#f5b500;--purple:#9b5de5;--r:16px;--rs:10px;--font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif}
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{overflow-x:hidden;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg,video,iframe,pre,table{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}.navlink a{font-size:13.5px;font-weight:600}
+  .author{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:18px 0 4px;flex-wrap:wrap}
+  .author .ava{width:58px;height:58px;border-radius:12px;flex:0 0 auto;background:#fff;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:10px;text-align:center;overflow:hidden}
+  .author .ava img{width:100%;height:100%;object-fit:cover}
+  .author .who b{font-size:15.5px}.author .who .role{font-size:13px;color:var(--muted)}
+  .author .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:18px 0 6px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.12;margin:4px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:15.5px;max-width:760px}
+  .lvl{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;margin-top:8px}
+  .lvl .dotx{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .meta .pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;margin-top:18px}
+  .sec{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:18px}
+  .stp{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}
+  h2{font-size:21px;margin:2px 0 12px;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:16px;margin:18px 0 8px;font-weight:800}
+  p{margin:0 0 12px}.muted{color:var(--muted)}
+  .why{background:var(--card);border-left:4px solid var(--blue);border-radius:12px;padding:13px 15px;font-size:14.5px;margin:14px 0}
+  .note{font-size:13.5px;color:#7a5b16;background:#fdf6e3;border:1px solid #f3e3b3;border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note.green{color:#157a41;background:#eef8f1;border-color:#cdebd8}.note.red{color:#a3201a;background:#fdf0ef;border-color:#f3c7c3}
+  .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:var(--rs);padding:11px 17px;font-size:14px;background:var(--blue);color:#fff;transition:.15s}
+  .btn:hover{filter:brightness(.95)}.btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.dark{background:var(--ink)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+  .btn.sm{padding:8px 13px;font-size:13px}
+  .checks{list-style:none;padding:0;margin:8px 0 0}
+  .checks li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .checks li:last-child{border-bottom:none}.checks li:before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .checks.bad li:before{content:"✕";color:var(--brand)}
+  .checks.num{counter-reset:c}.checks.num li:before{counter-increment:c;content:counter(c);background:var(--ink);color:#fff;width:18px;height:18px;border-radius:50%;font-size:11px;display:grid;place-items:center;top:8px}
+  .toc{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.toc li{padding:5px 0}.toc a{color:var(--ink)}
+  /* ── Раскрывающиеся блоки документов ── */
+  details.doc{border:1px solid var(--line);border-radius:12px;margin:12px 0;background:var(--card);overflow:hidden}
+  details.doc summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:10px}
+  details.doc summary::-webkit-details-marker{display:none}
+  details.doc summary:before{content:"▸";color:var(--blue);font-size:13px;transition:.15s;flex:0 0 auto}
+  details.doc[open] summary:before{content:"▾"}
+  details.doc summary .dtag{margin-left:auto;font-size:11px;font-weight:800;color:var(--muted);background:var(--card2);border-radius:999px;padding:3px 10px;white-space:nowrap}
+  details.doc .docbody{padding:0 16px 16px;font-size:13.5px;background:#fff;border-top:1px solid var(--line)}
+  details.doc .docbody pre{white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;font-size:12.5px;color:#3a3631;margin:12px 0 0;line-height:1.55}
+  .tw{overflow-x:auto;margin-top:6px}
+  table.cmp{border-collapse:collapse;width:100%;font-size:12.5px;min-width:480px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  table.cmp th{background:var(--card);font-weight:800;font-size:11.5px;text-transform:uppercase;color:var(--muted)}
+  td.bad{background:#fde4e2;color:#8f1410;font-weight:700}td.good{background:#eef8f1}
+  /* ── Демо-диалог (чат) ── */
+  .chat{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:8px}
+  .chat .ch{display:flex;align-items:center;gap:9px;background:var(--card);border-bottom:1px solid var(--line);padding:9px 13px;font-size:13px;font-weight:700}
+  .chat .ch .gi{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#1f9d57,#2bb56a);color:#fff;display:grid;place-items:center;font-size:12px}
+  .chat .body{padding:13px;background:#fff}
+  .sys{font-size:11.5px;color:var(--muted);background:var(--card2);border-radius:7px;padding:5px 9px;margin-bottom:9px;display:inline-block}
+  .bub{font-size:13.5px;border-radius:11px;padding:9px 12px;margin:7px 0;max-width:94%;white-space:pre-wrap}
+  .bub.u{background:var(--blue);color:#fff;margin-left:auto}.bub.a{background:var(--card);border:1px solid var(--line)}
+  .chat .ctrls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:11px 13px;border-top:1px solid var(--line);background:var(--card)}
+  /* ── Сценарии «что делать?»: карточка кейса + варианты действий ── */
+  .scenario{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:#fff}
+  .scenario .sh{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px;margin-bottom:4px}
+  .scenario .snum{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:12px;flex:0 0 auto}
+  .scenario .stext{font-size:13.5px;color:var(--muted);margin-bottom:10px}
+  .scenario .sopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:8px}
+  .scenario .sopt{cursor:pointer;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;font-family:inherit;color:var(--ink);transition:.15s}
+  .scenario .sopt:hover{border-color:var(--ink)}
+  .scenario .sopt.ok{border-color:var(--green);background:#eef8f1}
+  .scenario .sopt.err{border-color:var(--brand);background:#fdf0ef}
+  .scenario .sopt:disabled{cursor:default;opacity:.9}
+  .scenario .sfb{margin-top:10px;font-size:13px;border-radius:9px;padding:10px 12px;display:none}
+  .scenario .sfb.show{display:block}
+  .scenario .sfb.ok{background:#eef8f1;color:#157a41;border:1px solid #cdebd8}
+  .scenario .sfb.err{background:#fdf0ef;color:#a3201a;border:1px solid #f3c7c3}
+  /* ── Приёмы-карточки (шпаргалка) ── */
+  .rolegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px}
+  .rolecard{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--card)}
+  .rolecard .rh{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13.5px;margin-bottom:6px}
+  .rolecard .ric{width:26px;height:26px;border-radius:7px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;flex:0 0 auto}
+  .rolecard p{font-size:13px;color:var(--muted);margin:0}
+  /* ── Материалы / живой чат / гейт (из шаблона v2) ── */
+  .materials{display:flex;flex-direction:column;gap:12px}
+  .materials .mlist{list-style:none;padding:0;margin:0}
+  .materials .mlist li{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .materials .mlist li:last-child{border-bottom:none}
+  .materials .mlist .mico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:13px}
+  .materials .mcap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .livechat{display:flex;flex-direction:column;gap:12px}
+  .livechat .lcbtns{display:flex;gap:10px;flex-wrap:wrap}
+  .livechat .lcbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:var(--rs);padding:11px 16px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .livechat .lcbtn:hover{border-color:var(--ink)}
+  .livechat .lcbtn .dotc{width:9px;height:9px;border-radius:50%}
+  .livechat .lcinstruction{font-size:14px}
+  .livechat .lcgate{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin-top:2px}
+  .livechat .lcgate input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--green)}
+  .lcstatus{font-size:13px;font-weight:700;color:var(--muted)}
+  .lcstatus.ready{color:var(--green)}
+  .review label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  .review textarea,.review input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+  .review textarea:focus,.review input:focus{outline:none;border-color:var(--blue)}
+  .selfcheck{list-style:none;padding:0;margin:8px 0 0}
+  .selfcheck li{border-bottom:1px solid var(--line)}
+  .selfcheck li:last-child{border-bottom:none}
+  .selfcheck label{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;cursor:pointer;margin:0}
+  .selfcheck input{width:18px;height:18px;flex:0 0 auto;margin:3px 0 0;accent-color:var(--green)}
+  .scbar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden;margin-top:14px}
+  .scbar i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;transition:.35s}
+  .scmsg{font-size:13px;font-weight:700;margin-top:7px;color:var(--muted)}
+  .dl{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .dl button,.prevbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+  .dl button:hover,.prevbtn:hover{border-color:var(--ink)}
+  .coursenav{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .coursenav a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:var(--rs);padding:11px 17px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .coursenav a:hover{border-color:var(--ink)}
+  .coursenav a.next{background:var(--ink);border-color:var(--ink);color:#fff}
+  .coursenav a small{display:block;font-weight:600;font-size:11px;color:var(--muted)}
+  .coursenav a.next small{color:rgba(255,255,255,.65)}
+  .asst{position:sticky;top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .asst .hd{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .asst .ico{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .asst .hd b{font-size:14.5px}.asst .hd span{font-size:11px;color:var(--green);font-weight:700}
+  .lvltrack{display:flex;gap:5px;margin:12px 0 2px}
+  .lvltrack i{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .lvltrack i.on{background:var(--green)}.lvltrack i.cur{background:var(--blue)}
+  .caps{list-style:none;margin:12px 0 0;padding:0}
+  .caps li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .caps li:last-child{border-bottom:none}.caps li.lock{color:var(--muted)}
+  .caps li .s{flex:0 0 auto;width:18px}
+  .caps li small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+  .caps li.cur b{color:var(--ink)}
+  .newb{font-size:9px;font-weight:800;color:#fff;background:var(--green);border-radius:4px;padding:1px 5px;margin-left:5px;white-space:nowrap}
+  .lockwrap{position:relative}
+  .locked{position:relative;opacity:.4;pointer-events:none;user-select:none;filter:grayscale(.3);transition:opacity .2s,filter .2s}
+  .locked .lockbadge{display:none}
+  .lockwrap .lockbadge{display:none;position:absolute;top:14px;right:14px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 12px;align-items:center;gap:6px;z-index:2}
+  .lockwrap.is-locked .lockbadge{display:inline-flex}
+  .transfer-note{border:1.5px dashed var(--purple);background:#faf6ff;border-radius:12px;padding:12px 14px;font-size:13px;color:#5b3a94;margin-top:12px}
+  .transfer-note .tnlabel{display:flex;align-items:center;gap:7px;font-weight:800;font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--purple);margin-bottom:5px}
+  .transfer-note.compact{margin-top:8px;padding:10px 12px}
+  .promptbadge{display:inline-block;font-size:11px;font-weight:800;color:var(--purple);background:#faf6ff;border:1px solid #e6d5fa;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}.asst{position:static}}
+  @media(max-width:420px){h1{font-size:25px}.sec{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span><span class="navlink"><a href="index.html">← Все шаги</a></span>
+  </div>
+
+  <div class="author">
+    <div class="ava"><span>ФОТО</span></div>
+    <div class="who"><b>Евгений Эрман, к.т.н.</b>
+      <div class="role">руководитель Лаборатории ИИ-решений девелоперской компании «РАЗУМ»</div></div>
+    <span class="tag">Автор урока</span>
+  </div>
+
+  <div class="kicker">Курс «30 шагов: рабочий ИИ-инструмент для строителя» · Неделя 1 · Шаг 6 · Роль: сметчик / ПТО / снабжение <span class="rule" style="background:var(--yellow)"></span></div>
+  <h1>Шаг 6. Когда ИИ отказывает или ошибается</h1>
+  <p class="lead">Большинство людей бросают ИИ после первого же «не могу помочь» или явной ошибки — и зря: почти всегда дело не в инструменте, а в запросе. Разберём три типовых тупика на кейсе «Уютный дом на Матвеева» и научимся выводить диалог из них за одну фразу. <b>Отказ ИИ — сигнал переформулировать, а не повод спорить или всё бросать.</b></p>
+  <div class="meta">
+    <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 1 · роль и контекст</span>
+    <span class="pill">🎓 Новичок</span>
+  </div>
+  <div class="transfer-note compact">
+    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+    Платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли» из требований к разработке) — строка «Роль: …» выше должна обновляться без правки HTML урока.
+  </div>
+
+  <div class="grid">
+    <div>
+
+      <!-- ═══ TOC ═══ -->
+      <section class="sec">
+        <p class="stp">Что внутри урока</p>
+        <ul class="toc">
+          <li>1 · <a href="#theory">Три ситуации, из-за которых бросают ИИ</a></li>
+          <li>2 · <a href="#scenarios">Что делать: четыре сценария</a></li>
+          <li>3 · <a href="#cheatsheet">Шпаргалка: 5 приёмов реанимации диалога</a></li>
+          <li>4 · <a href="#redlines">Красная строка</a></li>
+          <li>5 · <a href="#materials">Материалы урока</a></li>
+          <li>6 · <a href="#livechat">Сделай в живом чате</a></li>
+          <li>7 · <a href="#practice">Практика и проверка</a></li>
+        </ul>
+        <div class="note">📄 К уроку приложены: предписание № 57 (документ 05), выдержка проектной спецификации КЖ с маркой бетона B25 (документ 02) и шпаргалка «5 приёмов реанимации диалога».</div>
+      </section>
+
+      <!-- ═══ 1 · THEORY ═══ -->
+      <section class="sec" id="theory">
+        <p class="stp">1 · Мотивация</p>
+        <h2>Три ситуации, после которых люди бросают ИИ</h2>
+        <p>«Спросил — не ответил», «спросил — ответил неправильно», «спросил — упёрся в лимит» — три самые частые причины, по которым человек один раз пробует ИИ-чат и больше не возвращается. На стройке это выглядит буднично: инженер просит оценить нарушения подрядчика, ИИ отказывается; или на автомате даёт неверную марку бетона; или запрос слишком длинный и упирается в лимит бесплатной версии.</p>
+        <p>Все три ситуации выглядят как «ИИ не работает». На деле — <b>все три решаемы за одну-две фразы</b>, если понимать, почему они происходят.</p>
+        <div class="why">💡 <b>Зачем это вам:</b> инженер, который умеет обходить эти три тупика, тратит на работу с ИИ в разы меньше времени, чем тот, кто после первого отказа закрывает вкладку и делает всё руками.</div>
+        <h3>Почему это происходит</h3>
+        <ul class="checks num">
+          <li><b>Отказ.</b> ИИ обучен уклоняться от юридически значимых оценочных суждений («кто виноват», «есть ли нарушение») — это встроенное ограничение, а не сбой.</li>
+          <li><b>Ошибка.</b> Без документа-источника ИИ подставляет «типичное» значение по памяти (например, обиходную марку бетона B20) вместо конкретного проектного (B25) — он не врёт нарочно, а достраивает пробел.</li>
+          <li><b>Лимит.</b> Бесплатные версии чат-ботов ограничивают длину запроса или количество сообщений в день — это коммерческое ограничение сервиса, а не отказ модели думать.</li>
+        </ul>
+      </section>
+
+      <!-- ═══ 2 · SCENARIOS ═══ -->
+      <section class="sec" id="scenarios">
+        <p class="stp">2 · Интерактив</p>
+        <h2>Что делать: четыре сценария</h2>
+        <p class="muted">В каждой карточке — реальная ситуация на кейсе «Уютный дом на Матвеева». Выберите верное действие, посмотрите обратную связь.</p>
+
+        <!-- Сценарий А: отказ -->
+        <div class="scenario" data-s="a">
+          <div class="sh"><span class="snum">1</span> ИИ отказывается оценивать нарушения подрядчика</div>
+          <div class="stext">Вы просите: «Оцени, есть ли нарушения со стороны подрядчика ООО «СтройМонолит» по предписанию № 57, и кто виноват». ИИ отвечает: «Я не могу давать юридическую оценку действий сторон — обратитесь к юристу или инженеру технадзора».</div>
+          <div class="sopts">
+            <button class="sopt" data-fb="Модель обучена не давать финальных юридических оценок — спор с ней не изменит эту настройку, вы просто потеряете время на переписку.">Начать спорить с ИИ: «Ты же можешь, просто оцени по фактам»</button>
+            <button class="sopt" data-correct data-fb="Верно. ИИ отказывается от оценочного суждения «кто виноват», но охотно работает с фактами. Переформулировка «составь перечень несоответствий по предписанию № 57 со ссылками на пункты» — уже не юридическая оценка, а структурирование, и ИИ выполнит её без отказа.">Переформулировать запрос в факты: «Составь перечень несоответствий по предписанию № 57»</button>
+            <button class="sopt" data-fb="Задача решаема за одну фразу — переформулировку. Бросать инструмент из-за встроенного ограничения на юридические оценки невыгодно: в 9 из 10 похожих ситуаций достаточно попросить факты, а не вывод.">Закрыть чат — с юридическими вопросами ИИ бесполезен</button>
+          </div>
+          <div class="sfb"></div>
+        </div>
+
+        <!-- Сценарий Б: ошибка -->
+        <div class="scenario" data-s="b">
+          <div class="sh"><span class="snum">2</span> ИИ перепутал марку бетона</div>
+          <div class="stext">Вы попросили ИИ описать требования к бетону плиты перекрытия для акта. Ответ: «Плита перекрытия — бетон класса <b>B20</b>». По проектной спецификации КЖ (документ 02) плита перекрытия — класс <b>B25</b>, W6.</div>
+          <div class="sopts">
+            <button class="sopt" data-fb="Молчаливая правка сейчас не защищает от того же типа ошибки в следующем запросе: без документа-источника ИИ снова подставит обиходное значение по памяти.">Молча поправить B20 на B25 в тексте и продолжить доверять этому чату дальше</button>
+            <button class="sopt" data-correct data-fb="Верно. Дайте ИИ документ-источник (фрагмент спецификации КЖ с B25) и попросите пересчитать/переписать ответ на основе именно этих данных. Так ошибка не просто исправляется один раз — модель перестаёт додумывать конкретные цифры.">Дать документ-источник (спецификацию КЖ) и попросить пересчитать ответ на его основе</button>
+            <button class="sopt" data-fb="Новый чат без контекста — тот же риск: без приложенного документа модель снова возьмёт «типичную» марку бетона по памяти, а не проектную.">Начать новый чат без контекста — вдруг там ответит правильно</button>
+          </div>
+          <div class="sfb"></div>
+        </div>
+
+        <!-- Сценарий В: лимит -->
+        <div class="scenario" data-s="c">
+          <div class="sh"><span class="snum">3</span> ИИ упёрся в лимит бесплатной версии</div>
+          <div class="stext">Вы вставили в чат весь текст предписания № 57 плюс журнал входного контроля и попросили сразу «дай полный ответ на все три пункта с обоснованием по нормативам». Чат-бот вернул: «Достигнут лимит длины запроса в бесплатной версии».</div>
+          <div class="sopts">
+            <button class="sopt" data-correct data-fb="Верно. Разбейте задачу на пункты (сначала пункт 1, потом 2 и 3) или сократите вставляемый текст до сути — либо переключитесь на второй инструмент: то, что не поместилось в GigaChat, может пройти в Алисе/YandexGPT и наоборот. Задача решается без ожидания и без платной подписки.">Сократить запрос / разбить задачу на части — или использовать второй инструмент (GigaChat ↔ Алиса)</button>
+            <button class="sopt" data-fb="Задача решаема прямо сейчас — разбивкой на части или вторым бесплатным инструментом. Бросать её и делать вручную то, что ИИ сделал бы за минуты, — самый дорогой вариант из всех.">Бросить задачу — оформить ответ вручную без ИИ</button>
+            <button class="sopt" data-fb="Лимит бесплатной версии — не финал: сначала попробуйте сократить/разбить запрос или сменить инструмент. Ждать бесплатного «завтра» — не самый быстрый путь, когда сроки предписания уже тикают.">Подождать до следующего дня, когда лимит обнулится</button>
+          </div>
+          <div class="sfb"></div>
+        </div>
+
+        <!-- Сценарий Г: сразу хорошо -->
+        <div class="scenario" data-s="d">
+          <div class="sh"><span class="snum">4</span> ИИ ответил точно и по делу с первого раза</div>
+          <div class="stext">Вы попросили ИИ составить перечень пунктов для акта осмотра по чек-листу входного контроля — и получили аккуратный, полный ответ без ошибок и отказов с первой попытки. Реанимировать вроде бы нечего.</div>
+          <div class="sopts">
+            <button class="sopt" data-correct data-fb="Верно. Если ответ хороший с первого раза — «приёмы реанимации» не нужны. Остаётся обычный шаг: проверить факты по документу-источнику — и работать дальше.">Проверить факты по документу-источнику и использовать ответ дальше</button>
+            <button class="sopt" data-fb="Лишняя работа: если ответ уже верный и по делу, пересобирать его заново не нужно — достаточно проверить факты и двигаться дальше.">На всякий случай переформулировать запрос ещё 2–3 раза, вдруг будет лучше</button>
+            <button class="sopt" data-fb="Уверенный тон — не гарантия правды. Даже хороший с виду ответ нужно сверить с документом-источником, прежде чем использовать его в работе.">Не проверять — раз ответ выглядит уверенно и профессионально</button>
+          </div>
+          <div class="sfb"></div>
+        </div>
+      </section>
+
+      <!-- ═══ 3 · CHEATSHEET ═══ -->
+      <section class="sec" id="cheatsheet">
+        <p class="stp">3 · Теория-шпаргалка</p>
+        <h2>5 приёмов реанимации диалога</h2>
+        <p class="muted">Когда ИИ отказал, ошибся или встал — не начинайте всё заново. Сначала попробуйте один из пяти приёмов.</p>
+        <div class="rolegrid">
+          <div class="rolecard">
+            <div class="rh"><span class="ric">🔁</span> Переформулируй</div>
+            <p>Смените рамку вопроса: не «оцени и реши», а «составь перечень фактов» или «опиши по пунктам». Часто именно формулировка, а не суть вопроса, вызывает отказ.</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">📎</span> Дай контекст</div>
+            <p>Приложите документ-источник текстом (предписание, спецификацию, норматив). Без него ИИ достраивает пробелы по памяти — и ошибается в цифрах.</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">🧭</span> Попроси объяснить ход решения</div>
+            <p>«Почему ты так решил, на основе чего?» — вопрос вскрывает, откуда взялась цифра или вывод, и сразу показывает, где не хватило данных.</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">✂️</span> Разбей задачу</div>
+            <p>Один большой запрос на «всё сразу» чаще упирается в лимит и путается в деталях. Разбейте на пункты — по одному нарушению, по одному документу за раз.</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">🆕</span> Начни новый чат с итогом старого</div>
+            <p>Если диалог окончательно запутался — не тяните его дальше. Откройте новый чат и одной фразой перескажите итог: «Контекст: работаем по предписанию № 57, установили, что…».</p>
+          </div>
+        </div>
+        <div class="note green">✅ Из пяти приёмов первые два закрывают почти все ситуации урока: переформулировка снимает отказ, документ-источник снимает ошибку.</div>
+      </section>
+
+      <!-- ═══ 4 · RED LINE ═══ -->
+      <section class="sec" id="redlines">
+        <p class="stp">4 · Красная строка</p>
+        <h2>Что нельзя делать, даже если ИИ отказал</h2>
+        <ul class="checks bad">
+          <li><b>Отказ ИИ — не повод обходить ограничение.</b> Если модель отказалась от юридической оценки, задача переформулировать запрос в факты — а не подбирать формулировки, чтобы «обмануть» фильтр и всё равно вытащить готовый вывод «кто виноват».</li>
+          <li><b>Юридически значимые выводы — всегда за человеком.</b> Черновик фактов, перечень несоответствий, структура ответа — это может собрать ИИ. Итоговую оценку «есть нарушение / нет нарушения» и подпись под документом — только ответственный специалист.</li>
+        </ul>
+      </section>
+
+      <!-- ═══ MATERIALS ═══ -->
+      <section class="sec" id="materials">
+        <p class="stp">5 · Материалы урока</p>
+        <h2>Материалы урока</h2>
+        <p class="muted">Всё содержимое этого шага — текстовые материалы, документы кейса и HTML-интерактив — собрано в один архив.</p>
+        <div class="materials">
+          <ul class="mlist">
+            <li><span class="mico">📝</span><span>Конспект урока (шпаргалка «5 приёмов реанимации диалога», красная строка, .md)</span></li>
+            <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: 05 (предписание № 57), 02 (фрагмент РД и спецификации, марка бетона B25)</span></li>
+            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+          </ul>
+          <div class="dl">
+            <a class="btn dark" href="materials/shag-06.zip">⬇ Скачать архив материалов</a>
+          </div>
+          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага.</p>
+        </div>
+      </section>
+
+      <!-- ═══ LIVE-CHAT ═══ -->
+      <section class="sec" id="livechat">
+        <p class="stp">6 · Сделай в живом чате</p>
+        <h2>Сделай в живом чате</h2>
+        <p class="lcinstruction">Задача: добейтесь от ИИ полезного ответа на запрос, где он сначала ответил плохо. Возьмите любую из ситуаций урока (например, «оцени нарушения подрядчика» — запрос, на который стоит ждать отказ или уклончивый ответ) в одном из чат-ботов ниже. Затем примените приём переформулировки и получите рабочий ответ. Вставьте <b>оба</b> ответа — «до» и «после» — в поле результата.</p>
+        <div class="lcbtns">
+          <a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>
+          <a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>
+        </div>
+        <div class="review">
+          <label>Вставь сюда оба ответа — «до» и «после»</label>
+          <textarea id="lcResult" rows="6" placeholder="До: [первый запрос и плохой/уклончивый ответ ИИ]&#10;После: [переформулированный запрос и полезный ответ ИИ]"></textarea>
+        </div>
+        <div class="lcgate">
+          <input type="checkbox" id="lcConfirm">
+          <label for="lcConfirm">Я добился(ась) полезного ответа после переформулировки</label>
+        </div>
+        <p class="lcstatus" id="lcStatus">Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.</p>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Демо-гейт реализован локальным JS (без сохранения данных). На платформе эта блокировка должна опираться на реальное событие взаимодействия участника с чатом (или просто на заполненное поле + чекбокс, как здесь) — ничего никуда не отправляется и в демо-версии.
+        </div>
+      </section>
+
+      <!-- ═══ SELFCHECK ═══ -->
+      <div class="lockwrap" id="selfcheckWrap">
+        <section class="sec locked" id="selfcheck">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">7 · Самопроверка</p>
+          <h2>Перед сдачей отметьте</h2>
+          <ul class="selfcheck" id="scList">
+            <li><label><input type="checkbox"> Я не пытался(лась) обойти отказ ИИ — переформулировал(а) запрос в факты, а не «продавливал(а)» оценочный вывод.</label></li>
+            <li><label><input type="checkbox"> При ошибке я дал(а) ИИ документ-источник, а не поправил(а) ответ молча.</label></li>
+            <li><label><input type="checkbox"> При упоре в лимит я разбил(а) запрос или использовал(а) второй инструмент, а не бросил(а) задачу.</label></li>
+            <li><label><input type="checkbox"> Итоговую юридически значимую оценку я оставил(а) за собой, а не за ИИ.</label></li>
+          </ul>
+          <div class="scbar"><i id="scBar"></i></div>
+          <div class="scmsg" id="scMsg">0 из 4 — пройдитесь по списку</div>
+        </section>
+      </div>
+
+      <!-- ═══ CURATOR / TRANSFER NOTE ═══ -->
+      <div class="lockwrap" id="practiceWrap">
+        <section class="sec locked" id="practice">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">8 · Практика и проверка</p>
+          <h2>Сделайте на своей задаче</h2>
+          <p class="muted">Вспомните свою недавнюю ситуацию, когда ИИ отказал, ошибся или упёрся в лимит. Примените один из пяти приёмов и вставьте результат. Обезличьте данные: без реальных ФИО, телефонов и коммерческой тайны.</p>
+          <div class="review">
+            <label>Что получилось — вставьте результат от ИИ</label>
+            <textarea id="sRes" rows="4" placeholder="Ситуация и результат после применения приёма"></textarea>
+            <label>Ваш e-mail для ответа куратора</label>
+            <input id="sEmail" type="email" placeholder="you@example.ru">
+            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
+              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
+          </div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору. В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
+          </div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «реанимация диалога».</b> Что забрать: отказ — сигнал переформулировать запрос в факты; ошибка — сигнал дать документ-источник; лимит — сигнал разбить задачу или сменить инструмент; юридически значимый вывод — всегда за человеком.</div>
+        </section>
+      </div>
+
+      <!-- ═══ COURSE NAV ═══ -->
+      <div class="coursenav">
+        <a href="#prev-lesson"><span>←</span><span><small>Шаг 5</small>Контекст решает: без документов / с документами</span></a>
+        <a href="#next-lesson" class="next"><span><small>Шаг 7</small>Практикум: письмо/записка под роль</span><span>→</span></a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="asst" id="asstWidget">
+        <div class="hd"><div class="ico">🤖</div><div><b>Ваш ИИ-ассистент</b><br><span id="asstLvlLabel"></span></div></div>
+        <div class="lvltrack" id="asstTrack"></div>
+        <ul class="caps" id="asstCaps"></ul>
+        <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Сейчас уровень задаётся константой ASSISTANT_LEVEL в JS ниже. На платформе виджет должен принимать текущий прогресс участника извне (проброс прогресса, П-6 из требований к разработке), не хардкодиться в HTML урока.
+        </div>
+      </div>
+      <script>
+      (function(){
+        var ASSISTANT_LEVEL = 1;
+        var ASSISTANT_LEVELS = [
+          {icon:'💬', name:'Голый чат',            desc:'отвечает «из головы», без вашего контекста'},
+          {icon:'🎭', name:'Роль и контекст',       desc:'знает, кто вы и на каком объекте работаете'},
+          {icon:'📚', name:'Библиотека промптов',   desc:'типовые задачи решает по готовым шаблонам'},
+          {icon:'📄', name:'Документы и знания',    desc:'работает с вашими сметами, КП, регламентами'},
+          {icon:'🧰', name:'Рабочий набор',         desc:'инструменты и агентные сценарии под роль'}
+        ];
+        var ASSISTANT_UNLOCK_NOTE = 'На Шаге 13 ассистент поднимется до уровня 2 — «Библиотека промптов»: приёмы этого шага тоже войдут в сохранённый набор.';
+        var L=Math.max(0,Math.min(4,ASSISTANT_LEVEL));
+        document.getElementById('asstLvlLabel').textContent='Уровень '+L+' · '+ASSISTANT_LEVELS[L].name;
+        var track=document.getElementById('asstTrack');
+        for(var i=0;i<ASSISTANT_LEVELS.length;i++){var seg=document.createElement('i');if(i<L)seg.className='on';else if(i===L)seg.className='cur';track.appendChild(seg);}
+        var caps=document.getElementById('asstCaps');
+        ASSISTANT_LEVELS.forEach(function(lv,i){
+          var li=document.createElement('li');
+          if(i<L){li.innerHTML='<span class="s">✅</span><span>'+lv.name+'</span>';}
+          else if(i===L){li.className='cur';li.innerHTML='<span class="s">✅</span><span><b>'+lv.name+'</b><span class="newb">этот урок</span><small>'+lv.desc+'</small></span>';}
+          else{li.className='lock';li.innerHTML='<span class="s">🔒</span><span>'+lv.name+'<small>'+lv.desc+'</small></span>';}
+          caps.appendChild(li);
+        });
+        var noteEl=document.getElementById('asstNote');
+        if(ASSISTANT_UNLOCK_NOTE){noteEl.innerHTML='🔜 '+ASSISTANT_UNLOCK_NOTE;}else{noteEl.style.display='none';}
+      })();
+      </script>
+    </aside>
+  </div>
+</div>
+
+<script>
+/* ── BLOCK: SCENARIOS — три сценария «что делать?» с обратной связью ── */
+(function(){
+  document.querySelectorAll('.scenario').forEach(function(s){
+    var fb=s.querySelector('.sfb');
+    s.querySelectorAll('.sopt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var ok=btn.hasAttribute('data-correct');
+        s.querySelectorAll('.sopt').forEach(function(b){
+          b.disabled=true;
+          if(b.hasAttribute('data-correct'))b.classList.add('ok');
+        });
+        if(!ok)btn.classList.add('err');
+        fb.className='sfb show '+(ok?'ok':'err');
+        fb.innerHTML=(ok?'✅ <b>Верно.</b> ':'❌ <b>Не совсем.</b> ')+(btn.dataset.fb||'');
+      });
+    });
+  });
+})();
+
+/* ── BLOCK: LIVE-CHAT — гейт итогов урока ── */
+(function(){
+  var result=document.getElementById('lcResult'),confirmEl=document.getElementById('lcConfirm');
+  if(!result||!confirmEl)return;
+  var status=document.getElementById('lcStatus');
+  var lockTargets=[document.getElementById('selfcheck'),document.getElementById('practice')];
+  var lockWraps=[document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
+  function upd(){
+    var ready=result.value.trim().length>0 && confirmEl.checked;
+    lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
+    lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
+    if(status){
+      status.textContent=ready?'✅ Итоги урока открыты.':'Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.';
+      status.classList.toggle('ready',ready);
+    }
+  }
+  result.addEventListener('input',upd);
+  confirmEl.addEventListener('change',upd);
+  upd();
+})();
+
+/* ── BLOCK: SELFCHECK — чек-лист самопроверки с прогрессом ── */
+(function(){
+  var list=document.getElementById('scList');if(!list)return;
+  var boxes=list.querySelectorAll('input[type=checkbox]'),bar=document.getElementById('scBar'),msg=document.getElementById('scMsg');
+  function upd(){
+    var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+    bar.style.width=(100*n/boxes.length)+'%';
+    msg.textContent=(n===boxes.length)?'✅ Все '+n+' пунктов — можно отправлять куратору':(n+' из '+boxes.length+' — пройдитесь по списку');
+    msg.style.color=(n===boxes.length)?'var(--green)':'var(--muted)';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',upd);});
+  upd();
+})();
+
+/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально ── */
+(function(){
+  var btn=document.getElementById('sendRev');if(!btn)return;
+  btn.addEventListener('click',function(){
+    var res=document.getElementById('sRes').value.trim(),
+        email=document.getElementById('sEmail').value.trim(),
+        m=document.getElementById('revMsg');
+    if(!res){m.textContent='Вставьте результат';return;}
+    var raw='Шаг 6 (Когда ИИ отказывает или ошибается) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
+    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='zadanie-shag-06.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    m.textContent='Файл скачан ✓';
+  });
+})();
+</script>
+</body>
+</html>

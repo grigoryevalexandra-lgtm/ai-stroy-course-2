@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Шаг 12. Презентации и отчёты — Высшая инженерная школа</title>
+<style>
+  /* ── Дизайн-токены Актион (единые для всех уроков) ── */
+  :root{--bg:#ffffff;--card:#faf8f5;--card2:#f3efe9;--ink:#1a1814;--muted:#6f7280;--line:#e9e4dc;--brand:#e2231a;--blue:#237cf9;--green:#1f9d57;--yellow:#f5b500;--purple:#9b5de5;--r:16px;--rs:10px;--font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif}
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{overflow-x:hidden;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg,video,iframe,pre,table{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}.navlink a{font-size:13.5px;font-weight:600}
+  .author{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:18px 0 4px;flex-wrap:wrap}
+  .author .ava{width:58px;height:58px;border-radius:12px;flex:0 0 auto;background:#fff;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:10px;text-align:center;overflow:hidden}
+  .author .ava img{width:100%;height:100%;object-fit:cover}
+  .author .who b{font-size:15.5px}.author .who .role{font-size:13px;color:var(--muted)}
+  .author .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:18px 0 6px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.12;margin:4px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:15.5px;max-width:760px}
+  .lvl{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;margin-top:8px}
+  .lvl .dotx{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .meta .pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;margin-top:18px}
+  .sec{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:18px}
+  .stp{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}
+  h2{font-size:21px;margin:2px 0 12px;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:16px;margin:18px 0 8px;font-weight:800}
+  p{margin:0 0 12px}.muted{color:var(--muted)}
+  .why{background:var(--card);border-left:4px solid var(--blue);border-radius:12px;padding:13px 15px;font-size:14.5px;margin:14px 0}
+  .note{font-size:13.5px;color:#7a5b16;background:#fdf6e3;border:1px solid #f3e3b3;border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note.green{color:#157a41;background:#eef8f1;border-color:#cdebd8}.note.red{color:#a3201a;background:#fdf0ef;border-color:#f3c7c3}
+  .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:var(--rs);padding:11px 17px;font-size:14px;background:var(--blue);color:#fff;transition:.15s}
+  .btn:hover{filter:brightness(.95)}.btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.dark{background:var(--ink)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+  .btn.sm{padding:8px 13px;font-size:13px}
+  .checks{list-style:none;padding:0;margin:8px 0 0}
+  .checks li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .checks li:last-child{border-bottom:none}.checks li:before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .checks.bad li:before{content:"✕";color:var(--brand)}
+  .checks.num{counter-reset:c}.checks.num li:before{counter-increment:c;content:counter(c);background:var(--ink);color:#fff;width:18px;height:18px;border-radius:50%;font-size:11px;display:grid;place-items:center;top:8px}
+  .toc{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.toc li{padding:5px 0}.toc a{color:var(--ink)}
+  /* ── Раскрывающиеся блоки документов ── */
+  details.doc{border:1px solid var(--line);border-radius:12px;margin:12px 0;background:var(--card);overflow:hidden}
+  details.doc summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:10px}
+  details.doc summary::-webkit-details-marker{display:none}
+  details.doc summary:before{content:"▸";color:var(--blue);font-size:13px;transition:.15s;flex:0 0 auto}
+  details.doc[open] summary:before{content:"▾"}
+  details.doc summary .dtag{margin-left:auto;font-size:11px;font-weight:800;color:var(--muted);background:var(--card2);border-radius:999px;padding:3px 10px;white-space:nowrap}
+  details.doc .docbody{padding:0 16px 16px;font-size:13.5px;background:#fff;border-top:1px solid var(--line)}
+  details.doc .docbody pre{white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;font-size:12.5px;color:#3a3631;margin:12px 0 0;line-height:1.55}
+  .tw{overflow-x:auto;margin-top:6px}
+  table.cmp{border-collapse:collapse;width:100%;font-size:12.5px;min-width:480px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  table.cmp th{background:var(--card);font-weight:800;font-size:11.5px;text-transform:uppercase;color:var(--muted)}
+  td.bad{background:#fde4e2;color:#8f1410;font-weight:700}td.good{background:#eef8f1}
+  /* ── Демо-диалог (чат) ── */
+  .chat{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:8px}
+  .chat .ch{display:flex;align-items:center;gap:9px;background:var(--card);border-bottom:1px solid var(--line);padding:9px 13px;font-size:13px;font-weight:700}
+  .chat .ch .gi{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#1f9d57,#2bb56a);color:#fff;display:grid;place-items:center;font-size:12px}
+  .chat .body{padding:13px;background:#fff}
+  .sys{font-size:11.5px;color:var(--muted);background:var(--card2);border-radius:7px;padding:5px 9px;margin-bottom:9px;display:inline-block}
+  .bub{font-size:13.5px;border-radius:11px;padding:9px 12px;margin:7px 0;max-width:94%;white-space:pre-wrap}
+  .bub.u{background:var(--blue);color:#fff;margin-left:auto}.bub.a{background:var(--card);border:1px solid var(--line)}
+  .chat .ctrls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:11px 13px;border-top:1px solid var(--line);background:var(--card)}
+  /* ── Слайды каркаса презентации ── */
+  .deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+  .slide{border:1px solid var(--line);border-radius:12px;padding:14px 15px;background:#fff}
+  .slide .sn{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:7px}
+  .slide .sn .snum{width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:10.5px}
+  .slide .st{font-weight:800;font-size:14px;margin-bottom:8px}
+  .slide ul{margin:0;padding-left:18px;font-size:12.5px}
+  .slide ul li{margin-bottom:4px}
+  /* ── Подписи к фото ── */
+  .photogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
+  .photocard{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .photocard .ph-img{background:var(--card2);color:var(--muted);font-size:12px;padding:26px 12px;text-align:center;border-bottom:1px solid var(--line)}
+  .photocard .ph-body{padding:12px 14px}
+  .photocard .ph-tag{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:5px}
+  .photocard .ph-meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .photocard .ph-caption{font-size:13px;background:var(--card);border-radius:9px;padding:9px 11px;border:1px solid var(--line)}
+  /* ── Другим ролям: карточки ── */
+  .rolegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px}
+  .rolecard{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--card)}
+  .rolecard .rh{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13.5px;margin-bottom:6px}
+  .rolecard .ric{width:26px;height:26px;border-radius:7px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;flex:0 0 auto}
+  .rolecard p{font-size:13px;color:var(--muted);margin:0}
+  /* ── Материалы / живой чат / гейт (из шаблона v2) ── */
+  .materials{display:flex;flex-direction:column;gap:12px}
+  .materials .mlist{list-style:none;padding:0;margin:0}
+  .materials .mlist li{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .materials .mlist li:last-child{border-bottom:none}
+  .materials .mlist .mico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:13px}
+  .materials .mcap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .livechat{display:flex;flex-direction:column;gap:12px}
+  .livechat .lcbtns{display:flex;gap:10px;flex-wrap:wrap}
+  .livechat .lcbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:var(--rs);padding:11px 16px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .livechat .lcbtn:hover{border-color:var(--ink)}
+  .livechat .lcbtn .dotc{width:9px;height:9px;border-radius:50%}
+  .livechat .lcinstruction{font-size:14px}
+  .livechat .lcgate{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin-top:2px}
+  .livechat .lcgate input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--green)}
+  .lcstatus{font-size:13px;font-weight:700;color:var(--muted)}
+  .lcstatus.ready{color:var(--green)}
+  .review label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  .review textarea,.review input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+  .review textarea:focus,.review input:focus{outline:none;border-color:var(--blue)}
+  .selfcheck{list-style:none;padding:0;margin:8px 0 0}
+  .selfcheck li{border-bottom:1px solid var(--line)}
+  .selfcheck li:last-child{border-bottom:none}
+  .selfcheck label{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;cursor:pointer;margin:0}
+  .selfcheck input{width:18px;height:18px;flex:0 0 auto;margin:3px 0 0;accent-color:var(--green)}
+  .scbar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden;margin-top:14px}
+  .scbar i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;transition:.35s}
+  .scmsg{font-size:13px;font-weight:700;margin-top:7px;color:var(--muted)}
+  .dl{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .dl button,.prevbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+  .dl button:hover,.prevbtn:hover{border-color:var(--ink)}
+  .coursenav{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .coursenav a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:var(--rs);padding:11px 17px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .coursenav a:hover{border-color:var(--ink)}
+  .coursenav a.next{background:var(--ink);border-color:var(--ink);color:#fff}
+  .coursenav a small{display:block;font-weight:600;font-size:11px;color:var(--muted)}
+  .coursenav a.next small{color:rgba(255,255,255,.65)}
+  .asst{position:sticky;top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .asst .hd{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .asst .ico{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .asst .hd b{font-size:14.5px}.asst .hd span{font-size:11px;color:var(--green);font-weight:700}
+  .lvltrack{display:flex;gap:5px;margin:12px 0 2px}
+  .lvltrack i{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .lvltrack i.on{background:var(--green)}.lvltrack i.cur{background:var(--blue)}
+  .caps{list-style:none;margin:12px 0 0;padding:0}
+  .caps li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .caps li:last-child{border-bottom:none}.caps li.lock{color:var(--muted)}
+  .caps li .s{flex:0 0 auto;width:18px}
+  .caps li small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+  .caps li.cur b{color:var(--ink)}
+  .newb{font-size:9px;font-weight:800;color:#fff;background:var(--green);border-radius:4px;padding:1px 5px;margin-left:5px;white-space:nowrap}
+  .lockwrap{position:relative}
+  .locked{position:relative;opacity:.4;pointer-events:none;user-select:none;filter:grayscale(.3);transition:opacity .2s,filter .2s}
+  .locked .lockbadge{display:none}
+  .lockwrap .lockbadge{display:none;position:absolute;top:14px;right:14px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 12px;align-items:center;gap:6px;z-index:2}
+  .lockwrap.is-locked .lockbadge{display:inline-flex}
+  .transfer-note{border:1.5px dashed var(--purple);background:#faf6ff;border-radius:12px;padding:12px 14px;font-size:13px;color:#5b3a94;margin-top:12px}
+  .transfer-note .tnlabel{display:flex;align-items:center;gap:7px;font-weight:800;font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--purple);margin-bottom:5px}
+  .transfer-note.compact{margin-top:8px;padding:10px 12px}
+  .promptbadge{display:inline-block;font-size:11px;font-weight:800;color:var(--purple);background:#faf6ff;border:1px solid #e6d5fa;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}.asst{position:static}}
+  @media(max-width:420px){h1{font-size:25px}.sec{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span><span class="navlink"><a href="index.html">← Все шаги</a></span>
+  </div>
+
+  <div class="author">
+    <div class="ava"><span>ФОТО</span></div>
+    <div class="who"><b>Евгений Эрман, к.т.н.</b>
+      <div class="role">руководитель Лаборатории ИИ-решений девелоперской компании «РАЗУМ»</div></div>
+    <span class="tag">Автор урока</span>
+  </div>
+
+  <div class="kicker">Курс «30 шагов: рабочий ИИ-инструмент для строителя» · Неделя 2 · Шаг 12 · Роль: инженер ПТО <span class="rule" style="background:var(--yellow)"></span></div>
+  <h1>Шаг 12. Презентации и отчёты</h1>
+  <p class="lead">Совещание завтра, а в файле — только черновой поток мыслей за месяц. Разложим его в структурный отчёт руководителю и каркас презентации для защиты за 15 минут. <b>Цифры в отчёте — только из документов, финальная вычитка — за человеком.</b></p>
+  <div class="meta">
+    <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 1 · роль и контекст</span>
+    <span class="pill">🎓 Уверенный</span>
+  </div>
+  <div class="transfer-note compact">
+    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+    Платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли» из требований к разработке) — строка «Роль: …» выше должна обновляться без правки HTML урока.
+  </div>
+
+  <div class="grid">
+    <div>
+
+      <!-- ═══ TOC ═══ -->
+      <section class="sec">
+        <p class="stp">Что внутри урока</p>
+        <ul class="toc">
+          <li>1 · <a href="#theory">Зачем это нужно: каша в голове → структура на бумаге</a></li>
+          <li>2 · <a href="#source">Документ-источник: черновой отчёт за июнь</a></li>
+          <li>3 · <a href="#structure">Шаг А — структурный отчёт руководителю</a></li>
+          <li>4 · <a href="#slides">Шаг Б — каркас презентации на 6 слайдов</a></li>
+          <li>5 · <a href="#photos">Шаг В — подписи к фото объекта</a></li>
+          <li>6 · <a href="#redlines">Правило: цифры — из документов, не из головы ИИ</a></li>
+          <li>7 · <a href="#materials">Материалы урока</a></li>
+          <li>8 · <a href="#livechat">Сделай в живом чате</a></li>
+          <li>9 · <a href="#practice">Практика и проверка</a></li>
+        </ul>
+        <div class="note">📄 К уроку приложены: черновой отчёт за июнь (документ 21), описания фото объекта Ф-01/Ф-02 (документ 08) и промпты для структуры отчёта, каркаса слайдов и подписей к фото.</div>
+      </section>
+
+      <!-- ═══ 1 · THEORY ═══ -->
+      <section class="sec" id="theory">
+        <p class="stp">1 · Зачем это нужно</p>
+        <h2>Совещание завтра, в голове каша, в файле — поток мыслей</h2>
+        <p>Знакомая ситуация: за месяц накопилось много всего — где-то отстали, где-то был косяк, где-то, наоборот, всё гладко. Всё это сидит в голове вперемешку, а на бумаге — черновик-«поток сознания», надиктованный второпях. До совещания с руководителем — меньше суток, и садиться за чистый лист совсем не хочется.</p>
+        <p>ИИ не придумывает контент — он не был на объекте и не знает цифр. Но он отлично умеет <b>раскладывать уже написанный текст по структуре</b>: статус, риски, причины, план. Черновик, который вы надиктовали за пять минут, превращается в отчёт и каркас презентации ещё за пять — если приложить сам черновик текстом.</p>
+        <div class="why">💡 <b>Зачем это вам:</b> структурный отчёт и понятный каркас слайдов — это не про «красиво», а про то, что руководитель за минуту видит статус, риски и что вы предлагаете делать дальше, а не выискивает это в потоке текста.</div>
+        <h3>Что важно помнить</h3>
+        <ul class="checks num">
+          <li>ИИ <b>раскладывает</b> то, что уже есть в черновике, — он стремится не добавлять фактов — но это вероятностная модель, поэтому итоговые цифры сверяем с исходником.</li>
+          <li>Готовый отчёт и слайды — это <b>черновик для защиты</b>, а не документ для отправки без проверки: цифры и формулировки нужно сверить с первичкой.</li>
+          <li>Чем понятнее исходный черновик (даже неструктурированный, но по существу), тем точнее получится структура на выходе.</li>
+        </ul>
+      </section>
+
+      <!-- ═══ 2 · SOURCE DOCUMENT ═══ -->
+      <section class="sec" id="source">
+        <p class="stp">2 · Документ-источник</p>
+        <h2>Черновой отчёт за июнь — сюжет этого урока</h2>
+        <p class="muted">Сквозной кейс «отчёт к совещанию»: на объекте ЖК «Уютный дом на Матвеева» нужно превратить надиктованный черновик за июнь в отчёт руководителю и каркас презентации для защиты. Раскройте документ — он же лежит в архиве материалов урока.</p>
+
+        <details class="doc">
+          <summary>🎙️ Черновой отчёт о ходе строительства за июнь <span class="dtag">документ 21 · открыть</span></summary>
+          <div class="docbody">
+<pre>Ну в общем за июнь по секции 2 что было. Монолит нижних этажей минус первый
+до третьего практически закончили, там по факту почти девяносто процентов,
+фундаментную плиту давно сдали ещё в апреле. По верхним этажам с четвёртого
+по девятый идём медленно, на конец месяца процентов двадцать с небольшим,
+отстаём от плана где-то на восемь процентов, потому что людей не хватало,
+двое болели, и кран один на две захватки. Просили второй кран, обещали с понедельника (29.06 — планёрка была в пятницу 26.06) дать.
+
+По качеству был косяк — стройконтроль выписал предписание пятьдесят семь,
+защитный слой на плите перекрытия местами тонкий получился, переделывали,
+плюс арматура пришла без сертификата восемнадцатого числа, не допустили
+её. Сейчас всё закрываем, бетонирование захватки два-Б по наряду-допуску
+с двадцать восьмого.
+
+Заказчик прислал письмо, просят скорректированный график до тридцатого и
+реестр актов за июнь до первого июля. Газобетон возят, кладку наружных
+стен начали потихоньку. Совещание провели двадцать шестого, поручения
+раздали.
+
+Из проблем главное — отставание по монолиту верха и вопросы по
+исполнительной документации, надо подтянуть входной контроль материалов.</pre>
+          </div>
+        </details>
+
+        <div class="note">🔗 <b>Обратите внимание:</b> в черновике вперемешку статус, проблема, причина и обещание («второй кран с понедельника») — план на июль вообще не выделен явно. Именно эту кашу и наводит структуру ИИ на следующем шаге.</div>
+      </section>
+
+      <!-- ═══ 3 · STEP A: STRUCTURE ═══ -->
+      <section class="sec" id="structure">
+        <p class="stp">3 · Шаг А</p>
+        <h2>Структурный отчёт руководителю</h2>
+        <p>Первый запрос — не «сделай красиво», а «разложи по структуре»: статус по разделам, проблемы, риски, причины, план на июль. Весь текст черновика — в промпте, без пересказа по памяти.</p>
+
+        <details class="doc" style="margin:4px 0 10px">
+          <summary>🧩 Промпт — структурный отчёт <span class="dtag">промпт-пак ПТО</span></summary>
+          <div class="docbody">
+            <span class="promptbadge" style="margin-top:12px;display:inline-block">Б1 · Черновик → структурный отчёт руководителю</span>
+<pre>Ты — инженер ПТО генподрядчика на жилом доме. Контекст: ниже — надиктованный
+черновой отчёт за июнь по объекту (текст прилагаю). Задача: разложи черновик
+в структурированный отчёт для руководителя. Формат: разделы «Статус по
+разделам работ», «Проблемы», «Причины», «Риски», «План на июль» — по каждому
+разделу короткие пункты, без воды, цифры бери только из текста черновика.
+Текст черновика: [вставьте]</pre>
+          </div>
+        </details>
+
+        <div class="chat">
+          <div class="ch"><span class="gi">G</span> GigaChat · веб-чат</div>
+          <div class="body">
+            <span class="sys">⚙️ Роль: инженер ПТО · документ: черновой отчёт за июнь</span>
+            <div class="bub u">Разложи черновик в структурированный отчёт для руководителя: статус по разделам, проблемы, причины, риски, план на июль. [текст черновика приложен]</div>
+            <div class="bub a">Отчёт о ходе строительства за июнь — ЖК «Уютный дом на Матвеева», секция 2
+
+СТАТУС ПО РАЗДЕЛАМ РАБОТ
+• Монолит нижних этажей (−1…3 эт.): ≈90% — практически завершён. Фундаментная плита сдана ещё в апреле.
+• Монолит верхних этажей (4…9 эт.): ≈22% на конец июня — отставание от плана ≈8%.
+• Ограждающие конструкции: начата кладка наружных стен газобетоном, поставки идут.
+
+ПРОБЛЕМЫ
+• Отставание по монолиту верхних этажей.
+• Предписание стройконтроля № 57: защитный слой на плите перекрытия местами тоньше нормы.
+• Партия арматуры от 18.06 поступила без сертификата — не допущена к применению.
+• Вопросы по исполнительной документации, требуется усилить входной контроль материалов.
+
+ПРИЧИНЫ
+• Нехватка рабочих на верхних этажах, двое сотрудников болели.
+• Один башенный кран на две захватки одновременно.
+
+РИСКИ
+• Дальнейшее отставание по верхним этажам без второго крана и докомплектования бригады.
+• Срыв срока по скорректированному графику (до 30.06) и реестру актов (до 01.07) — оба запрошены заказчиком.
+• Повторные замечания стройконтроля при слабом входном контроле материалов.
+
+ПЛАН НА ИЮЛЬ
+• Ввод второго башенного крана — с понедельника (подтверждено).
+• Устранение предписания № 57: повторное освидетельствование, бетонирование захватки 2-Б с 28.06 по наряду-допуску.
+• Подготовка и передача заказчику скорректированного графика (до 30.06) и реестра актов за июнь (до 01.07).
+• Усиление входного контроля материалов, подтягивание исполнительной документации.</div>
+          </div>
+          <div class="ctrls"><span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
+        </div>
+        <div class="note green">✅ Ни одной новой цифры — только то, что было в черновике, разложенное по понятным разделам. Совещание начинается со статуса, а не с поиска мысли в потоке текста.</div>
+      </section>
+
+      <!-- ═══ 4 · STEP B: SLIDES ═══ -->
+      <section class="sec" id="slides">
+        <p class="stp">4 · Шаг Б</p>
+        <h2>Каркас презентации на 6 слайдов</h2>
+        <p>Тот же черновик (или уже готовый структурный отчёт) превращаем в план презентации для защиты: заголовок и 3 тезиса на слайд — не больше. На совещании нет времени читать простыни текста со слайда.</p>
+
+        <details class="doc" style="margin:4px 0 10px">
+          <summary>🧩 Промпт — каркас презентации <span class="dtag">промпт-пак ПТО</span></summary>
+          <div class="docbody">
+            <span class="promptbadge" style="margin-top:12px;display:inline-block">Б2 · Отчёт → план презентации на 6 слайдов</span>
+<pre>Ты — инженер ПТО. Контекст: структурный отчёт за июнь по объекту (прилагаю).
+Задача: преврати его в план презентации для защиты на совещании — 6 слайдов.
+Формат: для каждого слайда — заголовок и ровно 3 тезиса, без длинных фраз,
+только суть. Данные бери только из отчёта.
+Текст отчёта: [вставьте]</pre>
+          </div>
+        </details>
+
+        <div class="chat">
+          <div class="ch"><span class="gi">G</span> GigaChat · веб-чат</div>
+          <div class="body">
+            <span class="sys">⚙️ Роль: инженер ПТО · документ: структурный отчёт за июнь</span>
+            <div class="bub a">План презентации — 6 слайдов, заголовок + 3 тезиса</div>
+          </div>
+          <div class="ctrls"><span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
+        </div>
+
+        <div class="deck">
+          <div class="slide">
+            <div class="sn"><span class="snum">1</span> Титул</div>
+            <div class="st">Ход строительства за июнь</div>
+            <ul>
+              <li>ЖК «Уютный дом на Матвеева», секция 2</li>
+              <li>Совещание — 26.06.2026</li>
+              <li>Докладчик: инженер ПТО</li>
+            </ul>
+          </div>
+          <div class="slide">
+            <div class="sn"><span class="snum">2</span> Статус</div>
+            <div class="st">Что сделано</div>
+            <ul>
+              <li>Монолит −1…3 эт. — 90%</li>
+              <li>Монолит 4…9 эт. — 22%, отставание 8%</li>
+              <li>Начата кладка наружных стен</li>
+            </ul>
+          </div>
+          <div class="slide">
+            <div class="sn"><span class="snum">3</span> Проблемы</div>
+            <div class="st">Что мешает</div>
+            <ul>
+              <li>Предписание № 57 по защитному слою</li>
+              <li>Арматура без сертификата (18.06)</li>
+              <li>Дефицит рабочих и один кран на две захватки</li>
+            </ul>
+          </div>
+          <div class="slide">
+            <div class="sn"><span class="snum">4</span> Причины</div>
+            <div class="st">Почему так вышло</div>
+            <ul>
+              <li>Болели двое из бригады</li>
+              <li>Один кран делили две захватки</li>
+              <li>Задержка с допуском арматуры</li>
+            </ul>
+          </div>
+          <div class="slide">
+            <div class="sn"><span class="snum">5</span> Риски</div>
+            <div class="st">Что под угрозой</div>
+            <ul>
+              <li>Дальнейшее отставание по верху</li>
+              <li>Срыв срока графика/реестра актов заказчику</li>
+              <li>Повторные замечания стройконтроля</li>
+            </ul>
+          </div>
+          <div class="slide">
+            <div class="sn"><span class="snum">6</span> План на июль</div>
+            <div class="st">Что делаем дальше</div>
+            <ul>
+              <li>Второй кран — с понедельника</li>
+              <li>Бетонирование 2-Б с 28.06 по наряду-допуску</li>
+              <li>График и реестр актов — заказчику в срок</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">🖼️ <b>Про генерацию слайдов автоматически:</b> сервисы вроде GigaChat или Presentacium умеют сами собирать .pptx по такому плану — это удобно для скорости. Но <b>каркас и содержание слайдов важнее оформления</b>: 6 внятных тезисов на бумажке выиграют у красивого шаблона с водой внутри. Сначала — план, оформление — потом и вторично.</div>
+      </section>
+
+      <!-- ═══ 5 · STEP C: PHOTO CAPTIONS ═══ -->
+      <section class="sec" id="photos">
+        <p class="stp">5 · Шаг В</p>
+        <h2>Подписи к фото объекта</h2>
+        <p>Отчёт и слайды без фото с площадки выглядят абстрактно. Для каждого снимка нужна короткая подпись по формуле «что / где / когда / статус» — раскройте описания фото Ф-01 и Ф-02 из документа 08.</p>
+
+        <details class="doc" style="margin:4px 0 10px">
+          <summary>📸 Описания фото объекта Ф-01, Ф-02 <span class="dtag">документ 08 · открыть</span></summary>
+          <div class="docbody">
+            <div class="tw" style="margin-top:12px">
+              <table class="cmp">
+                <tr><th>№ фото</th><th>Что на снимке</th><th>Дата</th><th>Где</th></tr>
+                <tr><td>Ф-01</td><td>Армирование плиты перекрытия, видны выпуски арматуры; в одном месте арматура лежит почти на опалубке (малый защитный слой)</td><td>24.06.2026</td><td>секция 2, отм. +12,000, захватка 2-Б</td></tr>
+                <tr><td>Ф-02</td><td>Складирование арматуры на грунте без подкладок, следы ржавчины</td><td>25.06.2026</td><td>приобъектный склад</td></tr>
+              </table>
+            </div>
+            <p class="mcap" style="margin-top:10px">Полное описание всех пяти фото (Ф-01…Ф-05) — в архиве материалов урока.</p>
+          </div>
+        </details>
+
+        <details class="doc" style="margin:4px 0 10px">
+          <summary>🧩 Промпт — подпись к фото <span class="dtag">промпт-пак ПТО</span></summary>
+          <div class="docbody">
+            <span class="promptbadge" style="margin-top:12px;display:inline-block">Б3 · Описание фото → подпись для отчёта</span>
+<pre>Ты — инженер ПТО. Контекст: описание фотографии с объекта (прилагаю: что на
+снимке, дата, место). Задача: составь короткую подпись для фотоотчёта
+заказчику по формуле «что / где / когда / статус». Формат: одна строка,
+без канцелярита, статус — по существу (устранено / в работе / замечание).
+Описание фото: [вставьте]</pre>
+          </div>
+        </details>
+
+        <div class="photogrid">
+          <div class="photocard">
+            <div class="ph-img">🖼️ Ф-01 (текстовое описание — реальное фото добавляется при производстве урока)</div>
+            <div class="ph-body">
+              <div class="ph-tag">Демо-ответ ИИ по промпту Б3</div>
+              <div class="ph-meta">24.06.2026 · секция 2, отм. +12,000, захватка 2-Б</div>
+              <div class="ph-caption">Армирование плиты перекрытия, захватка 2-Б, отм. +12,000 (24.06.2026): местами занижен защитный слой — по предписанию № 57, статус — в работе, устраняется до 28.06.</div>
+            </div>
+          </div>
+          <div class="photocard">
+            <div class="ph-img">🖼️ Ф-02 (текстовое описание — реальное фото добавляется при производстве урока)</div>
+            <div class="ph-body">
+              <div class="ph-tag">Демо-ответ ИИ по промпту Б3</div>
+              <div class="ph-meta">25.06.2026 · приобъектный склад</div>
+              <div class="ph-caption">Хранение арматуры на приобъектном складе (25.06.2026): без подкладок, есть следы коррозии — замечание по условиям хранения, статус — устраняется немедленно.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note">🎨 <b>Связка с Шагом 21:</b> реальных фото в этом учебном кейсе нет — вместо них текстовые описания. Как получить сам визуал для отчёта и презентации с помощью ИИ-графики (когда фото нет или его нужно дополнить схемой) — разберём отдельно на Шаге 21 «ИИ-графика».</div>
+      </section>
+
+      <!-- ═══ 6 · RED LINES ═══ -->
+      <section class="sec" id="redlines">
+        <p class="stp">6 · Правило</p>
+        <h2>Цифры — из документов, не из головы ИИ</h2>
+        <ul class="checks bad">
+          <li><b>Только то, что в тексте.</b> 90%, 22%, отставание 8%, предписание № 57, дата 18.06 — все эти цифры пришли из черновика. Если ИИ добавит «для полноты картины» цифру, которой не было в исходнике, — это домысел, а не факт.</li>
+          <li><b>Сверка с первичкой.</b> Перед совещанием стоит свериться с графиком, ОЖР и предписанием — совпадают ли цифры отчёта с документами, а не только с черновиком.</li>
+          <li><b>Финальная вычитка — за человеком.</b> ИИ собирает структуру и черновик слайдов быстро, но выступает и отвечает на вопросы руководителю — инженер ПТО, а не чат-бот. Перед показом отчёт и слайды нужно перечитать самому.</li>
+        </ul>
+      </section>
+
+      <!-- ═══ MATERIALS ═══ -->
+      <section class="sec" id="materials">
+        <p class="stp">7 · Материалы урока</p>
+        <h2>Материалы урока</h2>
+        <p class="muted">Всё содержимое этого шага — текстовые материалы, документы кейса, промпты и HTML-интерактив — собрано в один архив.</p>
+        <div class="materials">
+          <ul class="mlist">
+            <li><span class="mico">📝</span><span>Конспект урока (структура отчёта, каркас слайдов, подписи к фото, .md)</span></li>
+            <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: 21 (черновой отчёт за июнь), 08 (описания фото Ф-01…Ф-05)</span></li>
+            <li><span class="mico">🧩</span><span>Промпты Б1 (структурный отчёт), Б2 (каркас презентации), Б3 (подпись к фото) из промпт-пака ПТО</span></li>
+            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+          </ul>
+          <div class="dl">
+            <a class="btn dark" href="materials/shag-12.zip">⬇ Скачать архив материалов</a>
+          </div>
+          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага.</p>
+        </div>
+      </section>
+
+      <!-- ═══ LIVE-CHAT ═══ -->
+      <section class="sec" id="livechat">
+        <p class="stp">8 · Сделай в живом чате</p>
+        <h2>Сделай в живом чате</h2>
+        <p class="lcinstruction">Возьмите свой черновик отчёта (или для тренировки — черновой отчёт за июнь, документ 21) и промпт Б1 (структура) или Б2 (план слайдов), выполните его в реальном чат-боте — например, в одном из ниже. Затем вставьте результат в поле под кнопками.</p>
+        <div class="lcbtns">
+          <a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>
+          <a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>
+        </div>
+        <div class="review">
+          <label>Вставь сюда свой результат</label>
+          <textarea id="lcResult" rows="5" placeholder="Вставьте сюда структурный отчёт или план слайдов, который вернул чат-бот…"></textarea>
+        </div>
+        <div class="lcgate">
+          <input type="checkbox" id="lcConfirm">
+          <label for="lcConfirm">Я получил ответ на свой запрос</label>
+        </div>
+        <p class="lcstatus" id="lcStatus">Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.</p>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Демо-гейт реализован локальным JS (без сохранения данных). На платформе эта блокировка должна опираться на реальное событие взаимодействия участника с чатом (или просто на заполненное поле + чекбокс, как здесь) — ничего никуда не отправляется и в демо-версии.
+        </div>
+      </section>
+
+      <!-- ═══ SELFCHECK ═══ -->
+      <div class="lockwrap" id="selfcheckWrap">
+        <section class="sec locked" id="selfcheck">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">9 · Самопроверка</p>
+          <h2>Перед сдачей отметьте</h2>
+          <ul class="selfcheck" id="scList">
+            <li><label><input type="checkbox"> В структурном отчёте есть все пять разделов: статус, проблемы, причины, риски, план.</label></li>
+            <li><label><input type="checkbox"> На каждом слайде — заголовок и не больше 3 тезисов, без простыней текста.</label></li>
+            <li><label><input type="checkbox"> Все цифры и даты в отчёте я сверил(а) с исходным документом, а не с памятью.</label></li>
+            <li><label><input type="checkbox"> Перед показом руководителю я перечитал(а) отчёт и слайды сам(а).</label></li>
+          </ul>
+          <div class="scbar"><i id="scBar"></i></div>
+          <div class="scmsg" id="scMsg">0 из 4 — пройдитесь по списку</div>
+        </section>
+      </div>
+
+      <!-- ═══ CURATOR / TRANSFER NOTE ═══ -->
+      <div class="lockwrap" id="practiceWrap">
+        <section class="sec locked" id="practice">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">10 · Практика и проверка</p>
+          <h2>Сделайте на своей задаче</h2>
+          <p class="muted">Возьмите реальный (или учебный) черновик отчёта со своего объекта и соберите структурный отчёт по промпту Б1, а затем каркас презентации по промпту Б2. Обезличьте данные: без реальных цен, реквизитов и коммерческой тайны — только статус, проблемы и план.</p>
+          <div class="review">
+            <label>Что получилось — вставьте результат от ИИ</label>
+            <textarea id="sRes" rows="4" placeholder="Структурный отчёт или план слайдов, который выдал ИИ"></textarea>
+            <label>Ваш e-mail для ответа куратора</label>
+            <input id="sEmail" type="email" placeholder="you@example.ru">
+            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
+              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
+          </div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору (см. паспорта шагов). В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
+          </div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «презентации и отчёты».</b> Что забрать: черновик раскладывается в структуру за пять минут, если приложить его целиком; 3 тезиса на слайд читаются лучше простыни текста; цифры — только из документов, а финальную вычитку перед совещанием делает человек.</div>
+        </section>
+      </div>
+
+      <!-- ═══ COURSE NAV ═══ -->
+      <div class="coursenav">
+        <a href="#prev-lesson"><span>←</span><span><small>Шаг 11</small>Длинные документы: вытащить главное</span></a>
+        <a href="#next-lesson" class="next"><span><small>Шаг 13</small>Библиотека промптов</span><span>→</span></a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="asst" id="asstWidget">
+        <div class="hd"><div class="ico">🤖</div><div><b>Ваш ИИ-ассистент</b><br><span id="asstLvlLabel"></span></div></div>
+        <div class="lvltrack" id="asstTrack"></div>
+        <ul class="caps" id="asstCaps"></ul>
+        <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Сейчас уровень задаётся константой ASSISTANT_LEVEL в JS ниже. На платформе виджет должен принимать текущий прогресс участника извне (проброс прогресса, П-6 из требований к разработке), не хардкодиться в HTML урока.
+        </div>
+      </div>
+      <script>
+      (function(){
+        var ASSISTANT_LEVEL = 1;
+        var ASSISTANT_LEVELS = [
+          {icon:'💬', name:'Голый чат',            desc:'отвечает «из головы», без вашего контекста'},
+          {icon:'🎭', name:'Роль и контекст',       desc:'знает, кто вы и на каком объекте работаете'},
+          {icon:'📚', name:'Библиотека промптов',   desc:'типовые задачи решает по готовым шаблонам'},
+          {icon:'📄', name:'Документы и знания',    desc:'работает с вашими сметами, КП, регламентами'},
+          {icon:'🧰', name:'Рабочий набор',         desc:'инструменты и агентные сценарии под роль'}
+        ];
+        var ASSISTANT_UNLOCK_NOTE = 'На Шаге 13 ассистент поднимется до уровня 2 — «Библиотека промптов»: Б1, Б2, Б3 сохранятся вместе с остальным промпт-паком ПТО как готовый набор.';
+        var L=Math.max(0,Math.min(4,ASSISTANT_LEVEL));
+        document.getElementById('asstLvlLabel').textContent='Уровень '+L+' · '+ASSISTANT_LEVELS[L].name;
+        var track=document.getElementById('asstTrack');
+        for(var i=0;i<ASSISTANT_LEVELS.length;i++){var seg=document.createElement('i');if(i<L)seg.className='on';else if(i===L)seg.className='cur';track.appendChild(seg);}
+        var caps=document.getElementById('asstCaps');
+        ASSISTANT_LEVELS.forEach(function(lv,i){
+          var li=document.createElement('li');
+          if(i<L){li.innerHTML='<span class="s">✅</span><span>'+lv.name+'</span>';}
+          else if(i===L){li.className='cur';li.innerHTML='<span class="s">✅</span><span><b>'+lv.name+'</b><span class="newb">этот урок</span><small>'+lv.desc+'</small></span>';}
+          else{li.className='lock';li.innerHTML='<span class="s">🔒</span><span>'+lv.name+'<small>'+lv.desc+'</small></span>';}
+          caps.appendChild(li);
+        });
+        var noteEl=document.getElementById('asstNote');
+        if(ASSISTANT_UNLOCK_NOTE){noteEl.innerHTML='🔜 '+ASSISTANT_UNLOCK_NOTE;}else{noteEl.style.display='none';}
+      })();
+      </script>
+    </aside>
+  </div>
+</div>
+
+<script>
+/* ── BLOCK: LIVE-CHAT — гейт итогов урока ── */
+(function(){
+  var result=document.getElementById('lcResult'),confirmEl=document.getElementById('lcConfirm');
+  if(!result||!confirmEl)return;
+  var status=document.getElementById('lcStatus');
+  var lockTargets=[document.getElementById('selfcheck'),document.getElementById('practice')];
+  var lockWraps=[document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
+  function upd(){
+    var ready=result.value.trim().length>0 && confirmEl.checked;
+    lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
+    lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
+    if(status){
+      status.textContent=ready?'✅ Итоги урока открыты.':'Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.';
+      status.classList.toggle('ready',ready);
+    }
+  }
+  result.addEventListener('input',upd);
+  confirmEl.addEventListener('change',upd);
+  upd();
+})();
+
+/* ── BLOCK: SELFCHECK — чек-лист самопроверки с прогрессом ── */
+(function(){
+  var list=document.getElementById('scList');if(!list)return;
+  var boxes=list.querySelectorAll('input[type=checkbox]'),bar=document.getElementById('scBar'),msg=document.getElementById('scMsg');
+  function upd(){
+    var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+    bar.style.width=(100*n/boxes.length)+'%';
+    msg.textContent=(n===boxes.length)?'✅ Все '+n+' пунктов — можно отправлять куратору':(n+' из '+boxes.length+' — пройдитесь по списку');
+    msg.style.color=(n===boxes.length)?'var(--green)':'var(--muted)';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',upd);});
+  upd();
+})();
+
+/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально ── */
+(function(){
+  var btn=document.getElementById('sendRev');if(!btn)return;
+  btn.addEventListener('click',function(){
+    var res=document.getElementById('sRes').value.trim(),
+        email=document.getElementById('sEmail').value.trim(),
+        m=document.getElementById('revMsg');
+    if(!res){m.textContent='Вставьте результат';return;}
+    var raw='Шаг 12 (Презентации и отчёты) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
+    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='zadanie-shag-12.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    m.textContent='Файл скачан ✓';
+  });
+})();
+</script>
+</body>
+</html>

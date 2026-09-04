@@ -141,7 +141,7 @@
 
   <div class="kicker">Неделя 3 · Шаг 16 · Сметчик / снабжение / тендеры <span class="rule" style="background:var(--yellow)"></span></div>
   <h1>Сравнение смет и КП в таблицу</h1>
-  <p class="lead">ИИ сводит разнородные предложения в одну таблицу за минуту и подсвечивает ловушки. Но результат зависит от двух вещей: <b>как вы описали нужный формат</b> и <b>в каком виде передали данные</b>. Разберём на закупке монолитных работ ЖК «Уютный дом на Матвеева»: 5 КП подрядчиков против ТЗ и ведомости объёмов (ВОР) — на примере GigaChat и других моделей.</p>
+  <p class="lead">ИИ может быстро свести предложения и подсветить расхождения; перед сравнением приведите объём, состав работ и условия к одной базе. Но результат зависит от двух вещей: <b>как вы описали нужный формат</b> и <b>в каком виде передали данные</b>. Разберём на закупке монолитных работ ЖК «Уютный дом на Матвеева»: 5 КП подрядчиков против ТЗ и ведомости объёмов (ВОР) — на примере GigaChat и других моделей.</p>
   <div class="lvl"><span class="dotx"></span> Ассистент · Уровень 3 · документы и таблицы</div>
 
   <div class="grid">
@@ -216,7 +216,7 @@
               <span class="att" onclick="previewDoc('kp5','docinline-1')">📎 КП-5</span></div>
           </div>
           <div class="ctrls"><button class="btn sm" id="runSmall">▶ Отправить в GigaChat</button>
-            <span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
+            <span class="muted" style="font-size:12px">Пример ответа по материалам урока</span></div>
         </div>
         <div class="dl">
           <button class="prevbtn" onclick="previewDoc('tz','docinline-1')">👁 ТЗ (бланк)</button>
@@ -412,8 +412,6 @@
           <label style="display:flex;align-items:center;gap:8px;margin-top:10px;flex-direction:row">
             <input type="checkbox" id="sDone" style="width:auto"> Я сверил(а) итоги вручную и нашёл(а) хотя бы одну ловушку (опалубка/армирование вне сметы)
           </label>
-          <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание (.txt)</button>
-            <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
         </div>
         <div class="transfer-note">⚙ Для переноса в платформу Актион: здесь подключается отправка куратору — проверка №3.</div>
         <div class="note green" id="finalNote" style="margin-top:18px;display:none">⬆️ <b>Ассистент закрепил навык «Документы и таблицы».</b> Что забрать: опишите формат результата; давайте данные текстом/Markdown, не картинкой; на объёме проверяйте позиции и итоги сами.</div>
@@ -429,6 +427,29 @@
           <li>Бланки: пустой шаблон сравнительной таблицы КП.</li>
         </ul>
       </section>
+
+<!-- APPROVED_INTERACTIVE_START:lesson-kp -->
+<section class="course-prompt-library" id="coursePromptLibrary"><p class="course-prompt-kicker">Промпты урока</p><h2>Откройте нужный промпт и скопируйте его кнопкой 📋.</h2><details class="course-prompt" data-prompt-code="C1"><summary>🧩 Промпт C1 · ПТО · Извлечение объёмов из акта/ВОР в таблицу</summary><div class="course-prompt-body"><div class="course-prompt-actions"><button type="button" class="course-prompt-copy" data-prompt-key="p1" aria-label="Скопировать Промпт C1 · ПТО · Извлечение объёмов из акта/ВОР в таблицу" title="Скопировать промпт">📋</button><span class="course-prompt-status" aria-live="polite"></span></div><pre>Ты — инженер ПТО. Задача: распознай приложенный акт/ведомость и выведи объёмы в таблицу: позиция, наименование, ед. изм., количество. Отдельно посчитай итог по бетону и по арматуре. Формат: таблица + строка «Итого».
+Документ: [вставьте / приложите скан]</pre></div></details><details class="course-prompt" data-prompt-code="C2"><summary>🧩 Промпт C2 · ПТО · Сверка КС-2 с ВОР и актом (поиск расхождений)</summary><div class="course-prompt-body"><div class="course-prompt-actions"><button type="button" class="course-prompt-copy" data-prompt-key="p2" aria-label="Скопировать Промпт C2 · ПТО · Сверка КС-2 с ВОР и актом (поиск расхождений)" title="Скопировать промпт">📋</button><span class="course-prompt-status" aria-live="polite"></span></div><pre>Ты — инженер ПТО. Контекст: акт КС-2 № 4, ведомость объёмов и АОСР № 142. Задача: сверь объёмы между документами и укажи расхождения (например, объём армирования в КС-2 vs масса в акте). Формат: таблица «показатель → КС-2 → ВОР/акт → совпадает? → комментарий».
+Документы: [вставьте]</pre></div></details></section>
+<section class="sec course-interactive-host" data-course-interactive="lesson-kp"><p class="stp">Проверка задания</p><h2>Сверьте КП по единой базе</h2><iframe src="interactives/lesson-kp.html" title="Проверка задания: Сверьте КП по единой базе" loading="lazy"></iframe><a class="course-interactive-open" href="interactives/lesson-kp.html" target="_blank" rel="noopener">Открыть проверку отдельно</a></section>
+<!-- APPROVED_INTERACTIVE_END:lesson-kp -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
     <aside>
@@ -762,18 +783,6 @@ renderModel('giga');
 /* ===== ПРАКТИКА ===== */
 document.getElementById('promptBox').textContent=DATA.promptCompare;
 function copyPrompt(){navigator.clipboard.writeText(DATA.promptCompare).then(()=>{document.getElementById('copyMsg').textContent='Скопировано ✓';setTimeout(()=>document.getElementById('copyMsg').textContent='',2500);}).catch(()=>{document.getElementById('copyMsg').textContent='Выделите и скопируйте вручную';});}
-document.getElementById('sendRev').addEventListener('click',()=>{
-  const res=document.getElementById('sRes').value.trim();
-  const done=document.getElementById('sDone').checked;
-  const m=document.getElementById('revMsg');
-  if(!res){m.textContent='Вставьте результат из живого чата';return;}
-  if(!done){m.textContent='Отметьте, что сверили итоги и нашли ловушку';return;}
-  const raw=`Шаг 16 (Сравнение смет и КП) — моё задание\nКейс: ЖК «Уютный дом на Матвеева», монолитные работы, 5 КП\n\nРезультат (сравнительная таблица от ИИ):\n${res}\n\nСамопроверка: итоги сверены вручную, ловушка найдена.`;
-  dl('Шаг-16_моё-задание.txt', raw);
-  document.getElementById('finalNote').style.display='block';
-  m.textContent='Файл скачан ✓';
-});
-
 /* ===== ГЕНЕРАТОРЫ ВХОДНЫХ ДОКУМЕНТОВ ===== */
 function bigRows(){return DATA.bigCsv.split('\n').slice(1).map(r=>r.split(';'));}
 function getDocHtml(key){
@@ -820,5 +829,29 @@ function xlsxSpecTz(){
   XLSX.writeFile(wb,'ВОР_02-01-01.xlsx');
 }
 </script>
+
+
+
+
+
+
+
+
+<!-- COURSE_INTERACTIVE_SUPPORT_START:lesson-kp -->
+<style>
+.course-interactive-host iframe{display:block;width:100%;height:920px;border:0;background:var(--bg);margin-top:10px}.course-interactive-host .course-interactive-open{display:inline-block;margin-top:8px;font-size:13px}
+.course-prompt-library{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:18px}.course-prompt-kicker{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}.course-prompt-library h2{margin-top:0}.course-prompt{border:1px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card);overflow:hidden}.course-prompt summary{cursor:pointer;padding:11px 14px;font-weight:700}.course-prompt-body{padding:0 14px 14px;background:#fff;border-top:1px solid var(--line)}.course-prompt-body pre{white-space:pre-wrap;font:13px/1.55 Consolas,'Courier New',monospace}.course-prompt-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end;margin-top:10px}.course-prompt-copy,.course-prompt-ref{font:inherit;border:1px solid var(--blue);border-radius:var(--rs);background:#fff;color:var(--blue);cursor:pointer;font-weight:700}.course-prompt-copy{padding:6px 10px}.course-prompt-ref{padding:2px 7px;margin-left:5px;font-size:13px}.course-prompt-status{font-size:13px;color:var(--green)}
+@media(max-width:620px){.course-interactive-host iframe{height:1100px}}
+</style><script id="course-interactive-data" type="application/json">{"id":"lesson-kp","prompts":[{"key":"p1","role":"ПТО","code":"C1","title":"Извлечение объёмов из акта/ВОР в таблицу","text":"Ты — инженер ПТО. Задача: распознай приложенный акт/ведомость и выведи объёмы в таблицу: позиция, наименование, ед. изм., количество. Отдельно посчитай итог по бетону и по арматуре. Формат: таблица + строка «Итого».\nДокумент: [вставьте / приложите скан]","source":"Курс-для-перепубликации-git_2026-09-04\\docs\\Курс-ИИ_Промпт-пак-ПТО_v1.md"},{"key":"p2","role":"ПТО","code":"C2","title":"Сверка КС-2 с ВОР и актом (поиск расхождений)","text":"Ты — инженер ПТО. Контекст: акт КС-2 № 4, ведомость объёмов и АОСР № 142. Задача: сверь объёмы между документами и укажи расхождения (например, объём армирования в КС-2 vs масса в акте). Формат: таблица «показатель → КС-2 → ВОР/акт → совпадает? → комментарий».\nДокументы: [вставьте]","source":"Курс-для-перепубликации-git_2026-09-04\\docs\\Курс-ИИ_Промпт-пак-ПТО_v1.md"}],"downstream":["#practice"]}</script><script>
+(function(){const cfg=JSON.parse(document.getElementById('course-interactive-data').textContent),host=document.querySelector('[data-course-interactive="'+cfg.id+'"]'),frame=host&&host.querySelector('iframe');
+function hideLegacy(){['lcResult','liveResult'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.review')||el).hidden=true});['lcConfirm','lcContinue','liveCheck'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.lcgate,.gatecheck')||el).hidden=true});['lcStatus','gateResult'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=true})}
+function unlock(){cfg.downstream.forEach(selector=>{const el=document.querySelector(selector);if(!el)return;el.classList.remove('locked');const wrap=el.closest('.lockwrap');if(wrap)wrap.classList.remove('is-locked')});try{localStorage.setItem('course-interactive:'+cfg.id,'done')}catch(_e){}}
+function completed(){try{return localStorage.getItem('course-interactive:'+cfg.id)==='done'}catch(_e){return false}}function init(){hideLegacy();if(completed())unlock()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+new MutationObserver(()=>{hideLegacy();if(completed())unlock()}).observe(document.documentElement,{childList:true,subtree:true});addEventListener('message',event=>{if(!frame||event.source!==frame.contentWindow||!event.data||event.data.id!==cfg.id)return;if(event.data.type==='course-interactive-height')frame.style.height=Math.max(520,Number(event.data.height)||920)+'px';if(event.data.type==='course-interactive-complete')unlock()});
+async function copyText(text){try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);return true}catch(_e){const t=document.createElement('textarea');t.value=text;t.readOnly=true;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_x){}t.remove();return ok}}
+document.querySelectorAll('.course-prompt-copy').forEach(button=>button.onclick=async()=>{const item=cfg.prompts.find(x=>x.key===button.dataset.promptKey),status=button.nextElementSibling;const ok=item&&await copyText(item.text);status.textContent=ok?'Скопировано':'Выделите текст и скопируйте вручную';setTimeout(()=>status.textContent='',2500)});
+const codes=[...new Set(cfg.prompts.map(x=>x.code))];document.querySelectorAll('p,li,td,th,summary,h2,h3,label,.note').forEach(el=>{if(el.closest('.course-prompt-library,.course-interactive-host,script,style,pre,select')||el.querySelector('.course-prompt-ref')||el.textContent.length>650||!/промпт/i.test(el.textContent))return;const found=codes.filter(code=>el.textContent.includes(code));if(!found.length)return;const b=document.createElement('button');b.type='button';b.className='course-prompt-ref';b.textContent='🧩';b.title='Открыть упомянутый промпт';b.setAttribute('aria-label','Открыть упомянутый промпт');b.onclick=()=>{const library=document.getElementById('coursePromptLibrary');if(!library)return;const matches=[...library.querySelectorAll('.course-prompt')].filter(x=>found.includes(x.dataset.promptCode));matches.forEach(x=>x.open=true);(matches[0]||library).scrollIntoView({behavior:'smooth',block:'start'})};el.append(' ',b)});
+})();</script>
+<!-- COURSE_INTERACTIVE_SUPPORT_END:lesson-kp -->
 </body>
 </html>

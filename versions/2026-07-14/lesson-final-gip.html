@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<!--
+  ════════════════════════════════════════════════════════════════════
+  МИНИ-ФИНАЛ пилотного среза ГИП · Курс «ИИ в строительстве»
+  Актион, Высшая инженерная школа. ДЕМО-КОМПЛЕКТ для переноса (не продуктив).
+  Ролевой финал Шага 29. Собран из Шаблона-урока v2, референс — Урок-Мини-финал-ПТО / Мини-финал-Сметчик.
+  Сквозной кейс «Уютный дом на Матвеева» — нить «замечание ГГЭ -> смежники -> версия РД -> ответ».
+  Все числа и факты — строго из документов кейса (18, 02, 10, 09).
+  ════════════════════════════════════════════════════════════════════
+-->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Мини-финал: неделя ГИПа с ИИ — Высшая инженерная школа</title>
+<style>
+  :root{--bg:#ffffff;--card:#faf8f5;--card2:#f3efe9;--ink:#1a1814;--muted:#6f7280;--line:#e9e4dc;--brand:#e2231a;--blue:#237cf9;--green:#1f9d57;--yellow:#f5b500;--purple:#9b5de5;--r:16px;--rs:10px;--font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif}
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{overflow-x:hidden;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg,video,iframe,pre,table{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}.navlink a{font-size:13.5px;font-weight:600}
+  .author{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:18px 0 4px;flex-wrap:wrap}
+  .author .ava{width:58px;height:58px;border-radius:12px;flex:0 0 auto;background:#fff;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:10px;text-align:center}
+  .author .who b{font-size:15.5px}.author .who .role{font-size:13px;color:var(--muted)}
+  .author .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:18px 0 6px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.12;margin:4px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:15.5px;max-width:780px}
+  .lvl{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;margin-top:8px}
+  .lvl .dotx{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .meta .pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+  .meta .pill.long{color:var(--brand);border-color:var(--brand)}
+  .grid{display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;margin-top:18px}
+  .sec{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:18px}
+  .stp{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}
+  h2{font-size:21px;margin:2px 0 12px;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:16px;margin:18px 0 8px;font-weight:800}
+  p{margin:0 0 12px}.muted{color:var(--muted)}
+  .why{background:var(--card);border-left:4px solid var(--blue);border-radius:12px;padding:13px 15px;font-size:14.5px;margin:14px 0}
+  .note{font-size:13.5px;color:#7a5b16;background:#fdf6e3;border:1px solid #f3e3b3;border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note.green{color:#157a41;background:#eef8f1;border-color:#cdebd8}.note.red{color:#a3201a;background:#fdf0ef;border-color:#f3c7c3}
+  .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:var(--rs);padding:11px 17px;font-size:14px;background:var(--blue);color:#fff;transition:.15s}
+  .btn:hover{filter:brightness(.95)}.btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.dark{background:var(--ink)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+  .btn.sm{padding:8px 13px;font-size:13px}
+  .checks{list-style:none;padding:0;margin:8px 0 0}
+  .checks li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .checks li:last-child{border-bottom:none}.checks li:before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .checks.bad li:before{content:"✕";color:var(--brand)}
+  .toc{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.toc li{padding:5px 0}.toc a{color:var(--ink)}
+  /* ── Эпизоды недели ── */
+  .weekmap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0 4px}
+  .weekmap .day{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 8px;text-align:center;font-size:11.5px}
+  .weekmap .day b{display:block;font-size:13px;margin-bottom:2px}
+  .weekmap .day small{color:var(--muted);font-size:10.5px;display:block;line-height:1.35}
+  @media(max-width:560px){.weekmap{grid-template-columns:repeat(2,1fr)}}
+  .ep{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+  .ep>.ephd{display:flex;align-items:center;gap:12px;padding:15px 18px;background:var(--card)}
+  .ep .epday{flex:0 0 auto;width:44px;height:44px;border-radius:11px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;line-height:1.1;text-align:center}
+  .ep.e1 .epday{background:var(--brand)}.ep.e2 .epday{background:var(--yellow);color:var(--ink)}.ep.e3 .epday{background:var(--blue)}.ep.e4 .epday{background:var(--green)}.ep.e5 .epday{background:var(--purple)}
+  .ep .ephd .ept b{font-size:15.5px;display:block}.ep .ephd .ept small{color:var(--muted);font-size:12.5px}
+  .ep .epbody{padding:18px}
+  /* ── Раскрывающийся документ ── */
+  details.doc{border:1px solid var(--line);border-radius:12px;background:var(--card2);margin:6px 0 14px;overflow:hidden}
+  details.doc>summary{cursor:pointer;list-style:none;padding:12px 15px;font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:9px}
+  details.doc>summary::-webkit-details-marker{display:none}
+  details.doc>summary .chev{margin-left:auto;transition:.2s;color:var(--muted)}
+  details.doc[open]>summary .chev{transform:rotate(180deg)}
+  details.doc .docwrap{padding:0 15px 15px}
+  .docpaper{background:#fff;border:1px solid var(--line);border-radius:9px;padding:15px 17px;font-size:13px;line-height:1.6}
+  .docpaper .dt{font-weight:800;font-size:13.5px;text-align:center;margin-bottom:8px}
+  .docpaper .dm{color:var(--muted);font-size:11.5px}
+  .docpaper ol,.docpaper ul{margin:6px 0;padding-left:20px}
+  .docpaper li{margin:3px 0}
+  .tw{overflow-x:auto;margin-top:6px}
+  table.doctbl{border-collapse:collapse;width:100%;font-size:12px;min-width:420px}
+  table.doctbl th,table.doctbl td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+  table.doctbl th{background:var(--card);font-weight:800;font-size:11px}
+  td.hl{background:#fde4e2;color:#8f1410;font-weight:700}
+  td.gap{background:#fdf6e3;color:#7a5b16;font-weight:700}
+  /* ── Демо-ответ ИИ ── */
+  .airesp{background:#eef8f1;border:1px solid #cdebd8;border-radius:12px;padding:15px 17px;margin-top:12px}
+  .airesp .at{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--green);font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .airesp .abody{font-size:13.5px;line-height:1.6}
+  .airesp .abody b{color:var(--ink)}
+  .simlabel{font-size:11.5px;color:var(--muted);font-style:italic;border-top:1px dashed #cdebd8;padding-top:8px;margin-top:10px}
+  .promptlink{font-size:12.5px;color:var(--muted);margin:9px 0 0}
+  .promptlink b{color:var(--blue)}
+  /* ── Копируемый промпт ── */
+  .copy{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:12.5px;white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;color:#3a3631;word-break:break-word}
+  .cprow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  /* ── Выбор варианта / квиз / расхождение ── */
+  .opts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+  .opt{cursor:pointer;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;font-size:13.5px;font-family:inherit;color:var(--ink);transition:.15s}
+  .opt:hover{border-color:var(--ink)}
+  .opt.ok{border-color:var(--green);background:#eef8f1}
+  .opt.err{border-color:var(--brand);background:#fdf0ef}
+  .opt:disabled{cursor:default;opacity:.9}
+  .opt small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+  .qfb{margin-top:6px}
+  .qq{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:14.5px;font-weight:700;margin:0 0 6px}
+  /* ── Экраны «одна мысль» (интро) ── */
+  .progress{display:flex;gap:6px;margin:4px 0 18px}
+  .progress .dot{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .progress .dot.on{background:var(--blue)}
+  .screen{display:none}.screen.on{display:block}
+  .snav{display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap}
+  /* ── Мой ИИ-набор сметчика ── */
+  .kit{display:flex;flex-direction:column;gap:12px}
+  .kititem{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
+  .kititem .kh{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px;margin-bottom:8px;flex-wrap:wrap}
+  .kititem .kcode{font-size:10.5px;font-weight:800;color:#fff;background:var(--ink);border-radius:5px;padding:2px 7px}
+  .kititem .kday{font-size:11.5px;color:var(--muted);margin-left:auto}
+  .kititem .kprompt{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px;font-size:12px;white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;color:#3a3631;word-break:break-word}
+  .kititem .kbtn{margin-top:9px}
+  /* ── Попробуй сам / textarea ── */
+  .review label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  .review textarea,.review input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+  .review textarea:focus,.review input:focus{outline:none;border-color:var(--blue)}
+  .dl{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .dl button,.prevbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+  .dl button:hover,.prevbtn:hover{border-color:var(--ink)}
+  /* ── Чек-лист самопроверки ── */
+  .selfcheck{list-style:none;padding:0;margin:8px 0 0}
+  .selfcheck li{border-bottom:1px solid var(--line)}.selfcheck li:last-child{border-bottom:none}
+  .selfcheck label{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;cursor:pointer;margin:0}
+  .selfcheck input{width:18px;height:18px;flex:0 0 auto;margin:3px 0 0;accent-color:var(--green)}
+  .scbar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden;margin-top:14px}
+  .scbar i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;transition:.35s}
+  .scmsg{font-size:13px;font-weight:700;margin-top:7px;color:var(--muted)}
+  /* ── Live-chat блок ── */
+  .livechat{display:flex;flex-direction:column;gap:12px}
+  .livechat .lcbtns{display:flex;gap:10px;flex-wrap:wrap}
+  .livechat .lcbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:var(--rs);padding:11px 16px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .livechat .lcbtn:hover{border-color:var(--ink)}
+  .livechat .lcbtn .dotc{width:9px;height:9px;border-radius:50%}
+  .livechat .lcgate{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin-top:2px}
+  .livechat .lcgate input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--green)}
+  .lcstatus{font-size:13px;font-weight:700;color:var(--muted)}.lcstatus.ready{color:var(--green)}
+  /* ── Гейт ── */
+  .locked{opacity:.4;pointer-events:none;user-select:none;filter:grayscale(.3);transition:opacity .2s,filter .2s}
+  .lockwrap{position:relative}
+  .lockwrap .lockbadge{display:none;position:absolute;top:14px;right:14px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 12px;align-items:center;gap:6px;z-index:2}
+  .lockwrap.is-locked .lockbadge{display:inline-flex}
+  /* ── Материалы ── */
+  .materials .mlist{list-style:none;padding:0;margin:0}
+  .materials .mlist li{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .materials .mlist li:last-child{border-bottom:none}
+  .materials .mlist .mico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:13px}
+  .materials .mcap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  /* ── transfer-note ── */
+  .transfer-note{border:1.5px dashed var(--purple);background:#faf6ff;border-radius:12px;padding:12px 14px;font-size:13px;color:#5b3a94;margin-top:12px}
+  .transfer-note .tnlabel{display:flex;align-items:center;gap:7px;font-weight:800;font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--purple);margin-bottom:5px}
+  .transfer-note.compact{margin-top:8px;padding:10px 12px}
+  /* ── Ассистент ── */
+  .coursenav{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .coursenav a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:var(--rs);padding:11px 17px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .coursenav a:hover{border-color:var(--ink)}
+  .coursenav a small{display:block;font-weight:600;font-size:11px;color:var(--muted)}
+  .asst{position:sticky;top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .asst .hd{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .asst .ico{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .asst .hd b{font-size:14.5px}.asst .hd span{font-size:11px;color:var(--green);font-weight:700}
+  .lvltrack{display:flex;gap:5px;margin:12px 0 2px}
+  .lvltrack i{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .lvltrack i.on{background:var(--green)}.lvltrack i.cur{background:var(--blue)}
+  .caps{list-style:none;margin:12px 0 0;padding:0}
+  .caps li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .caps li:last-child{border-bottom:none}.caps li.lock{color:var(--muted)}.caps li .s{flex:0 0 auto;width:18px}
+  .caps li small{display:block;color:var(--muted);font-size:11px;font-weight:400}.caps li.cur b{color:var(--ink)}
+  .newb{font-size:9px;font-weight:800;color:#fff;background:var(--green);border-radius:4px;padding:1px 5px;margin-left:5px;white-space:nowrap}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}.asst{position:static}}
+  @media(max-width:420px){h1{font-size:24px}.sec{padding:18px 16px}}
+.matrow{margin:10px 0 4px}.matbtn{display:inline-block;background:#111;color:#fff;padding:9px 16px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none}.matbtn:hover{opacity:.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span><span class="navlink"><a href="index.html">← Все шаги</a></span>
+  </div>
+
+  <!-- AUTHOR -->
+  <div class="author">
+    <div class="ava"><span>ФОТО</span></div>
+    <div class="who"><b>Евгений Эрман, к.т.н.</b>
+      <div class="role">руководитель Лаборатории ИИ-решений девелоперской компании «РАЗУМ»</div></div>
+    <span class="tag">Автор урока</span>
+  </div>
+
+  <!-- LESSON HEADER -->
+  <div class="kicker">Пилот ГИП · Мини-финал · Роль: ГИП / проектировщик <span class="rule" style="background:var(--blue)"></span></div>
+  <h1>Мини-финал: неделя ГИПа с ИИ</h1>
+  <div class="matrow"><a class="matbtn" href="materials/shag-final-gip.zip" download>⬇ Материалы урока (архив): тексты, файлы кейса, интерактив</a></div>
+  <p class="lead">Сквозной кейс по нити <b>«замечание ГГЭ → смежники → версия РД → ответ»</b>. Вы проживаете рабочую неделю ГИПа на ЖК «Уютный дом на Матвеева» — от таблицы замечаний государственной экспертизы до подписанного ответа по спорному классу бетона — и на каждом шаге собираете свой <b>«пакет по этапу»</b> с помощью ИИ. Эпизоды — условная рабочая неделя: даты документов кейса относятся к июню 2026 года.</p>
+  <div class="meta">
+    <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 3 · документы и знания</span>
+    <span class="pill">🎓 Итог пилотного среза</span>
+  </div>
+  <div class="transfer-note compact">
+    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+    Здесь платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли») — строка «Роль: ГИП / проектировщик» выше должна обновляться без правки HTML урока.
+  </div>
+
+  <div class="grid">
+    <div><!-- левая колонка -->
+
+      <!-- TOC -->
+      <section class="sec">
+        <p class="stp">Что внутри урока</p>
+        <ul class="toc">
+          <li>0 · <a href="#intro">Как устроен мини-финал</a></li>
+          <li>1 · <a href="#mon">День 1 — приоритет по 4 замечаниям ГГЭ</a></li>
+          <li>2 · <a href="#tue">День 2 — письмо разделу АР</a></li>
+          <li>3 · <a href="#wed">День 3 — замечание № 4: B25 или B20</a></li>
+          <li>4 · <a href="#thu">День 4 — протокол совещания смежников</a></li>
+          <li>5 · <a href="#fri">День 5 — комплектность РД по спецификации</a></li>
+          <li>6 · <a href="#livechat">Финал: повтори эпизод в живом чате</a></li>
+          <li>7 · <a href="#kit">Мой ИИ-набор ГИПа</a></li>
+          <li>8 · <a href="#selfcheck">Чек-лист самопроверки</a></li>
+        </ul>
+        <div class="note">📄 К уроку приложен архив: тексты, документы кейса (18, 02, 10, 09) и промпт-пак ГИП.</div>
+      </section>
+
+      <!-- INTRO SCREENS -->
+      <section class="sec" id="intro">
+        <p class="stp">0 · Как устроен мини-финал</p>
+        <h2>Замечания ГГЭ → приоритет → смежники → подтверждённый класс бетона → комплектность РД</h2>
+        <div class="progress" id="scrProgress"></div>
+        <div class="screen on">
+          <h3>Это не новая теория, а сборка навыков</h3>
+          <p>За неделю ГИПу прилетает всё сразу: таблица замечаний государственной экспертизы, письмо смежному разделу, официальный ответ по несоответствию в РД, протокол совещания смежников, проверка комплектности документации. Вы уже проходили эти приёмы по отдельности — теперь пройдёте их <b>подряд, на одном кейсе</b>.</p>
+        </div>
+        <div class="screen">
+          <h3>Каждый день — документ, промпт и мини-действие</h3>
+          <p>Пять эпизодов, День 1 — День 5. В каждом: реальный документ кейса (раскрывается прямо здесь), готовый промпт из вашего <b>промпт-пака ГИП</b> и короткое действие — приоритизировать, запросить, подтвердить, свести, сверить.</p>
+        </div>
+        <div class="screen">
+          <h3>Главное правило недели: наблюдение, черновик и подтверждённый факт — не одно и то же</h3>
+          <p>Демо-ответы ИИ помечены «смоделировано» — это ориентир, а не спойлер. Смотрите, где в ответе <b>наблюдение</b> (что буквально написано в документе), где <b>черновик</b> (первая версия от ИИ, до проверки), а где <b>подтверждённый факт</b> (класс бетона или решение, подтверждённые источником). Спецкритерий недели: у любого технического ответа должен быть <b>источник, версия документа и основание технического решения</b> — без этих трёх элементов ответ экспертизе не готов.</p>
+          <div class="note green">✅ Цель недели: пять промптов, которые останутся у вас как рабочий инструмент ГИПа, и привычка требовать источник и версию документа под любым техническим решением — прежде чем подписывать ответ экспертизе.</div>
+        </div>
+        <div class="snav">
+          <button class="btn ghost" id="scrPrev">← Назад</button>
+          <button class="btn" id="scrNext">Дальше →</button>
+        </div>
+        <div class="weekmap">
+          <div class="day"><b>День 1</b><small>4 замечания ГГЭ</small></div>
+          <div class="day"><b>День 2</b><small>Письмо разделу АР</small></div>
+          <div class="day"><b>День 3</b><small>№4: B25 или B20</small></div>
+          <div class="day"><b>День 4</b><small>Протокол совещания</small></div>
+          <div class="day"><b>День 5</b><small>Комплектность РД</small></div>
+        </div>
+      </section>
+      <!-- ═══════ ЭПИЗОД 1 · ДЕНЬ 1 ═══════ -->
+      <div class="ep e1" id="mon">
+        <div class="ephd">
+          <div class="epday">День 1</div>
+          <div class="ept"><b>Таблица замечаний ГГЭ — 4 пункта</b><small>Задача: приоритет по влиянию на безопасность и срок. Ловушка: «громкая» формулировка ≠ высокий риск ⚠️</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 1, понедельник. Пришла таблица замечаний государственной экспертизы по разделам КР, АР, ПБ — 4 пункта. Прежде чем садиться за ответы, нужно расставить приоритет: что тормозит согласование сильнее всего и что касается безопасности здания, а не только оформления бумаг.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: таблица замечаний ГГЭ (файл 18) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Замечания экспертизы (ГГЭ) — ЖК «Уютный дом на Матвеева», 1-я очередь</div>
+              <p class="dm">Орган экспертизы: государственная экспертиза (учебно). Разделы: КР, АР, ПБ.</p>
+              <div class="tw"><table class="doctbl">
+                <tr><th>№</th><th>Раздел</th><th>Замечание экспертизы</th><th>Норматив-основание</th></tr>
+                <tr><td>1</td><td>КР</td><td>В расчёте монолитной плиты перекрытия не представлена проверка по прогибам (предельные состояния 2-й группы).</td><td>СП 63.13330</td></tr>
+                <tr><td>2</td><td>АР</td><td>Не подтверждена нормативная инсоляция для квартир секции 1, ориентированных на север.</td><td>СанПиН 1.2.3685-21, СП 54.13330</td></tr>
+                <tr><td>3</td><td>ПБ</td><td>Не указан предел огнестойкости несущих конструкций лестнично-лифтового узла.</td><td>СП 2.13130</td></tr>
+                <tr class="hl"><td>4</td><td>КР</td><td>Несоответствие класса бетона на чертеже КЖ-05 (B25) и в спецификации (B20).</td><td>внутренняя несогласованность РД</td></tr>
+              </table></div>
+              <p class="dm" style="margin-top:8px">Параллельно на этой же неделе техзаказчик прислал письмо № 311 (файл 09) с замечанием по отставанию графика этажей 4–9 (~8%), срок ответа — тоже конец июня. Формально это не про экспертизу, но напоминает: сроки по проекту в целом поджимают, и от скорости закрытия замечаний ГГЭ тоже зависит общий график.</p>
+            </div></div>
+          </details>
+
+          <h3>🔍 «Громкая» формулировка — не всегда наибольший риск</h3>
+          <p class="muted">Замечание № 4 выглядит тревожно: две разные цифры класса бетона на одном комплекте. Но прежде чем спешить с приоритетом, проверьте: какое из четырёх замечаний реально блокирует согласование и касается безопасности конструкций, а не оформления документа?</p>
+
+          <div data-quiz>
+            <p class="qq">Какое из 4 замечаний экспертизы объективно создаёт наибольший риск и для безопасности, и для срока согласования?</p>
+            <div class="opts">
+              <button class="opt" data-fb="Замечание № 4 выглядит «громким» из-за двух разных цифр, но по факту это внутренняя несогласованность в тексте спецификации — расчёт и чертёж совпадают (B25), правится сверкой и листом изменений за один день. Риск для безопасности здесь нулевой, как только источник проверен.">№ 4 — несоответствие класса бетона B25/B20: две разные цифры в одном комплекте выглядят как серьёзная ошибка проектирования</button>
+              <button class="opt" data-correct data-fb="Верно. Замечание № 3 касается несущей способности при пожаре — жизни и здоровья людей, а не оформления документа. Экспертиза по разделу ПБ, как правило, не идёт на компромисс без расчёта или сертификата — это и высокий риск для безопасности, и высокий риск для срока согласования.">№ 3 — не указан предел огнестойкости несущих конструкций лестнично-лифтового узла: это прямая часть пожарной безопасности здания, и раздел ПБ обычно не снимает такие замечания без официального расчёта или сертификата</button>
+              <button class="opt" data-fb="Инсоляция — важный норматив комфорта проживания, но это не вопрос несущей способности или огнестойкости. По влиянию на безопасность здания замечание № 2 не выше, чем № 3, хотя расчёт для него тоже нужно готовить безотлагательно.">№ 2 — не подтверждена инсоляция квартир секции 1: без неё квартиры вообще нельзя вводить в эксплуатацию, это самый срочный пункт</button>
+            </div>
+            <div class="qfb"></div>
+          </div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: список «что исправить» с приоритетом</div>
+            <div class="abody">
+              <div class="tw"><table class="doctbl">
+                <tr><th>№</th><th>Раздел</th><th>Что исправить</th><th>Приоритет</th></tr>
+                <tr><td>1</td><td>КР</td><td>Добавить проверку плиты по прогибам (СП 63.13330)</td><td>средний</td></tr>
+                <tr><td>2</td><td>АР</td><td>Подтвердить инсоляцию квартир секции 1 на север (СанПиН / СП 54.13330)</td><td>средний</td></tr>
+                <tr><td>3</td><td>ПБ</td><td>Указать предел огнестойкости несущих конструкций ЛЛУ (СП 2.13130)</td><td class="hl">высокий</td></tr>
+                <tr><td>4</td><td>КР</td><td>Привести класс бетона в спецификации КЖ-05 в соответствие с расчётом</td><td>низкий (быстро закрывается)</td></tr>
+              </table></div>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Приоритет — рабочая гипотеза для планирования недели, а не формальное заключение экспертизы; таблица составлена только по 4 пунктам файла 18.</div>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт A2 из твоего промпт-пака ГИП</b> («Реферирование таблицы замечаний ГГЭ до списка «что исправить»»).</p>
+        </div>
+      </div>
+      <!-- ═══════ ЭПИЗОД 2 · ДЕНЬ 2 ═══════ -->
+      <div class="ep e2" id="tue">
+        <div class="ephd">
+          <div class="epday">День 2</div>
+          <div class="ept"><b>Письмо разделу АР — запрос расчёта инсоляции</b><small>Задача: письмо с обоснованием. Риск выдумки — не придумывать цифру инсоляции ⚠️</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 2, вторник. Замечание № 2 экспертизы — не подтверждена нормативная инсоляция для квартир секции 1, ориентированных на север. У ГИПа нет собственного расчёта инсоляции — это зона ответственности раздела АР. Нужно письмо смежникам: попросить расчёт и объяснить, зачем он нужен именно сейчас.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: замечание № 2 (файл 18) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Замечание № 2 — раздел АР</div>
+              <div class="tw"><table class="doctbl">
+                <tr><th>№</th><th>Раздел</th><th>Замечание экспертизы</th><th>Норматив-основание</th></tr>
+                <tr><td>2</td><td>АР</td><td>Не подтверждена нормативная инсоляция для квартир секции 1, ориентированных на север.</td><td>СанПиН 1.2.3685-21, СП 54.13330</td></tr>
+              </table></div>
+              <p class="dm" style="margin-top:8px">У ГИПа нет расчёта инсоляции — только формулировка замечания и норматив-ориентир. Сам расчёт должен подготовить раздел АР.</p>
+            </div></div>
+          </details>
+
+          <h3>⚠️ Не подставляйте цифру инсоляции сами</h3>
+          <p class="muted">Если попросить ИИ «просто написать письмо», он может по инерции вставить правдоподобную цифру часов инсоляции — как будто расчёт уже есть. Единственный корректный ход — запросить сам расчёт, а не предполагаемый результат. Ниже — три варианта письма. Выберите верный.</p>
+
+          <div class="opts" data-choice>
+            <button class="opt" data-fb="Письмо приписывает разделу АР готовый результат (2,5 часа), которого никто не считал — ни в замечании, ни в документах кейса такой цифры нет. Это классическая выдумка: подставить правдоподобное число вместо того, чтобы запросить расчёт.">
+              <b>Вариант A.</b> «АР, прошу подтвердить, что инсоляция квартир секции 1 составляет не менее 2,5 часов согласно СанПиН — направьте акт о соответствии для ответа экспертизе».
+              <small>Цифра «2,5 часа» не подтверждена ни одним документом кейса — письмо просит подтвердить то, чего никто ещё не считал</small>
+            </button>
+            <button class="opt" data-correct data-fb="Верно. Письмо не придумывает результат, а точно называет норматив из замечания и запрашивает сам расчёт — единственный документ, который может закрыть замечание № 2. Это и есть источник для будущего ответа экспертизе.">
+              <b>Вариант B.</b> «АР, замечание ГГЭ № 2 требует подтверждения нормативной инсоляции для квартир секции 1, ориентированных на север (СанПиН 1.2.3685-21, СП 54.13330). Без расчёта по этим квартирам замечание не может быть снято. Прошу подготовить и передать расчёт инсоляции до конца недели — он войдёт в пакет ответа экспертизе».
+              <small>Опирается только на формулировку замечания и норматив из таблицы, просит именно расчёт, а не готовый вывод</small>
+            </button>
+            <button class="opt" data-fb="Письмо без номера замечания, норматива и срока не даёт разделу АР ничего, на что опереться — по сути, задача не поставлена.">
+              <b>Вариант C.</b> «АР, там у нас вопрос по инсоляции по замечанию экспертизы, гляньте, пожалуйста, когда будет время».
+              <small>Нет ссылки на номер замечания, норматив и срок</small>
+            </button>
+          </div>
+          <div class="qfb" data-choice-fb></div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: письмо разделу АР</div>
+            <div class="abody">
+              <p style="margin:0">«АР, замечание ГГЭ № 2 требует подтверждения нормативной инсоляции для квартир секции 1, ориентированных на север (СанПиН 1.2.3685-21, СП 54.13330). Без расчёта по этим квартирам замечание не может быть снято. Прошу подготовить и передать расчёт инсоляции до конца недели — он войдёт в пакет ответа экспертизе. По остальным трём замечаниям ГГЭ работа идёт параллельно, срок ответа экспертизе — также до конца недели».</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Письмо запрашивает расчёт, а не выдаёт его результат: цифру часов инсоляции ГИП увидит только в самом расчёте от АР, не раньше.</div>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт A3 из твоего промпт-пака ГИП</b> («Письмо смежному разделу с запросом недостающих данных»).</p>
+        </div>
+      </div>
+      <!-- ═══════ ЭПИЗОД 3 · ДЕНЬ 3 ═══════ -->
+      <div class="ep e3" id="wed">
+        <div class="ephd">
+          <div class="epday">День 3</div>
+          <div class="ept"><b>Замечание № 4 — класс бетона: B25 или B20?</b><small>Кульминация недели — ловушка B25 vs B20 ⚠️</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 3, среда — кульминация недели. Замечание № 4: на чертеже КЖ-05 указан класс бетона B25, в тексте спецификации — B20. Экспертиза ждёт официальный ответ: что именно исправлено и на каком основании. Прежде чем отвечать, нужно понять, какая цифра верна — и доказать это документом, а не выбором «на глаз».</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документы: замечание № 4 (файл 18) + фрагмент РД КЖ (файл 02) <span class="chev">▾</span></summary>
+            <div class="docwrap">
+              <div class="docpaper" style="margin-bottom:12px">
+                <div class="dt">Замечание № 4 (файл 18)</div>
+                <p class="dm">Раздел КР. Несоответствие класса бетона на чертеже КЖ-05 (B25) и в спецификации (B20). Норматив-основание: внутренняя несогласованность РД.</p>
+                <img src="assets/img/chertezh-plan-etazha.jpg" alt="Чертёж плана типового этажа секции 2 — фрагмент КЖ-05" style="width:100%;border-radius:9px;border:1px solid var(--line);margin:10px 0 4px">
+                <p class="dm">📐 Чертёж КЖ-05, план типового этажа секции 2 (фрагмент). На чертеже класс бетона указан как B25.</p>
+              </div>
+              <div class="docpaper" style="margin-bottom:12px">
+                <div class="dt">Общие данные листа КЖ-01 (файл 02)</div>
+                <p style="margin:0">Класс бетона монолитных конструкций: <b>B25, W6, F150</b>. Арматура: класс А500С (рабочая), А240 (конструктивная).</p>
+              </div>
+              <div class="docpaper">
+                <div class="dt">Спецификация КЖ-05 — было / стало</div>
+                <div class="tw"><table class="doctbl">
+                  <tr><th>Позиция</th><th>В спецификации (было, подано на экспертизу)</th><th>Общие данные КЖ-01 / чертёж</th><th>После проверки (лист изменений № 2)</th></tr>
+                  <tr><td>Плита перекрытия t=200</td><td class="hl">B20</td><td>B25, W6, F150</td><td class="gap">B25, W6, F150 (исправлено)</td></tr>
+                </table></div>
+              </div>
+            </div>
+          </details>
+
+          <h3>🔁 Сначала — «шаг назад»</h3>
+          <p class="muted">Прежде чем разбирать конкретные цифры, спросите у ИИ принцип: <i>«Какова типовая структура ответа проектировщика на замечание госэкспертизы и что обязательно включить?»</i> — и только потом переходите к самому замечанию № 4.</p>
+
+          <div data-quiz>
+            <p class="qq">Какой класс бетона указать в официальном ответе проектировщика на замечание № 4?</p>
+            <div class="opts">
+              <button class="opt" data-fb="Спецификация — не единственный источник, и именно в ней замечена опечатка. Общие данные листа КЖ-01 и чертёж КЖ-05 указывают B25 — при расхождении внутри комплекта нужно смотреть, какой источник подтверждён расчётом, а не механически брать первый попавшийся документ.">B20 — раз в тексте спецификации указан именно он, это и есть официальный документ, на него и нужно ссылаться</button>
+              <button class="opt" data-correct data-fb="Верно. B25 — единственный класс, подтверждённый источником (общие данные КЖ-01) и чертежом. У ответа есть источник, версия документа и основание технического решения — это и есть спецкритерий недели.">B25 — он подтверждён общими данными листа КЖ-01 и совпадает с чертежом КЖ-05; расхождение — опечатка только в тексте спецификации, устраняется листом изменений</button>
+              <button class="opt" data-fb="Усреднять класс бетона нельзя — это не следует ни из одного документа комплекта, а его физические свойства не «складываются пополам». Правильный класс подтверждается только источником (расчётом и КЖ-01), а не компромиссом между двумя цифрами.">B22.5 — что-то среднее между B20 и B25, чтобы не спорить ни с одним из документов</button>
+            </div>
+            <div class="qfb"></div>
+          </div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: наблюдение → черновик → подтверждённый факт</div>
+            <div class="abody">
+              <p style="margin:0 0 8px"><b>Наблюдение</b> (что буквально написано в документах): чертёж КЖ-05 — B25; общие данные листа КЖ-01 — B25; текст спецификации, поданной на экспертизу, — B20.</p>
+              <p style="margin:0 0 8px"><b>Черновик</b> (первая гипотеза без проверки): «примирить» цифры или взять более осторожное значение B20 — ни один из вариантов не опирается на источник.</p>
+              <p style="margin:0 0 8px"><b>Подтверждённый факт</b> (после сверки с источником и версией документа): верный класс — <b>B25</b>. Он подтверждён общими данными КЖ-01 и совпадает с чертежом; в спецификации была опечатка, устраняется листом изменений № 2.</p>
+              <p style="margin:10px 0 0"><b>Официальный ответ:</b> «Замечание принято. В спецификации листа КЖ-05 класс бетона приведён в соответствие с расчётом и чертежом — B25 W6 F150. Изменение оформлено листом изменений № 2 от __. Просим снять замечание». ГИП ___________ /Кузнецов А.В. (вымышл.)/</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Текст почти дословно совпадает с образцом ответа из документа кейса — источник один и тот же: общие данные КЖ-01. Дату и номер листа изменений подставляет ГИП по факту оформления, ИИ их не знает.</div>
+            </div>
+          </div>
+
+          <div class="note green">✅ У этого ответа есть <b>источник</b> (общие данные КЖ-01), <b>версия документа</b> (лист изменений № 2) и <b>основание технического решения</b> (совпадение с чертежом и расчётом) — без этих трёх элементов документ не готов к отправке в экспертизу.</div>
+          <div class="note">⚠️ <b>Красная линия.</b> Класс бетона, который войдёт в официальный ответ экспертизе, подтверждает и подписывает ГИП. ИИ помогает свести документы и предложить формулировку — окончательное техническое решение и подпись не делегируются.</div>
+          <p class="promptlink">📎 Это <b>промпт A1 из твоего промпт-пака ГИП</b> («Ответ на замечание экспертизы (несогласованность в РД)») 🔁 приём «шаг назад» ⚠️ риск выдумки.</p>
+        </div>
+      </div>
+      <!-- ═══════ ЭПИЗОД 4 · ДЕНЬ 4 ═══════ -->
+      <div class="ep e4" id="thu">
+        <div class="ephd">
+          <div class="epday">День 4</div>
+          <div class="ept"><b>Протокол совещания смежников</b><small>Второй квиз: решение без ссылки на расчёт — что не так? ⚠️</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 4, четверг. Совещание с разделами КР, АР и ПБ по всем четырём замечаниям экспертизы. У ГИПа — черновые заметки с совещания; нужно собрать из них протокол: по каждому замечанию — решение, ответственный, срок. В этот же день актуален и срок из письма техзаказчика № 311 (файл 09) — конец июня, тот же дедлайн давит и на согласование экспертизы.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: черновые заметки совещания, 25.06.2026 <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Совещание по замечаниям ГГЭ — рабочие заметки (не протокол в чистом виде)</div>
+              <ul>
+                <li><b>КР, замечание № 1</b> (прогибы плиты): «Пересчитали, прогибы в норме. Приложим расчёт по СП 63.13330 к ответу экспертизе. Готово к пятнице».</li>
+                <li><b>АР, замечание № 2</b> (инсоляция): «Расчёт по секции 1 в работе, готовим по запросу ГИПа от вторника. Обещают к пятнице».</li>
+                <li><b>ПБ, замечание № 3</b> (огнестойкость ЛЛУ): «Предлагаем принять REI 90 для несущих конструкций ЛЛУ по аналогии с соседней секцией — можно сразу включать в ответ».</li>
+                <li><b>КР, замечание № 4</b> (класс бетона): «Опечатка при выгрузке спецификации. По чертежу и расчёту — B25. Лист изменений № 2 готовим сегодня».</li>
+                <li><b>Общее:</b> ответ экспертизе нужен до конца недели; тот же срок фигурирует и в письме техзаказчика № 311 по графику этажей 4–9.</li>
+              </ul>
+            </div></div>
+          </details>
+
+          <h3>🔍 Один пункт в черновике протокола — это предложение, а не решение</h3>
+          <p class="muted">Ассистент уже разложил заметки по форме «замечание → решение → ответственный → срок». Прежде чем нести протокол на подпись, сверьте один пункт: по замечанию № 3 (ПБ, огнестойкость) в заметках нет ни расчёта, ни ссылки на сертификат — только «по аналогии с соседней секцией».</p>
+
+          <div class="airesp">
+            <div class="at">🤖 Черновик протокола (первая раскладка ИИ по форме)</div>
+            <div class="abody">
+              <div class="tw"><table class="doctbl">
+                <tr><th>№</th><th>Раздел</th><th>Решение (черновик ИИ)</th><th>Ответственный</th><th>Срок</th></tr>
+                <tr><td>1</td><td>КР</td><td>Прогибы плиты — в норме, расчёт по СП 63.13330 прилагается</td><td>КР</td><td>до пятницы</td></tr>
+                <tr><td>2</td><td>АР</td><td>Расчёт инсоляции секции 1 в работе</td><td>АР</td><td>до пятницы</td></tr>
+                <tr class="hl"><td>3</td><td>ПБ</td><td>Решение: принять REI 90 для несущих конструкций ЛЛУ</td><td>ПБ</td><td>сегодня</td></tr>
+                <tr><td>4</td><td>КР</td><td>Класс бетона B25 подтверждён, лист изменений № 2 в работе</td><td>КР</td><td>сегодня</td></tr>
+              </table></div>
+            </div>
+          </div>
+
+          <div data-quiz>
+            <p class="qq">В черновике протокола ИИ записал по замечанию № 3: «Решение: принять REI 90 для несущих конструкций ЛЛУ». Что не так с этой формулировкой?</p>
+            <div class="opts">
+              <button class="opt" data-fb="Само обозначение REI 90 корректно, но проблема не в этом. В заметках нет ни расчёта, ни сертификата — только «по аналогии с соседней секцией». Записывать это как готовое «решение» — значит позволить черновой аналогии заменить собой техническое решение ГИПа.">Всё верно, REI 90 — обычное обозначение предела огнестойкости, формулировку можно сразу включать в протокол как решение</button>
+              <button class="opt" data-correct data-fb="Верно. «По аналогии с соседней секцией» — вероятно, разумная рабочая гипотеза, но это не источник и не основание технического решения. Пока нет расчёта или сертификата, в протоколе должна стоять формулировка «требует подтверждения», а не готовое «решение». Красная линия: техническое решение принимает и подписывает ГИП; ИИ готовит черновики и проверки, не решения.">Это не решение, а предложение раздела ПБ без ссылки на расчёт или сертификат; в протоколе нужно записать его как «предложение — требует подтверждения расчётом по СП 2.13130 или сертификатом», а решение и подпись — за ГИП после проверки</button>
+              <button class="opt" data-fb="Обозначение REI (предел огнестойкости по несущей способности, целостности и теплоизолирующей способности) — стандартное для строительных конструкций, в том числе ЛЛУ; дело не в самом термине, а в отсутствии подтверждающего источника.">Всё не так, потому что обозначения REI вообще не применяются для лестнично-лифтовых узлов</button>
+            </div>
+            <div class="qfb"></div>
+          </div>
+
+          <div class="note">⚠️ <b>Красная линия.</b> Точный пункт СП 2.13130 и предельные значения по огнестойкости в протокол не подставляем на веру — как и предупреждает нормативная подложка кейса (файл 10): ИИ может «уверенно» назвать несуществующий пункт. Формулировки вроде «вероятно, соответствует практике» — не основание для протокола; нужен расчёт или сертификат, а не вероятностная оценка по аналогии.</div>
+          <p class="promptlink">📎 Это <b>промпт D2 из твоего промпт-пака ГИП</b> («Протокол совещания смежников по замечаниям экспертизы»).</p>
+        </div>
+      </div>
+      <!-- ═══════ ЭПИЗОД 5 · ДЕНЬ 5 ═══════ -->
+      <div class="ep e5" id="fri">
+        <div class="ephd">
+          <div class="epday">День 5</div>
+          <div class="ept"><b>Комплектность РД по спецификации КЖ</b><small>Пробел — заметить самому, не получить готовым</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 5, пятница, конец недели. Перед тем как обновлённый комплект РД уйдёт в экспертизу повторно, нужно свериться: все ли обязательные позиции на месте? Перечень обязательных позиций и приложенная спецификация сверяются строго между собой — без домыслов о том, чего нет в проекте вообще.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документы: перечень обязательных позиций РД + спецификация КЖ-05 (файл 02) <span class="chev">▾</span></summary>
+            <div class="docwrap">
+              <div class="docpaper" style="margin-bottom:12px">
+                <div class="dt">Перечень обязательных позиций комплекта КЖ (чек-лист ГИПа)</div>
+                <ol>
+                  <li>Общие данные (лист КЖ-01)</li>
+                  <li>Спецификация элементов (лист КЖ-05)</li>
+                  <li>Ведомость расхода бетона по этажам</li>
+                  <li>Ведомость расхода бетона на лестнично-лифтовый узел (ЛЛУ)</li>
+                  <li>Ведомость расхода стали (арматура + закладные)</li>
+                  <li>Чертежи армирования (КЖ-04…07)</li>
+                  <li>Спецификация закладных деталей под фасад</li>
+                </ol>
+              </div>
+              <div class="docpaper">
+                <div class="dt">Спецификация элементов КЖ-05 — приложено к пакету (файл 02, фрагмент)</div>
+                <div class="tw"><table class="doctbl">
+                  <tr><th>Поз.</th><th>Наименование</th><th>Марка / класс</th><th>Ед. изм.</th><th>Кол-во на этаж</th></tr>
+                  <tr><td>1</td><td>Колонна монолитная 400×400</td><td>B25, А500С</td><td>шт.</td><td>28</td></tr>
+                  <tr><td>2</td><td>Плита перекрытия монолитная t=200</td><td>B25, W6</td><td>м³</td><td>96,4 (482 м²)</td></tr>
+                  <tr><td>3</td><td>Балка-ригель 400×600</td><td>B25, А500С</td><td>м</td><td>64</td></tr>
+                  <tr><td>4</td><td>Лестничный марш сборный</td><td>ЛМ 30.12</td><td>шт.</td><td>4</td></tr>
+                  <tr><td>5</td><td>Арматура рабочая А500С Ø12–25</td><td>А500С</td><td>т</td><td>11,8 (по КЖ-04…07)</td></tr>
+                  <tr><td>6</td><td>Арматура конструктивная А240 Ø6–10</td><td>А240</td><td>т</td><td>2,3</td></tr>
+                  <tr><td>7</td><td>Закладные детали МН-1…МН-4</td><td>сталь С245</td><td>шт.</td><td>36 (под фасад)</td></tr>
+                </table></div>
+              </div>
+            </div>
+          </details>
+
+          <h3>Не путайте «нет в пакете» с «не предусмотрено проектом»</h3>
+          <p class="muted">Если какой-то позиции из перечня нет среди приложенных документов — это повод написать «требует проверки», а не «отсутствует в проекте». Особенно если элемент физически упоминается (например, лестничный марш в спецификации), а отдельной ведомости по нему в пакете нет. Кто-то из проектной группы уже сделал вывод по комплектности — прежде чем согласиться, проверьте сами.</p>
+
+          <div class="opts" data-choice>
+            <button class="opt" data-fb="Отсутствие ведомости именно в этом пакете — не то же самое, что «не запроектирована». Лестничный марш в спецификации есть, значит, элемент ЛЛУ в проекте присутствует; вопрос только к комплекту документов, а не к судьбе проекта.">
+              <b>Вариант A.</b> «Комплект неполный — раздел КЖ передан в экспертизу с нарушениями, ведомость по ЛЛУ вообще не запроектирована, нужно останавливать процесс».
+              <small>Из отсутствия документа в конкретном пакете сделан вывод о судьбе всего проекта</small>
+            </button>
+            <button class="opt" data-correct data-fb="Верно. Комплектность сверяется строго по перечню: 6 позиций закрыты, одна — под вопросом, статус именно «требует проверки», не «отсутствует в проекте». Тот же принцип «источник и основание», что и в среду: не додумывать, а проверять.">
+              <b>Вариант B.</b> «6 из 7 позиций перечня подтверждены приложенной спецификацией. Ведомости расхода бетона на ЛЛУ в пакете нет, хотя элемент (лестничный марш) в спецификации упомянут — помечаю как «требует проверки» и запрашиваю документ у архива РД, прежде чем комплект уйдёт в экспертизу».
+              <small>Точная сверка по перечню + честный статус «требует проверки» вместо готового вывода</small>
+            </button>
+            <button class="opt" data-fb="«Выглядит подробно» — не метод проверки комплектности. Без построчной сверки с перечнем легко пропустить именно ту позицию, которой не хватает.">
+              <b>Вариант C.</b> «Раз спецификация в целом выглядит подробной и профессионально оформленной, всё на месте — можно отправлять в экспертизу как есть».
+              <small>Общее впечатление вместо построчной сверки</small>
+            </button>
+          </div>
+          <div class="qfb" data-choice-fb></div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: комплектность РД по перечню</div>
+            <div class="abody">
+              <div class="tw"><table class="doctbl">
+                <tr><th>Позиция перечня</th><th>Есть / нет / требует проверки</th><th>Комментарий</th></tr>
+                <tr><td>1. Общие данные КЖ-01</td><td>есть</td><td>класс бетона B25 W6 F150 подтверждён</td></tr>
+                <tr><td>2. Спецификация КЖ-05</td><td>есть</td><td>7 позиций, площадь этажа 482 м²</td></tr>
+                <tr><td>3. Ведомость расхода бетона по этажам</td><td>есть (в смежном пакете)</td><td>сверено со сметчиком: 96,4 × 6 = 578,4 м³ на 6 этажей секции 2</td></tr>
+                <tr class="hl"><td>4. Ведомость расхода бетона на ЛЛУ</td><td class="gap">требует проверки</td><td>лестничный марш в спецификации есть, отдельной ведомости нет в пакете</td></tr>
+                <tr><td>5. Ведомость расхода стали</td><td>есть</td><td>11,8 т рабочая + 2,3 т конструктивная</td></tr>
+                <tr><td>6. Чертежи армирования КЖ-04…07</td><td>есть</td><td>указаны в спецификации как основание</td></tr>
+                <tr><td>7. Спецификация закладных</td><td>есть</td><td>36 шт., под навесной фасад</td></tr>
+              </table></div>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Вывод «требует проверки» — это вопрос к архиву РД, а не заключение о том, что элемент вообще не запроектирован.</div>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт B2 из твоего промпт-пака ГИП</b> («Проверка комплектности РД по перечню обязательных позиций») ⚠️ риск выдумки.</p>
+          <div class="note">⚠️ <b>Красная линия.</b> Комплектность документации проверяет ИИ-черновиком, а решение — направлять ли комплект в экспертизу с этим пробелом или сначала запросить недостающую ведомость — принимает ГИП лично.</div>
+          <div class="note green">✅ Неделя закрыта одним пакетом: приоритет замечаний → письмо смежнику → подтверждённый класс бетона → протокол совещания → комплектность РД. На каждом шаге у ответа есть источник, версия документа и основание технического решения — а техническое решение и подпись остаются за ГИП.</div>
+        </div>
+      </div>
+      <!-- ═══════ ФИНАЛ (а): LIVE-CHAT ШЛЮЗ ═══════ -->
+      <section class="sec" id="livechat">
+        <p class="stp">6 · Финал · Сделай в живом чате</p>
+        <h2>Повтори один эпизод на своём материале</h2>
+        <div class="livechat">
+          <p>Выберите любой из пяти эпизодов, который ближе к вашей текущей работе, возьмите соответствующий промпт из блока «Мой ИИ-набор ГИПа» ниже и выполните его в реальном чат-боте — но <b>на своём документе</b> (обезличенно: без реальных цен, реквизитов и ПДн). Вставьте результат сюда.</p>
+          <div class="lcbtns">
+            <a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>
+            <a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>
+          </div>
+          <div class="review">
+            <label>Вставь сюда результат, который вернул чат-бот на твоём материале</label>
+            <textarea id="lcResult" rows="6" placeholder="Например: приоритизация своих замечаний экспертизы, черновик письма смежному разделу, ответ на замечание со ссылкой на источник, протокол совещания, сверка комплектности…"></textarea>
+          </div>
+          <div class="lcgate">
+            <input type="checkbox" id="lcConfirm">
+            <label for="lcConfirm">Я выполнил один эпизод на своём материале и сверил результат с документом</label>
+          </div>
+          <p class="lcstatus" id="lcStatus">Итог пилота откроется после того, как вы вставите результат и отметите чекбокс.</p>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору — <b>итоговая проверка пилота</b>. В демо-комплекте гейт работает локальным JS (без сохранения и отправки данных); на платформе это событие фиксируется в личном кабинете как завершение мини-финала.
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ ФИНАЛ (б): МОЙ ИИ-НАБОР ГИПА ═══════ -->
+      <div class="lockwrap" id="kitWrap">
+        <section class="sec locked" id="kit">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">7 · Финал · Мой ИИ-набор ГИПа</p>
+          <h2>Пять промптов недели — ваш рабочий инструмент</h2>
+          <p class="muted">Это итог пилотного среза: пять промптов из промпт-пака ГИП, по одному на каждый эпизод недели. Копируйте и используйте на своих задачах. Не забывайте прикладывать документ и грунтовку против выдумок: «используй только данные из документа; чего нет — не выдумывай, помечай <i>[уточнить]</i>».</p>
+          <div class="kit">
+            <div class="kititem">
+              <div class="kh"><span class="kcode">A2</span> Реферирование таблицы замечаний ГГЭ до списка «что исправить» <span class="kday">День 1</span></div>
+              <div class="kprompt" id="p1">Ты — ГИП. Задача: сократи приложенную таблицу замечаний экспертизы до списка «что исправить» — по каждому пункту: раздел, суть в одном предложении, норматив-основание. Расставь приоритет (высокий/средний) по влиянию на безопасность и сроки экспертизы. Формат: нумерованный список, до 10 слов на пункт замечания + пометка приоритета.
+Таблица замечаний: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p1">📋 Скопировать A2</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">A3</span> Письмо смежному разделу с запросом недостающих данных <span class="kday">День 2</span></div>
+              <div class="kprompt" id="p2">Ты — ГИП. Контекст: замечание ГГЭ № 2 — не подтверждена нормативная инсоляция для квартир секции 1, ориентированных на север (СанПиН 1.2.3685-21, СП 54.13330). Задача: составь письмо разделу АР с запросом расчёта инсоляции и обоснованием, почему это нужно для снятия замечания. Формат: короткое деловое письмо, 5–7 предложений.</div>
+              <button class="btn sm dark kbtn" data-copy="p2">📋 Скопировать A3</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">A1</span> Ответ на замечание экспертизы (несогласованность в РД) <span class="kday">День 3</span></div>
+              <div class="kprompt" id="p3">Ты — ГИП на жилом доме. Контекст: замечание № 4 ГГЭ — несоответствие класса бетона на чертеже КЖ-05 (B25) и в спецификации (B20). По факту в общих данных листа КЖ-01 и в расчёте указан класс B25 — расхождение только в тексте спецификации. Задача: составь официальный ответ проектировщика по образцу («замечание принято / не принято», что именно исправлено, лист изменений). Используй ТОЛЬКО класс бетона, который подтверждён в приложенном документе — не выбирай между B25 и B20 сам, если это не следует из документа. Формат: краткий официальный ответ + строка «лист изменений № _ от __».
+Замечание и фрагмент РД: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p3">📋 Скопировать A1</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">D2</span> Протокол совещания смежников по замечаниям экспертизы <span class="kday">День 4</span></div>
+              <div class="kprompt" id="p4">Ты — ГИП. Задача: из приложенной расшифровки/заметок совещания с разделами КР, АР, ПБ выдели по каждому замечанию ГГЭ: кто отвечает, какое решение приняли, срок. Формат: таблица «замечание № → раздел → решение → ответственный → срок». Ничего не придумывай — только из текста встречи.
+Заметки совещания: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p4">📋 Скопировать D2</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">B2</span> Проверка комплектности РД по перечню обязательных позиций <span class="kday">День 5</span></div>
+              <div class="kprompt" id="p5">Ты — ГИП. Контекст: приложены спецификация раздела КЖ и перечень обязательных позиций комплекта. Задача: сверь спецификацию ТОЛЬКО с этим перечнем: что есть, чего нет, что под вопросом. Если позиции нет в перечне — не считай её отсутствующей и не добавляй от себя. Формат: таблица «позиция перечня → есть / нет / требует проверки → комментарий».
+Перечень обязательных позиций: [вставьте свой чек-лист]
+Спецификация: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p5">📋 Скопировать B2</button>
+            </div>
+          </div>
+          <p class="promptlink" id="kitMsg" style="min-height:16px"></p>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает <b>«Паспорт навыков»</b>: прохождение мини-финала засчитывается в общий прогресс участника.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════ ФИНАЛ (в): ЧЕК-ЛИСТ САМОПРОВЕРКИ ═══════ -->
+      <div class="lockwrap" id="selfcheckWrap">
+        <section class="sec locked" id="selfcheck">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">8 · Финал · Самопроверка</p>
+          <h2>Чек-лист: неделя ГИПа пройдена</h2>
+          <ul class="selfcheck" id="scList">
+            <li><label><input type="checkbox"> По 4 замечаниям ГГЭ я расставил приоритет по влиянию на безопасность и срок экспертизы, а не переписал таблицу по порядку</label></li>
+            <li><label><input type="checkbox"> В письме разделу АР я запросил расчёт инсоляции по норме из замечания, а не придумал цифру инсоляции сам</label></li>
+            <li><label><input type="checkbox"> В ответе на замечание № 4 указан класс бетона B25 со ссылкой на источник (КЖ-01/расчёт) и номер листа изменений — класс не выбран «на глаз» и не усреднён между B25 и B20</label></li>
+            <li><label><input type="checkbox"> В протоколе совещания предложение ПБ по огнестойкости ЛЛУ записано как «требует подтверждения расчётом», а не как готовое решение</label></li>
+            <li><label><input type="checkbox"> По комплектности РД я не написал «отсутствует в проекте» там, где документ просто не приложен к пакету — отсутствующую ведомость по ЛЛУ пометил «требует проверки»</label></li>
+            <li><label><input type="checkbox"> Один эпизод я повторил в живом чате на своём материале и сверил результат с документом; помню красную линию — техническое решение принимает и подписывает ГИП, ИИ готовит черновики и проверки</label></li>
+          </ul>
+          <div class="scbar"><i id="scBar"></i></div>
+          <div class="scmsg" id="scMsg">0 из 6 — пройдитесь по списку</div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает <b>«Паспорт навыков»</b>: прохождение мини-финала засчитывается в общий прогресс участника, а самопроверка становится финальной отметкой пилотного среза ГИПа.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════ ФИНАЛ (г): CURATOR / отправка ═══════ -->
+      <div class="lockwrap" id="practiceWrap">
+        <section class="sec locked" id="practice">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">9 · Сдача куратору</p>
+          <h2>Отправьте результат мини-финала</h2>
+          <p class="muted">Вставьте результат эпизода, который вы выполнили на своём материале, и e-mail для ответа куратора. Напоминаем про обезличивание: без реальных реквизитов, номеров экспертных заключений и персональных данных.</p>
+          <div class="review">
+            <label>Что получилось — вставьте результат от ИИ</label>
+            <textarea id="sRes" rows="4" placeholder="Результат вашего эпизода"></textarea>
+            <label>Ваш e-mail для ответа куратора</label>
+            <input id="sEmail" type="email" placeholder="you@example.ru">
+            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
+              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
+          </div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору — <b>проверка №4</b> (см. паспорта шагов) — итоговая проверка ролевого мини-финала. В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
+          </div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «сквозной пакет ГИПа за неделю».</b> Что забрать: пять промптов работают в связке; у любого технического ответа должен быть источник, версия документа и основание технического решения — иначе это гадание, а не ответ экспертизе. Красная линия: техническое решение принимает и подписывает ГИП; ИИ готовит черновики и проверки, не решения.</div>
+        </section>
+      </div>
+
+      <!-- MATERIALS -->
+      <section class="sec" id="materials">
+        <p class="stp">Материалы урока</p>
+        <h2>Материалы мини-финала</h2>
+        <p class="muted">Всё содержимое этого шага — тексты, документы кейса и HTML-интерактив — собрано в один архив.</p>
+        <div class="materials">
+          <ul class="mlist">
+            <li><span class="mico">📝</span><span>Конспект мини-финала и драматургия недели (текст)</span></li>
+            <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: замечания ГГЭ + образец ответа (18), фрагмент РД и спецификация КЖ (02), нормативная подложка (10), письмо техзаказчика (09)</span></li>
+            <li><span class="mico">📐</span><span>Чертёж КЖ-05 — план типового этажа секции 2 (jpg)</span></li>
+            <li><span class="mico">🧰</span><span>Промпт-пак ГИП (промпты A1, A2, A3, B2, D2)</span></li>
+            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+          </ul>
+          <div class="dl">
+            <a class="btn dark" href="materials/shag-final-gip.zip">⬇ Скачать архив материалов</a>
+          </div>
+          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага; сам интерактив публикуется на GitHub Pages и подключается через iframe.</p>
+        </div>
+      </section>
+
+      <!-- COURSE NAV -->
+      <div class="coursenav">
+        <a href="index.html"><span>←</span><span><small>Пилот ГИП</small>Ко всем шагам</span></a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="asst" id="asstWidget">
+        <div class="hd"><div class="ico">🤖</div><div><b>Ваш ИИ-ассистент</b><br><span id="asstLvlLabel"></span></div></div>
+        <div class="lvltrack" id="asstTrack"></div>
+        <ul class="caps" id="asstCaps"></ul>
+        <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Уровень задаётся константой ASSISTANT_LEVEL в JS. На платформе виджет принимает прогресс участника извне (проброс прогресса, П-6), не хардкодится в HTML урока.
+        </div>
+      </div>
+      <script>
+      (function(){
+        var ASSISTANT_LEVEL = 3;
+        var ASSISTANT_LEVELS = [
+          {icon:'💬', name:'Голый чат',            desc:'отвечает «из головы», без вашего контекста'},
+          {icon:'🎭', name:'Роль и контекст',       desc:'знает, кто вы и на каком объекте работаете'},
+          {icon:'📚', name:'Библиотека промптов',   desc:'типовые задачи ГИПа по готовым шаблонам'},
+          {icon:'📄', name:'Документы и знания',    desc:'работает с замечаниями экспертизы, спецификациями РД и протоколами совещаний смежников'},
+          {icon:'🧰', name:'Рабочий набор',         desc:'инструменты и агентные сценарии под роль'}
+        ];
+        var ASSISTANT_UNLOCK_NOTE = 'Мини-финал закрепил уровень 3: сквозной пакет ГИПа за неделю на своих документах. Дальше — уровень 4: инструменты и агент.';
+        var L=Math.max(0,Math.min(4,ASSISTANT_LEVEL));
+        document.getElementById('asstLvlLabel').textContent='Уровень '+L+' · '+ASSISTANT_LEVELS[L].name;
+        var track=document.getElementById('asstTrack');
+        for(var i=0;i<ASSISTANT_LEVELS.length;i++){var seg=document.createElement('i');if(i<L)seg.className='on';else if(i===L)seg.className='cur';track.appendChild(seg);}
+        var caps=document.getElementById('asstCaps');
+        ASSISTANT_LEVELS.forEach(function(lv,i){
+          var li=document.createElement('li');
+          if(i<L){li.innerHTML='<span class="s">✅</span><span>'+lv.name+'</span>';}
+          else if(i===L){li.className='cur';li.innerHTML='<span class="s">✅</span><span><b>'+lv.name+'</b><span class="newb">этот урок</span><small>'+lv.desc+'</small></span>';}
+          else{li.className='lock';li.innerHTML='<span class="s">🔒</span><span>'+lv.name+'<small>'+lv.desc+'</small></span>';}
+          caps.appendChild(li);
+        });
+        var noteEl=document.getElementById('asstNote');
+        if(ASSISTANT_UNLOCK_NOTE){noteEl.innerHTML='🔜 '+ASSISTANT_UNLOCK_NOTE;}else{noteEl.style.display='none';}
+      })();
+      </script>
+    </aside>
+  </div>
+</div>
+
+<script>
+/* ── INTRO SCREENS ── */
+(function(){
+  var scr=document.querySelectorAll('#intro .screen');if(!scr.length)return;
+  var prog=document.getElementById('scrProgress'),prev=document.getElementById('scrPrev'),next=document.getElementById('scrNext'),cur=0;
+  for(var i=0;i<scr.length;i++){var d=document.createElement('div');d.className='dot';prog.appendChild(d);}
+  function paint(){
+    scr.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+    [].forEach.call(prog.children,function(d,i){d.classList.toggle('on',i<=cur);});
+    prev.disabled=(cur===0);
+    next.textContent=(cur===scr.length-1)?'✓ Понятно':'Дальше →';
+  }
+  prev.addEventListener('click',function(){if(cur>0){cur--;paint();}});
+  next.addEventListener('click',function(){if(cur<scr.length-1){cur++;paint();}else{next.disabled=true;}});
+  paint();
+})();
+
+/* ── CHOICE (выбор варианта с фидбеком) ── */
+(function(){
+  document.querySelectorAll('[data-choice]').forEach(function(group){
+    var fb=group.parentNode.querySelector('[data-choice-fb]');
+    group.querySelectorAll('.opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var ok=btn.hasAttribute('data-correct');
+        group.querySelectorAll('.opt').forEach(function(b){
+          b.disabled=true;
+          if(b.hasAttribute('data-correct'))b.classList.add('ok');
+        });
+        if(!ok)btn.classList.add('err');
+        if(fb)fb.innerHTML='<div class="note '+(ok?'green':'red')+'">'+(ok?'✅ <b>Верно.</b> ':'❌ <b>Не то.</b> ')+(btn.dataset.fb||'')+'</div>';
+      });
+    });
+  });
+})();
+
+/* ── QUIZ ── */
+(function(){
+  document.querySelectorAll('[data-quiz]').forEach(function(q){
+    var fb=q.querySelector('.qfb');
+    q.querySelectorAll('.opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var ok=btn.hasAttribute('data-correct');
+        q.querySelectorAll('.opt').forEach(function(b){
+          b.disabled=true;
+          if(b.hasAttribute('data-correct'))b.classList.add('ok');
+        });
+        if(!ok)btn.classList.add('err');
+        if(fb)fb.innerHTML='<div class="note '+(ok?'green':'red')+'">'+(ok?'✅ <b>Верно.</b> ':'❌ <b>Не совсем.</b> ')+(btn.dataset.fb||'')+'</div>';
+      });
+    });
+  });
+})();
+
+/* ── KIT COPY (Мой ИИ-набор) ── */
+(function(){
+  var msg=document.getElementById('kitMsg');
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.getAttribute('data-copy'));if(!el)return;
+      navigator.clipboard.writeText(el.textContent).then(function(){
+        if(msg){msg.textContent='Промпт скопирован ✓';setTimeout(function(){msg.textContent='';},2500);}
+      }).catch(function(){if(msg)msg.textContent='Выделите и скопируйте вручную';});
+    });
+  });
+})();
+
+/* ── LIVE-CHAT GATE ── */
+(function(){
+  var result=document.getElementById('lcResult'),confirm=document.getElementById('lcConfirm');
+  if(!result||!confirm)return;
+  var status=document.getElementById('lcStatus');
+  var lockTargets=[document.getElementById('kit'),document.getElementById('selfcheck'),document.getElementById('practice')];
+  var lockWraps=[document.getElementById('kitWrap'),document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
+  function upd(){
+    var ready=result.value.trim().length>0 && confirm.checked;
+    lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
+    lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
+    if(status){
+      status.textContent=ready?'✅ Итог пилота открыт — забирайте свой ИИ-набор ниже.':'Итог пилота откроется после того, как вы вставите результат и отметите чекбокс.';
+      status.classList.toggle('ready',ready);
+    }
+  }
+  result.addEventListener('input',upd);
+  confirm.addEventListener('change',upd);
+  upd();
+})();
+
+/* ── SELFCHECK ── */
+(function(){
+  var list=document.getElementById('scList');if(!list)return;
+  var boxes=list.querySelectorAll('input[type=checkbox]'),bar=document.getElementById('scBar'),msg=document.getElementById('scMsg');
+  function upd(){
+    var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+    bar.style.width=(100*n/boxes.length)+'%';
+    msg.textContent=(n===boxes.length)?'✅ Все '+n+' пунктов — мини-финал пройден':(n+' из '+boxes.length+' — пройдитесь по списку');
+    msg.style.color=(n===boxes.length)?'var(--green)':'var(--muted)';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',upd);});
+  upd();
+})();
+
+/* ── CURATOR (демо: скачивание .txt) ── */
+(function(){
+  var btn=document.getElementById('sendRev');if(!btn)return;
+  btn.addEventListener('click',function(){
+    var res=document.getElementById('sRes').value.trim(),
+        email=document.getElementById('sEmail').value.trim(),
+        m=document.getElementById('revMsg');
+    if(!res){m.textContent='Вставьте результат';return;}
+    var raw='Мини-финал ГИПа (неделя ГИПа с ИИ) — задание на проверку · проверка №4\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
+    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='zadanie-mini-final-gip.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    m.textContent='Файл скачан ✓';
+  });
+})();
+</script>
+</body>
+</html>

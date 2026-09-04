@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Шаг 13. Библиотека промптов — главный артефакт курса — Высшая инженерная школа</title>
+<style>
+  /* ── Дизайн-токены Актион (единые для всех уроков) ── */
+  :root{--bg:#ffffff;--card:#faf8f5;--card2:#f3efe9;--ink:#1a1814;--muted:#6f7280;--line:#e9e4dc;--brand:#e2231a;--blue:#237cf9;--green:#1f9d57;--yellow:#f5b500;--purple:#9b5de5;--r:16px;--rs:10px;--font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif}
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{overflow-x:hidden;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg,video,iframe,pre,table{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}.navlink a{font-size:13.5px;font-weight:600}
+  .author{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:18px 0 4px;flex-wrap:wrap}
+  .author .ava{width:58px;height:58px;border-radius:12px;flex:0 0 auto;background:#fff;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:10px;text-align:center;overflow:hidden}
+  .author .ava img{width:100%;height:100%;object-fit:cover}
+  .author .who b{font-size:15.5px}.author .who .role{font-size:13px;color:var(--muted)}
+  .author .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:18px 0 6px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.12;margin:4px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:15.5px;max-width:760px}
+  .lvl{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;margin-top:8px}
+  .lvl .dotx{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .meta .pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;margin-top:18px}
+  .sec{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:18px}
+  .stp{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}
+  h2{font-size:21px;margin:2px 0 12px;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:16px;margin:18px 0 8px;font-weight:800}
+  p{margin:0 0 12px}.muted{color:var(--muted)}
+  .why{background:var(--card);border-left:4px solid var(--blue);border-radius:12px;padding:13px 15px;font-size:14.5px;margin:14px 0}
+  .note{font-size:13.5px;color:#7a5b16;background:#fdf6e3;border:1px solid #f3e3b3;border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note.green{color:#157a41;background:#eef8f1;border-color:#cdebd8}.note.red{color:#a3201a;background:#fdf0ef;border-color:#f3c7c3}
+  .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:var(--rs);padding:11px 17px;font-size:14px;background:var(--blue);color:#fff;transition:.15s}
+  .btn:hover{filter:brightness(.95)}.btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.dark{background:var(--ink)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+  .btn.sm{padding:8px 13px;font-size:13px}
+  .checks{list-style:none;padding:0;margin:8px 0 0}
+  .checks li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .checks li:last-child{border-bottom:none}.checks li:before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .checks.bad li:before{content:"✕";color:var(--brand)}
+  .checks.num{counter-reset:c}.checks.num li:before{counter-increment:c;content:counter(c);background:var(--ink);color:#fff;width:18px;height:18px;border-radius:50%;font-size:11px;display:grid;place-items:center;top:8px}
+  .toc{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.toc li{padding:5px 0}.toc a{color:var(--ink)}
+  /* ── Раскрывающиеся блоки документов / промптов ── */
+  details.doc{border:1px solid var(--line);border-radius:12px;margin:12px 0;background:var(--card);overflow:hidden}
+  details.doc summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:10px}
+  details.doc summary::-webkit-details-marker{display:none}
+  details.doc summary:before{content:"▸";color:var(--blue);font-size:13px;transition:.15s;flex:0 0 auto}
+  details.doc[open] summary:before{content:"▾"}
+  details.doc summary .dtag{margin-left:auto;font-size:11px;font-weight:800;color:var(--muted);background:var(--card2);border-radius:999px;padding:3px 10px;white-space:nowrap}
+  details.doc .docbody{padding:0 16px 16px;font-size:13.5px;background:#fff;border-top:1px solid var(--line)}
+  details.doc .docbody pre{white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;font-size:12.5px;color:#3a3631;margin:12px 0 0;line-height:1.55}
+  .promptbadge{display:inline-block;font-size:11px;font-weight:800;color:var(--purple);background:#faf6ff;border:1px solid #e6d5fa;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+  .tw{overflow-x:auto;margin-top:6px}
+  table.cmp{border-collapse:collapse;width:100%;font-size:12.5px;min-width:520px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  table.cmp th{background:var(--card);font-weight:800;font-size:11.5px;text-transform:uppercase;color:var(--muted)}
+  td.bad{background:#fde4e2;color:#8f1410;font-weight:700}td.good{background:#eef8f1}
+  td.grp{font-weight:800;white-space:nowrap}
+  /* ── Демо-диалог (чат) ── */
+  .chat{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:8px}
+  .chat .ch{display:flex;align-items:center;gap:9px;background:var(--card);border-bottom:1px solid var(--line);padding:9px 13px;font-size:13px;font-weight:700}
+  .chat .ch .gi{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#1f9d57,#2bb56a);color:#fff;display:grid;place-items:center;font-size:12px}
+  .chat .body{padding:13px;background:#fff}
+  .sys{font-size:11.5px;color:var(--muted);background:var(--card2);border-radius:7px;padding:5px 9px;margin-bottom:9px;display:inline-block}
+  .bub{font-size:13.5px;border-radius:11px;padding:9px 12px;margin:7px 0;max-width:94%;white-space:pre-wrap}
+  .bub.u{background:var(--blue);color:#fff;margin-left:auto}.bub.a{background:var(--card);border:1px solid var(--line)}
+  .chat .ctrls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:11px 13px;border-top:1px solid var(--line);background:var(--card)}
+  /* ── Карточки групп промпт-пака ── */
+  .rolegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px}
+  .rolecard{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--card)}
+  .rolecard .rh{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13.5px;margin-bottom:6px}
+  .rolecard .ric{width:26px;height:26px;border-radius:7px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;flex:0 0 auto}
+  .rolecard p{font-size:13px;color:var(--muted);margin:0}
+  /* ── Lite-evals: сравнение двух версий промпта ── */
+  .cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:14px}
+  .pcard{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card)}
+  .pcard.badp{border-color:#f3c7c3}.pcard.goodp{border-color:#cdebd8}
+  .pcard .ph{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;margin-bottom:10px}
+  .pcard.badp .ph{color:var(--brand)}.pcard.goodp .ph{color:#157a41}
+  .copy{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px;white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;color:#3a3631;word-break:break-word}
+  .pcard .copy{background:#fff}
+  .evalrow{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .evalrow:last-child{border-bottom:none}
+  .evalrow .elabel{flex:0 0 150px;font-weight:700;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.02em}
+  .evalrow select{flex:1;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 10px;font-size:13.5px;font-family:inherit}
+  .evalrow select:focus{outline:none;border-color:var(--blue)}
+  .evalverdict{margin-top:14px;font-size:13.5px}
+  /* ── Материалы / живой чат / гейт (из шаблона v2) ── */
+  .materials{display:flex;flex-direction:column;gap:12px}
+  .materials .mlist{list-style:none;padding:0;margin:0}
+  .materials .mlist li{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .materials .mlist li:last-child{border-bottom:none}
+  .materials .mlist .mico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:13px}
+  .materials .mcap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .livechat{display:flex;flex-direction:column;gap:12px}
+  .livechat .lcbtns{display:flex;gap:10px;flex-wrap:wrap}
+  .livechat .lcbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:var(--rs);padding:11px 16px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .livechat .lcbtn:hover{border-color:var(--ink)}
+  .livechat .lcbtn .dotc{width:9px;height:9px;border-radius:50%}
+  .livechat .lcinstruction{font-size:14px}
+  .livechat .lcgate{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin-top:2px}
+  .livechat .lcgate input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--green)}
+  .lcstatus{font-size:13px;font-weight:700;color:var(--muted)}
+  .lcstatus.ready{color:var(--green)}
+  .review label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  .review textarea,.review input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+  .review textarea:focus,.review input:focus{outline:none;border-color:var(--blue)}
+  .selfcheck{list-style:none;padding:0;margin:8px 0 0}
+  .selfcheck li{border-bottom:1px solid var(--line)}
+  .selfcheck li:last-child{border-bottom:none}
+  .selfcheck label{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;cursor:pointer;margin:0}
+  .selfcheck input{width:18px;height:18px;flex:0 0 auto;margin:3px 0 0;accent-color:var(--green)}
+  .scbar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden;margin-top:14px}
+  .scbar i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;transition:.35s}
+  .scmsg{font-size:13px;font-weight:700;margin-top:7px;color:var(--muted)}
+  .dl{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .dl button,.prevbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+  .dl button:hover,.prevbtn:hover{border-color:var(--ink)}
+  .coursenav{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .coursenav a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:var(--rs);padding:11px 17px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .coursenav a:hover{border-color:var(--ink)}
+  .coursenav a.next{background:var(--ink);border-color:var(--ink);color:#fff}
+  .coursenav a small{display:block;font-weight:600;font-size:11px;color:var(--muted)}
+  .coursenav a.next small{color:rgba(255,255,255,.65)}
+  .asst{position:sticky;top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .asst .hd{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .asst .ico{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .asst .hd b{font-size:14.5px}.asst .hd span{font-size:11px;color:var(--green);font-weight:700}
+  .lvltrack{display:flex;gap:5px;margin:12px 0 2px}
+  .lvltrack i{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .lvltrack i.on{background:var(--green)}.lvltrack i.cur{background:var(--blue)}
+  .caps{list-style:none;margin:12px 0 0;padding:0}
+  .caps li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .caps li:last-child{border-bottom:none}.caps li.lock{color:var(--muted)}
+  .caps li .s{flex:0 0 auto;width:18px}
+  .caps li small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+  .caps li.cur b{color:var(--ink)}
+  .newb{font-size:9px;font-weight:800;color:#fff;background:var(--green);border-radius:4px;padding:1px 5px;margin-left:5px;white-space:nowrap}
+  .lockwrap{position:relative}
+  .locked{position:relative;opacity:.4;pointer-events:none;user-select:none;filter:grayscale(.3);transition:opacity .2s,filter .2s}
+  .locked .lockbadge{display:none}
+  .lockwrap .lockbadge{display:none;position:absolute;top:14px;right:14px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 12px;align-items:center;gap:6px;z-index:2}
+  .lockwrap.is-locked .lockbadge{display:inline-flex}
+  .transfer-note{border:1.5px dashed var(--purple);background:#faf6ff;border-radius:12px;padding:12px 14px;font-size:13px;color:#5b3a94;margin-top:12px}
+  .transfer-note .tnlabel{display:flex;align-items:center;gap:7px;font-weight:800;font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--purple);margin-bottom:5px}
+  .transfer-note.compact{margin-top:8px;padding:10px 12px}
+  /* ── Карта 14 промптов: бейджи групп ── */
+  .gbadge{display:inline-block;font-size:10.5px;font-weight:800;border-radius:6px;padding:2px 7px;white-space:nowrap}
+  .gbadge.A{background:#fdecea;color:#a3201a}
+  .gbadge.B{background:#e9f1fe;color:#1a5fc9}
+  .gbadge.C{background:#eaf7ee;color:#157a41}
+  .gbadge.D{background:#fdf6e3;color:#7a5b16}
+  .gbadge.E{background:#f3ecfc;color:#6b3fa0}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}.asst{position:static}}
+  @media(max-width:420px){h1{font-size:25px}.sec{padding:18px 16px}.evalrow{flex-direction:column;align-items:stretch}.evalrow .elabel{flex:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span><span class="navlink"><a href="index.html">← Все шаги</a></span>
+  </div>
+
+  <div class="author">
+    <div class="ava"><span>ФОТО</span></div>
+    <div class="who"><b>Евгений Эрман, к.т.н.</b>
+      <div class="role">руководитель Лаборатории ИИ-решений девелоперской компании «РАЗУМ»</div></div>
+    <span class="tag">Автор урока</span>
+  </div>
+
+  <div class="kicker">Курс «30 шагов: рабочий ИИ-инструмент для строителя» · Неделя 2 · Шаг 13 · Роль: инженер ПТО <span class="rule" style="background:var(--yellow)"></span></div>
+  <h1>Шаг 13. Библиотека промптов — главный артефакт курса</h1>
+  <p class="lead">Хватит писать один и тот же промпт заново каждый раз. Сегодня вы получаете <b>готовую библиотеку из 14 промптов</b> — и с этого момента ваш ассистент помнит роль, формат и защиту от выдумок без напоминаний. Это и есть главный артефакт всего курса.</p>
+  <div class="meta">
+    <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 2 · библиотека промптов</span>
+    <span class="pill">🎓 Уверенный</span>
+  </div>
+  <div class="transfer-note compact">
+    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+    Платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли» из требований к разработке) — строка «Роль: …» выше должна обновляться без правки HTML урока.
+  </div>
+
+  <div class="grid">
+    <div>
+
+      <!-- ═══ TOC ═══ -->
+      <section class="sec">
+        <p class="stp">Что внутри урока</p>
+        <ul class="toc">
+          <li>1 · <a href="#theory">Зачем собирать библиотеку</a></li>
+          <li>2 · <a href="#pack">Промпт-пак ПТО: карта 14 промптов</a></li>
+          <li>3 · <a href="#anatomy">Анатомия шаблона промпта</a></li>
+          <li>4 · <a href="#assistant">Кастомный ассистент: «ИИ-сотрудник»</a></li>
+          <li>5 · <a href="#evals">Промпт стал лучше? Мини-evals</a></li>
+          <li>6 · <a href="#keep">Как вести свою библиотеку</a></li>
+          <li>7 · <a href="#materials">Материалы урока</a></li>
+          <li>8 · <a href="#livechat">Сделай в живом чате</a></li>
+          <li>9 · <a href="#practice">Практика и проверка</a></li>
+        </ul>
+        <div class="note">📄 К уроку приложен весь промпт-пак ПТО (14 промптов, 5 групп) и образец системного промпта «инженер ПТО на жилом монолите».</div>
+      </section>
+
+      <!-- ═══ 1 · THEORY / MOTIVATION ═══ -->
+      <section class="sec" id="theory">
+        <p class="stp">1 · Зачем это нужно</p>
+        <h2>Перестаньте писать промпты заново</h2>
+        <p>За последние шаги вы уже написали промпты на ответ стройконтролю (A1), письмо поставщику (A2), суммаризацию договора (B1) — и каждый раз заново вспоминали: роль, формат, грунтовку против выдумок. Так теряются минуты, а иногда и качество результата — если забыть важную деталь.</p>
+        <p><b>Решение простое: один раз собрать рабочие промпты в библиотеку — и пользоваться ими годами</b>, просто подставляя новые данные вместо <code>[...]</code>. Не переизобретать формулировку каждый вторник, а взять готовый шаблон и заполнить его за минуту.</p>
+        <div class="why">💡 <b>Зачем это вам:</b> библиотека промптов — это не разовая шпаргалка, а рабочий инструмент инженера ПТО, который остаётся с вами и после курса — на этом и следующих объектах.</div>
+        <h3>Что вы получаете на этом шаге</h3>
+        <ul class="checks num">
+          <li>Готовый <b>промпт-пак ПТО</b>: 14 промптов на все типовые задачи роли — от переписки до отчётности.</li>
+          <li><b>Ассистент поднимается до уровня 2</b> — «Библиотека промптов»: типовые задачи решаются по шаблону, а не с чистого листа.</li>
+          <li>Понимание, чем шаблон промпта отличается от разового запроса — и как собирать свои шаблоны дальше.</li>
+        </ul>
+        <div class="note green">✅ <b>Главный артефакт курса.</b> Из всего, что вы унесёте с 30 шагов, библиотека промптов — то, чем вы будете пользоваться каждый рабочий день.</div>
+      </section>
+
+      <!-- ═══ 2 · PROMPT PACK OVERVIEW ═══ -->
+      <section class="sec" id="pack">
+        <p class="stp">2 · Обзор готовой библиотеки</p>
+        <h2>Промпт-пак ПТО: 14 промптов, 5 групп</h2>
+        <p class="muted">Это образец одного из шести ролевых паков курса (для стройконтроля, ГИП/проектировщика, сметчика, прораба, инженера ОТ — по той же структуре). Все промпты собраны на кейсе ЖК «Уютный дом на Матвеева» и готовы к копированию в GigaChat / YandexGPT / любой чат-бот.</p>
+
+        <div class="rolegrid">
+          <div class="rolecard">
+            <div class="rh"><span class="ric" style="color:#a3201a">A</span> Коммуникации и переписка</div>
+            <p>Ответы стройконтролю, письма поставщикам, ответы техзаказчику — 3 промпта.</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric" style="color:#1a5fc9">B</span> Работа с документами</div>
+            <p>Реферирование договора, сверка спецификации, суммаризация нормативов — 3 промпта.</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric" style="color:#157a41">C</span> Данные и объёмы</div>
+            <p>Извлечение объёмов в таблицу, сверка КС-2 с ВОР, сводка за период — 3 промпта.</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric" style="color:#7a5b16">D</span> Контроль и качество</div>
+            <p>Сверка АОСР со спецификацией, пункты фотоотчёта — 2 промпта.</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric" style="color:#6b3fa0">E</span> Рутина и отчётность</div>
+            <p>Протокол планёрки, недельный отчёт из ОЖР, реестр исполнительной документации — 3 промпта.</p>
+          </div>
+        </div>
+
+        <h3>Пак вашей роли</h3>
+        <p class="muted">Ваша роль — не ПТО? Свой ролевой пак вы найдёте в архиве материалов этого урока: он устроен по тому же принципу, что и пак ПТО ниже.</p>
+        <div class="rolegrid">
+          <div class="rolecard">
+            <div class="rh"><span class="ric">🏢</span> ПТО</div>
+            <p>Эталон пака — разобран ниже: ответы на предписания, работа с РД и актами, объёмы и контроль качества, планёрки и ОЖР. 14 промптов, группы A–E.</p>
+            <p class="muted" style="font-size:11.5px;margin-top:6px">📎 пак — в архиве материалов урока</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">🔍</span> Стройконтроль</div>
+            <p>Предписания по итогам осмотра (голос → документ), работа с чертежами и актами освидетельствования, контроль объёмов, сверка нормативных ссылок с первоисточником.</p>
+            <p class="muted" style="font-size:11.5px;margin-top:6px">📎 пак — в архиве материалов урока</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">📐</span> ГИП / проектировщик</div>
+            <p>Ответы на замечания экспертизы (ГГЭ) и письма смежным разделам, пояснительные записки, проверка объёмов армирования и нормативных ссылок — решение и подпись всегда за ГИП.</p>
+            <p class="muted" style="font-size:11.5px;margin-top:6px">📎 пак — в архиве материалов урока</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">💰</span> Сметчик</div>
+            <p>Сравнение КП и обоснование выбора подрядчика, работа со сметной документацией (ВОР, ЛСР, КС-2/3), проверка сходимости цифр — итоговый расчёт только в профильном ПО.</p>
+            <p class="muted" style="font-size:11.5px;margin-top:6px">📎 пак — в архиве материалов урока</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">👷</span> Прораб / нач. участка</div>
+            <p>Заявки на ресурсы и сообщения бригаде по итогам планёрки, ОЖР голосом → документ, контроль объёмов и графика, недельные отчёты руководителю.</p>
+            <p class="muted" style="font-size:11.5px;margin-top:6px">📎 пак — в архиве материалов урока</p>
+          </div>
+          <div class="rolecard">
+            <div class="rh"><span class="ric">🦺</span> Инженер ОТ</div>
+            <p>Уведомления о статусе допуска к работам, программы инструктажей и наряды-допуски на работы повышенной опасности, проверка предписаний по охране труда.</p>
+            <p class="muted" style="font-size:11.5px;margin-top:6px">📎 пак — в архиве материалов урока</p>
+          </div>
+        </div>
+        <p>Дальше в уроке разобран пак ПТО как образец — ваш пак устроен так же (группы A–E).</p>
+
+        <h3>Карта всех 14 промптов</h3>
+        <div class="tw">
+          <table class="cmp">
+            <tr><th>Код</th><th>Группа</th><th>Промпт</th><th>Документ-источник</th><th>Риск</th></tr>
+            <tr><td class="grp"><span class="gbadge A">A1</span></td><td>Коммуникации</td><td>Ответ на предписание стройконтроля</td><td>файл 05</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge A">A2</span></td><td>Коммуникации</td><td>Письмо поставщику о недостающем документе качества</td><td>файл 16</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge A">A3</span></td><td>Коммуникации</td><td>Ответ техзаказчику на несколько замечаний</td><td>файл 09</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge B">B1</span></td><td>Документы</td><td>Реферирование договора подряда</td><td>файл 14</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge B">B2</span></td><td>Документы</td><td>Проверка комплектности РД по спецификации</td><td>файл 02</td><td class="bad">⚠️ выдумка</td></tr>
+            <tr><td class="grp"><span class="gbadge B">B3</span></td><td>Документы</td><td>Суммаризация длинного норматива/письма</td><td>—</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge C">C1</span></td><td>Данные</td><td>Извлечение объёмов из акта/ВОР в таблицу</td><td>файлы 04, 12</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge C">C2</span></td><td>Данные</td><td>Сверка КС-2 с ВОР и актом (поиск расхождений)</td><td>файлы 15, 12, 04</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge C">C3</span></td><td>Данные</td><td>Сводка объёмов за период</td><td>файл 01</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge D">D1</span></td><td>Контроль</td><td>Сверка АОСР со спецификацией и предписанием</td><td>файлы 04, 02, 05</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge D">D2</span></td><td>Контроль</td><td>Формулировка пунктов фотоотчёта</td><td>файл 08</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge E">E1</span></td><td>Рутина</td><td>Протокол планёрки из транскрипта</td><td>файл 06</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge E">E2</span></td><td>Рутина</td><td>Недельный отчёт из записей ОЖР</td><td>файл 07</td><td>—</td></tr>
+            <tr><td class="grp"><span class="gbadge E">E3</span></td><td>Рутина</td><td>Реестр исполнительной документации за месяц</td><td>акты/журналы</td><td class="bad">⚠️ выдумка</td></tr>
+          </table>
+        </div>
+        <p class="mcap" style="margin-top:8px">Промпты с пометкой «⚠️ выдумка» требуют обязательного приложения перечня-эталона — иначе модель «дорисует» недостающее.</p>
+
+        <h3>Три промпта целиком — для примера</h3>
+        <details class="doc">
+          <summary>✉️ A1 — Ответ на предписание стройконтроля <span class="dtag">знакомо по Шагу 10</span></summary>
+          <div class="docbody">
+            <span class="promptbadge" style="margin-top:12px;display:inline-block">A1 · Группа A · Коммуникации</span>
+<pre>Ты — инженер ПТО генподрядчика на жилом доме. Контекст: получено предписание
+стройконтроля № 57 (приложу текст) с тремя нарушениями по армированию и
+входному контролю. Задача: составь официальный ответ с планом устранения по
+каждому пункту, ответственными и сроками (не позднее сроков предписания).
+Формат: деловое письмо, по пунктам 1–3, нейтральный тон.
+Текст предписания: [вставьте]</pre>
+          </div>
+        </details>
+        <details class="doc">
+          <summary>📋 B2 — Проверка комплектности РД по спецификации <span class="dtag">⚠️ риск выдумки</span></summary>
+          <div class="docbody">
+            <span class="promptbadge" style="margin-top:12px;display:inline-block">B2 · Группа B · Документы</span>
+<pre>Ты — инженер ПТО. Контекст: приложены спецификация раздела КЖ и перечень
+обязательных позиций. Задача: сверь спецификацию ТОЛЬКО с этим перечнем; что
+есть, чего нет, что под вопросом. Если позиции нет в перечне — не считай её
+отсутствующей и не добавляй от себя. Формат: таблица «позиция перечня → есть
+/ нет / требует проверки → комментарий».
+Перечень обязательных позиций: [вставьте свой чек-лист]
+Спецификация: [вставьте]</pre>
+            <p class="mcap" style="margin-top:10px">Без заданного перечня модель «дорисует» отсутствующее по общим знаниям — это и есть риск выдумки на пустом месте.</p>
+          </div>
+        </details>
+        <details class="doc">
+          <summary>🗓️ E1 — Протокол планёрки из транскрипта <span class="dtag">группа E · рутина</span></summary>
+          <div class="docbody">
+            <span class="promptbadge" style="margin-top:12px;display:inline-block">E1 · Группа E · Рутина и отчётность</span>
+<pre>Ты — инженер ПТО. Задача: из приложенной расшифровки планёрки сделай
+протокол: решения и поручения. Формат: таблица «поручение → ответственный →
+срок». Ничего не придумывай — только из текста.
+Транскрипт: [вставьте]</pre>
+          </div>
+        </details>
+      </section>
+
+      <!-- ═══ 3 · ANATOMY ═══ -->
+      <section class="sec" id="anatomy">
+        <p class="stp">3 · Анатомия шаблона</p>
+        <h2>Чем шаблон отличается от разового запроса</h2>
+        <p>Разовый запрос вы пишете один раз и забываете. Шаблон промпта — это заготовка, которую вы используете десятки раз, просто заменяя данные. Разница в трёх деталях:</p>
+        <ul class="checks num">
+          <li><b>Место для подстановки <code>[...]</code>.</b> В шаблоне заранее размечено, куда вставлять переменные данные текущей задачи — номер документа, дату, текст письма. Вы не переписываете промпт, а заполняете пропуски.</li>
+          <li><b>Грунтовка против выдумок.</b> Фраза «используй только данные из приложенного документа, не выдумывай, помечай недостающее как <code>[уточнить]</code>» — обязательная часть шаблона там, где риск галлюцинаций высок (например, B2 и E3 из карты выше).</li>
+          <li><b>Отметка 📎 — какой документ приложить.</b> Шаблон явно указывает, какой файл нужен модели для ответа. Без документа-источника ИИ начнёт додумывать факты, которых не видел.</li>
+        </ul>
+        <div class="why">💡 <b>Зачем это вам:</b> три этих детали — ровно то, что отличает промпт, который можно доверить коллеге, от промпта, который сработает только один раз в удачный день.</div>
+      </section>
+
+      <!-- ═══ 4 · CUSTOM ASSISTANT ═══ -->
+      <section class="sec" id="assistant">
+        <p class="stp">4 · Кастомный ассистент</p>
+        <h2>Сохранённый системный промпт = ваш «ИИ-сотрудник»</h2>
+        <p>Есть способ пойти на шаг дальше промпт-пака: задать роль <b>один раз</b> и больше не повторять её в каждом запросе. В GigaChat это «сохранённые промпты» (аналоги — Gems в Google Gemini, Custom GPT в ChatGPT). Вы один раз описываете, кто ассистент и как ему работать — а дальше просто пишете задачи, не напоминая контекст заново.</p>
+        <div class="why">💡 <b>Зачем это вам:</b> вместо «Ты — инженер ПТО...» в начале каждого промпта — вы один раз сохраняете эту роль, и дальше начинаете сразу с задачи. Экономия — не только время, но и меньше риска забыть важную деталь роли (например, грунтовку против выдумок).</div>
+
+        <h3>Пример системного промпта ПТО</h3>
+        <p class="muted">Скопируйте и сохраните как «сохранённый промпт» / «Gem» / «Custom GPT» — и обращайтесь к нему во всех задачах роли.</p>
+        <div class="pcard goodp" style="max-width:none">
+          <div class="ph">✓ Системный промпт «Инженер ПТО на жилом монолите»</div>
+          <div class="copy">Ты — инженер ПТО (производственно-технический отдел) генподрядчика на объекте жилого монолитного строительства. Работаешь с документами: предписания стройконтроля, акты, спецификации, договоры, журналы, отчёты.
+
+Правила, которых придерживайся всегда:
+1. Используй только данные из документов, которые я приложу к запросу. Если данных не хватает — не выдумывай, а перечисли, чего именно недостаёт.
+2. Факты, которых нет в приложенном документе (ФИО, реквизиты, нормы, даты), помечай как [уточнить] — не подставляй их из общих знаний.
+3. Официальные ответы и письма — нейтральный деловой тон, по пунктам, со сроками не позже сроков исходного документа.
+4. Табличные задачи — оформляй результат таблицей с понятными заголовками столбцов.
+5. Итоговые сметные цифры не считай окончательными — только черновик для проверки в профильном ПО.
+6. Ты не заменяешь подпись ответственного лица — любой документ перед отправкой проверяет и подписывает человек.
+
+Отвечай по-русски, кратко и по делу, без лишних вступлений.</div>
+          <ul class="checks" style="margin-top:12px">
+            <li>Роль и правила заданы один раз — не нужно повторять их в каждом промпте.</li>
+            <li>Грунтовка против выдумок «зашита» в системный промпт — работает даже если вы забыли добавить её вручную.</li>
+          </ul>
+        </div>
+        <div class="dl">
+          <button class="prevbtn" id="sysCopyBtn">📋 Скопировать системный промпт</button>
+          <span class="muted" id="sysCopyMsg" style="font-size:12px;align-self:center"></span>
+        </div>
+        <div class="note">💡 После сохранения системного промпта промпты A1–E3 из вашей библиотеки становятся ещё короче: роль уже задана, вставляете только контекст, задачу и документ.</div>
+      </section>
+
+      <!-- ═══ 5 · LITE-EVALS ═══ -->
+      <section class="sec" id="evals">
+        <p class="stp">5 · Мини-тренажёр</p>
+        <h2>Промпт стал лучше? Сравните две версии</h2>
+        <p class="muted">Ниже — две версии промпта на одну и ту же задачу (сводка объёмов за период, промпт C3) и два демо-ответа ИИ по каждой из них. Оцените каждый ответ по 4 критериям, затем выберите, какая версия промпта лучше и почему.</p>
+
+        <div class="cols2">
+          <div class="pcard badp">
+            <div class="ph">✕ Версия 1 (черновая)</div>
+            <div class="copy">Собери сводку объёмов за июнь.</div>
+            <h3 style="margin-top:14px">Демо-ответ ИИ</h3>
+            <div class="chat">
+              <div class="ch"><span class="gi">G</span> GigaChat · веб-чат</div>
+              <div class="body">
+                <div class="bub a">За июнь выполнены основные объёмы по монолитным работам. Бетонирование шло в целом по графику, отдельные захватки — с небольшим отставанием. Армирование выполнено в срок. Рекомендуется усилить контроль на отстающих участках.</div>
+              </div>
+              <div class="ctrls"><span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
+            </div>
+          </div>
+          <div class="pcard goodp">
+            <div class="ph">✓ Версия 2 (шаблон C3)</div>
+            <div class="copy">Ты — инженер ПТО. Контекст: график производства работ с фактической готовностью. Задача: собери сводку выполненных объёмов за июнь и выдели позиции с отставанием от плана. Формат: таблица + короткий вывод «риски и что предпринять».
+График: [вставьте]</div>
+            <h3 style="margin-top:14px">Демо-ответ ИИ</h3>
+            <div class="chat">
+              <div class="ch"><span class="gi">G</span> GigaChat · веб-чат</div>
+              <div class="body">
+                <span class="sys">📎 приложен: график производства работ, секция 2</span>
+                <div class="bub a">Таблица:
+Захватка 2-Б, бетонирование плиты +12,000 — план 25.06, факт 28.06 (задержка 3 дня, причина — устранение замечаний по предписанию № 57)
+Захватка 2-А, армирование — план 20.06, факт 20.06 (в срок)
+Захватка 3-А, бетонирование — план 30.06, факт — не начато (отставание)
+
+Риски и что предпринять: захватка 3-А — риск срыва графика следующей недели, требуется усилить бригаду; захватка 2-Б — задержка закрыта после устранения предписания, риска нет.</div>
+              </div>
+              <div class="ctrls"><span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:20px">Оцените по чек-листу из 4 критериев</h3>
+        <div class="evalrow">
+          <span class="elabel">Полнота</span>
+          <select data-crit="polnota">
+            <option value="">— выберите версию —</option>
+            <option value="v1">Лучше версия 1</option>
+            <option value="v2" data-right>Лучше версия 2</option>
+            <option value="eq">Одинаково</option>
+          </select>
+        </div>
+        <div class="evalrow">
+          <span class="elabel">Точность</span>
+          <select data-crit="tochnost">
+            <option value="">— выберите версию —</option>
+            <option value="v1">Лучше версия 1</option>
+            <option value="v2" data-right>Лучше версия 2</option>
+            <option value="eq">Одинаково</option>
+          </select>
+        </div>
+        <div class="evalrow">
+          <span class="elabel">Формат</span>
+          <select data-crit="format">
+            <option value="">— выберите версию —</option>
+            <option value="v1">Лучше версия 1</option>
+            <option value="v2" data-right>Лучше версия 2</option>
+            <option value="eq">Одинаково</option>
+          </select>
+        </div>
+        <div class="evalrow">
+          <span class="elabel">Отсутствие выдумок</span>
+          <select data-crit="vydumki">
+            <option value="">— выберите версию —</option>
+            <option value="v1">Лучше версия 1</option>
+            <option value="v2" data-right>Лучше версия 2</option>
+            <option value="eq">Одинаково</option>
+          </select>
+        </div>
+        <div class="evalverdict note" id="evalVerdict">Оцените все 4 критерия — появится разбор.</div>
+      </section>
+
+      <!-- ═══ 6 · HOW TO KEEP LIBRARY ═══ -->
+      <section class="sec" id="keep">
+        <p class="stp">6 · Как вести библиотеку</p>
+        <h2>Три простых правила</h2>
+        <ul class="checks num">
+          <li><b>Где хранить.</b> Любое место, куда вы точно вернётесь: заметки на телефоне, отдельный файл (Word/Google Docs), «сохранённые промпты» самого чат-бота. Главное — не в переписке, откуда потом не найти.</li>
+          <li><b>Нейминг.</b> Используйте буквенно-цифровые коды, как в паке: группа + номер (A1, B2, C3…). Так вы за секунду находите нужный промпт в списке из полусотни, а не листаете длинные названия.</li>
+          <li><b>Правило «после удачного диалога — сохрани промпт».</b> Формулировка сработала хорошо? Прогоните её ещё на 2–3 других документах. В библиотеку — с пометкой: версия, дата, на чём проверен, где ошибается.</li>
+        </ul>
+        <div class="note green">✅ Библиотека растёт органически: не нужно садиться и писать 50 промптов заранее — достаточно сохранять по одному после каждой удачной задачи.</div>
+      </section>
+
+      <!-- ═══ MATERIALS ═══ -->
+      <section class="sec" id="materials">
+        <p class="stp">7 · Материалы урока</p>
+        <h2>Материалы урока</h2>
+        <p class="muted">Всё содержимое этого шага — текстовые материалы, весь промпт-пак и HTML-интерактив — собрано в один архив.</p>
+        <div class="materials">
+          <ul class="mlist">
+            <li><span class="mico">📝</span><span>Конспект урока (анатомия шаблона, правила ведения библиотеки, .md)</span></li>
+            <li><span class="mico">🧩</span><span>Промпт-пак ПТО целиком: 14 промптов, группы A–E (документ «Промпт-пак-ПТО»)</span></li>
+            <li><span class="mico">🤖</span><span>Образец системного промпта «Инженер ПТО на жилом монолите»</span></li>
+            <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: 13 (ТЗ), 14 (договор)</span></li>
+            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+          </ul>
+          <div class="dl">
+            <a class="btn dark" href="materials/shag-13.zip">⬇ Скачать архив материалов</a>
+          </div>
+          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага.</p>
+        </div>
+      </section>
+
+      <!-- ═══ LIVE-CHAT ═══ -->
+      <section class="sec" id="livechat">
+        <p class="stp">8 · Сделай в живом чате</p>
+        <h2>Создайте свой первый шаблон</h2>
+        <p class="lcinstruction">Возьмите любой промпт из промпт-пака ПТО (A1–E3) и адаптируйте его под свою реальную задачу: замените контекст, документ-источник, формат — так, чтобы шаблон подходил именно вашей работе. Проверьте получившийся промпт в реальном чат-боте — например, в одном из ниже. Затем вставьте сюда и свой шаблон, и результат.</p>
+        <div class="lcbtns">
+          <a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>
+          <a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>
+        </div>
+        <div class="review">
+          <label>Ваш адаптированный шаблон промпта</label>
+          <textarea id="lcTemplate" rows="4" placeholder="Например, адаптированный C1: «Ты — инженер ПТО. Задача: распознай приложенный акт и выведи объёмы по кладке в таблицу...»"></textarea>
+          <label>Вставьте сюда результат от чат-бота</label>
+          <textarea id="lcResult" rows="5" placeholder="Вставьте сюда ответ, который вернул чат-бот…"></textarea>
+        </div>
+        <div class="lcgate">
+          <input type="checkbox" id="lcConfirm">
+          <label for="lcConfirm">Я получил ответ на свой запрос</label>
+        </div>
+        <p class="lcstatus" id="lcStatus">Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.</p>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Демо-гейт реализован локальным JS (без сохранения данных). На платформе эта блокировка должна опираться на реальное событие взаимодействия участника с чатом (или просто на заполненное поле + чекбокс, как здесь) — ничего никуда не отправляется и в демо-версии.
+        </div>
+      </section>
+
+      <!-- ═══ SELFCHECK ═══ -->
+      <div class="lockwrap" id="selfcheckWrap">
+        <section class="sec locked" id="selfcheck">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">9 · Самопроверка</p>
+          <h2>Перед сдачей отметьте</h2>
+          <ul class="selfcheck" id="scList">
+            <li><label><input type="checkbox"> Мой шаблон содержит место для подстановки <code>[...]</code>, а не жёстко зашитые данные одной задачи.</label></li>
+            <li><label><input type="checkbox"> Если есть риск выдумки — в шаблоне есть грунтовка «используй только данные из документа».</label></li>
+            <li><label><input type="checkbox"> Отмечено, какой документ нужно приложить (📎).</label></li>
+            <li><label><input type="checkbox"> Я сохранил(а) этот шаблон в своей библиотеке промптов, а не только в поле урока.</label></li>
+          </ul>
+          <div class="scbar"><i id="scBar"></i></div>
+          <div class="scmsg" id="scMsg">0 из 4 — пройдитесь по списку</div>
+        </section>
+      </div>
+
+      <!-- ═══ CURATOR / TRANSFER NOTE ═══ -->
+      <div class="lockwrap" id="practiceWrap">
+        <section class="sec locked" id="practice">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">10 · Практика и проверка</p>
+          <h2>Сделайте на своей задаче</h2>
+          <p class="muted">Пришлите куратору свой первый адаптированный шаблон промпта вместе с результатом от чат-бота. Обезличьте данные: без реальных ФИО, реквизитов и коммерческой тайны.</p>
+          <div class="review">
+            <label>Что получилось — вставьте шаблон и результат от ИИ</label>
+            <textarea id="sRes" rows="4" placeholder="Ваш шаблон промпта + результат, который выдал ИИ"></textarea>
+            <label>Ваш e-mail для ответа куратора</label>
+            <input id="sEmail" type="email" placeholder="you@example.ru">
+            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
+              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
+          </div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа может подключить личный кабинет с библиотекой учащегося — чтобы сохранённые на этом шаге шаблоны автоматически копились в персональном разделе и были доступны на всех следующих шагах курса, а не терялись в переписке с куратором.
+          </div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент поднялся до уровня 2 — «Библиотека промптов».</b> Что забрать: у вас есть промпт-пак из 14 готовых шаблонов; шаблон = роль + подстановка <code>[...]</code> + грунтовка + отметка 📎; сохранённый системный промпт экономит повторение роли; правило «после удачного диалога — сохрани промпт» — и библиотека растёт сама.</div>
+        </section>
+      </div>
+
+      <!-- ═══ COURSE NAV ═══ -->
+      <div class="coursenav">
+        <a href="#prev-lesson"><span>←</span><span><small>Шаг 12</small>Презентации и отчёты для защиты/руководства</span></a>
+        <a href="#next-lesson" class="next"><span><small>Шаг 14</small>Практикум: документ под роль от и до · проверка №2</span><span>→</span></a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="asst" id="asstWidget">
+        <div class="hd"><div class="ico">🤖</div><div><b>Ваш ИИ-ассистент</b><br><span id="asstLvlLabel"></span></div></div>
+        <div class="lvltrack" id="asstTrack"></div>
+        <ul class="caps" id="asstCaps"></ul>
+        <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Сейчас уровень задаётся константой ASSISTANT_LEVEL в JS ниже. На платформе виджет должен принимать текущий прогресс участника извне (проброс прогресса, П-6 из требований к разработке), не хардкодиться в HTML урока.
+        </div>
+      </div>
+      <script>
+      (function(){
+        var ASSISTANT_LEVEL = 2;
+        var ASSISTANT_LEVELS = [
+          {icon:'💬', name:'Голый чат',            desc:'отвечает «из головы», без вашего контекста'},
+          {icon:'🎭', name:'Роль и контекст',       desc:'знает, кто вы и на каком объекте работаете'},
+          {icon:'📚', name:'Библиотека промптов',   desc:'типовые задачи решает по готовым шаблонам'},
+          {icon:'📄', name:'Документы и знания',    desc:'работает с вашими сметами, КП, регламентами'},
+          {icon:'🧰', name:'Рабочий набор',         desc:'инструменты и агентные сценарии под роль'}
+        ];
+        var ASSISTANT_UNLOCK_NOTE = 'На Шаге 22 ассистент поднимется до уровня 3 — «Документы и знания»: научится искать ответы по вашим регламентам и сметам.';
+        var L=Math.max(0,Math.min(4,ASSISTANT_LEVEL));
+        document.getElementById('asstLvlLabel').textContent='Уровень '+L+' · '+ASSISTANT_LEVELS[L].name;
+        var track=document.getElementById('asstTrack');
+        for(var i=0;i<ASSISTANT_LEVELS.length;i++){var seg=document.createElement('i');if(i<L)seg.className='on';else if(i===L)seg.className='cur';track.appendChild(seg);}
+        var caps=document.getElementById('asstCaps');
+        ASSISTANT_LEVELS.forEach(function(lv,i){
+          var li=document.createElement('li');
+          if(i<L){li.innerHTML='<span class="s">✅</span><span>'+lv.name+'</span>';}
+          else if(i===L){li.className='cur';li.innerHTML='<span class="s">✅</span><span><b>'+lv.name+'</b><span class="newb">этот урок</span><small>'+lv.desc+'</small></span>';}
+          else{li.className='lock';li.innerHTML='<span class="s">🔒</span><span>'+lv.name+'<small>'+lv.desc+'</small></span>';}
+          caps.appendChild(li);
+        });
+        var noteEl=document.getElementById('asstNote');
+        if(ASSISTANT_UNLOCK_NOTE){noteEl.innerHTML='🔜 '+ASSISTANT_UNLOCK_NOTE;}else{noteEl.style.display='none';}
+      })();
+      </script>
+    </aside>
+  </div>
+</div>
+
+<script>
+/* ── BLOCK: SYSTEM PROMPT COPY — копирование системного промпта ── */
+(function(){
+  var btn=document.getElementById('sysCopyBtn');if(!btn)return;
+  var msg=document.getElementById('sysCopyMsg');
+  var text=document.querySelector('#assistant .pcard.goodp .copy').textContent;
+  btn.addEventListener('click',function(){
+    navigator.clipboard.writeText(text).then(function(){msg.textContent='Скопировано ✓';setTimeout(function(){msg.textContent='';},2500);})
+      .catch(function(){msg.textContent='Выделите и скопируйте вручную';});
+  });
+})();
+
+/* ── BLOCK: LITE-EVALS — сравнение 2 версий промпта по 4 критериям ── */
+(function(){
+  var selects=document.querySelectorAll('#evals [data-crit]');if(!selects.length)return;
+  var verdict=document.getElementById('evalVerdict');
+  var critLabels={
+    polnota:'Полнота',
+    tochnost:'Точность',
+    format:'Формат',
+    vydumki:'Отсутствие выдумок'
+  };
+  var reasons={
+    polnota:'версия 2 покрывает три захватки с датами план/факт и причиной задержки, версия 1 говорит общими словами «в целом по графику».',
+    tochnost:'версия 2 опирается на приложенный график (📎) и даёт проверяемые даты, версия 1 — общие оценочные фразы без цифр.',
+    format:'версия 2 задаёт формат явно («таблица + вывод»), поэтому результат структурный; версия 1 без формата — сплошной текст.',
+    vydumki:'версия 2 привязана к приложенному документу и грунтовке, версия 1 без документа рискует додумать «в целом неплохо» без опоры на факты.'
+  };
+  function upd(){
+    var allSet=true, v2Count=0, total=0;
+    selects.forEach(function(s){
+      total++;
+      if(!s.value){allSet=false;}
+      else if(s.value==='v2')v2Count++;
+    });
+    if(!allSet){
+      verdict.className='evalverdict note';
+      verdict.textContent='Оцените все 4 критерия — появится разбор.';
+      return;
+    }
+    var lines=['<b>Разбор по критериям:</b><ul class="checks" style="margin-top:8px">'];
+    selects.forEach(function(s){
+      var crit=s.getAttribute('data-crit');
+      var mark=(s.value==='v2')?'✅':'⚠️';
+      lines.push('<li>'+mark+' <b>'+critLabels[crit]+':</b> '+reasons[crit]+'</li>');
+    });
+    lines.push('</ul>');
+    verdict.className='evalverdict note '+(v2Count===total?'green':'');
+    var head=(v2Count===total)
+      ? '✅ По всем 4 критериям сильнее версия 2 (шаблон C3).'
+      : '⚠️ По большинству критериев сильнее версия 2 (шаблон C3) — она задаёт роль, формат, документ-источник и грунтовку явно. Разберите пункты, где выбрали иначе.';
+    verdict.innerHTML=head+lines.join('');
+  }
+  selects.forEach(function(s){s.addEventListener('change',upd);});
+})();
+
+/* ── BLOCK: LIVE-CHAT — гейт итогов урока ── */
+(function(){
+  var result=document.getElementById('lcResult'),confirmEl=document.getElementById('lcConfirm');
+  if(!result||!confirmEl)return;
+  var status=document.getElementById('lcStatus');
+  var lockTargets=[document.getElementById('selfcheck'),document.getElementById('practice')];
+  var lockWraps=[document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
+  function upd(){
+    var ready=result.value.trim().length>0 && confirmEl.checked;
+    lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
+    lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
+    if(status){
+      status.textContent=ready?'✅ Итоги урока открыты.':'Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.';
+      status.classList.toggle('ready',ready);
+    }
+  }
+  result.addEventListener('input',upd);
+  confirmEl.addEventListener('change',upd);
+  upd();
+})();
+
+/* ── BLOCK: SELFCHECK — чек-лист самопроверки с прогрессом ── */
+(function(){
+  var list=document.getElementById('scList');if(!list)return;
+  var boxes=list.querySelectorAll('input[type=checkbox]'),bar=document.getElementById('scBar'),msg=document.getElementById('scMsg');
+  function upd(){
+    var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+    bar.style.width=(100*n/boxes.length)+'%';
+    msg.textContent=(n===boxes.length)?'✅ Все '+n+' пунктов — можно отправлять куратору':(n+' из '+boxes.length+' — пройдитесь по списку');
+    msg.style.color=(n===boxes.length)?'var(--green)':'var(--muted)';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',upd);});
+  upd();
+})();
+
+/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально ── */
+(function(){
+  var btn=document.getElementById('sendRev');if(!btn)return;
+  btn.addEventListener('click',function(){
+    var res=document.getElementById('sRes').value.trim(),
+        email=document.getElementById('sEmail').value.trim(),
+        m=document.getElementById('revMsg');
+    if(!res){m.textContent='Вставьте результат';return;}
+    var raw='Шаг 13 (Библиотека промптов — главный артефакт курса) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
+    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='zadanie-shag-13.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    m.textContent='Файл скачан ✓';
+  });
+})();
+</script>
+</body>
+</html>

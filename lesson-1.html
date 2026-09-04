@@ -85,9 +85,6 @@
   .docchip.show{opacity:1;transform:none}
   .meter{margin:6px 0 16px}
   .meter .ml{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px}
-  .bar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden}
-  .bar i{display:block;height:100%;width:18%;background:var(--brand);border-radius:6px;transition:.45s}
-  .bar.on i{width:96%;background:var(--green)}
   .verdict{font-size:13px;font-weight:700;margin-top:5px}
   .answer{border-radius:14px;padding:16px;border:1px solid var(--line);transition:.3s;min-height:100px;background:#fff}
   .answer.off{background:#fdf0ef;border-color:#f3c7c3}
@@ -252,7 +249,7 @@
       <section class="sec" id="trainer">
         <p class="stp">3 · Интерактив</p>
         <h2>Тренажёр: один вопрос — два разных ИИ</h2>
-        <p class="muted">Выберите свою роль, затем включите тумблер «Подключить документы компании» и сравните, как меняется ответ на один и тот же рабочий вопрос по объекту ЖК «Уютный дом на Матвеева».</p>
+        <p class="muted">Выберите роль и сравните два ответа: без документов и с приложенным комплектом; отметьте, что стало конкретнее и что требует проверки.</p>
         <div id="trainerA-mount"><!-- интерактив А монтируется сюда через IIFE ниже --></div>
       </section>
 
@@ -322,7 +319,7 @@
             <div class="bub u">Какая цена и порядок расчётов по договору подряда с ООО «СтройМонолит»?</div>
             <div class="bub a">В договорах строительного подряда цена обычно твёрдая и определяется на основании локальной сметы, изменение возможно только в предусмотренных законом случаях. Расчёты чаще всего идут по актам выполненных работ ежемесячно. Точные цифры и порядок расчётов смотрите в самом договоре — я не располагаю его текстом.</div>
           </div>
-          <div class="ctrls"><span class="ai-disclaimer">Ответ смоделирован для урока</span></div>
+          <div class="ctrls"><span class="ai-disclaimer">Пример ответа по материалам урока</span></div>
         </div>
         <div class="note red">Вода: правильно в общем, бесполезно конкретно. Нет ни одной цифры и ссылки на пункт вашего договора.</div>
 
@@ -330,11 +327,11 @@
         <div class="chat">
           <div class="ch"><span class="gi">G</span> GigaChat · веб-чат</div>
           <div class="body">
-            <span class="sys">⚙️ Роль: сметчик · документ: Договор подряда · ООО «СтройМонолит».md</span>
+            <span class="sys">⚙️ Роль: сметчик · документ: Договор подряда · ООО «СтройМонолит».docx</span>
             <div class="bub u">Какая цена и порядок расчётов по договору подряда с ООО «СтройМонолит»?</div>
             <div class="bub a">Цена договора — <b>твёрдая</b>, определяется на основании ЛСР (п. 2). Изменение цены возможно только в случаях, предусмотренных законом. Работы принимаются по актам <b>КС-2</b> и справке <b>КС-3</b> ежемесячно, скрытые работы — по актам АОСР (п. 4). Пеня за просрочку — 1/300 ключевой ставки ЦБ от цены неисполненного за каждый день (п. 6).<br><br>Источник: Проект договора подряда, ЖК «Уютный дом на Матвеева», пп. 2, 4, 6.</div>
           </div>
-          <div class="ctrls"><span class="ai-disclaimer">Ответ смоделирован для урока — черновик требует проверки цифр по первоисточнику</span></div>
+          <div class="ctrls"><span class="ai-disclaimer">Пример ответа. черновик требует проверки цифр по первоисточнику</span></div>
         </div>
         <div class="note green">✅ Конкретный ответ с цитатами и ссылками на пункты. Это уже черновик, который можно проверить построчно — а не общие слова.</div>
       </section>
@@ -380,6 +377,27 @@
         <div class="note">Возьмите заготовку и попробуйте на любом доступном ИИ-чате (GigaChat, Алиса — принцип один). Ответ понадобится в блоке «Сделай в живом чате» ниже.</div>
       </section>
 
+<!-- APPROVED_INTERACTIVE_START:lesson-1 -->
+
+<section class="sec course-interactive-host" data-course-interactive="lesson-1"><p class="stp">Проверка задания</p><h2>Ответ по документу, а не «в среднем по рынку»</h2><iframe src="interactives/lesson-1.html" title="Проверка задания: Ответ по документу, а не «в среднем по рынку»" loading="lazy"></iframe><a class="course-interactive-open" href="interactives/lesson-1.html" target="_blank" rel="noopener">Открыть проверку отдельно</a></section>
+<!-- APPROVED_INTERACTIVE_END:lesson-1 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <!-- ═══ MATERIALS ═══ -->
       <section class="sec" id="materials">
         <p class="stp">8 · Материалы урока</p>
@@ -387,7 +405,7 @@
         <p class="muted">Всё содержимое этого шага — текстовые материалы, документы кейса, промпты и HTML-интерактивы — собрано в один архив.</p>
         <div class="materials">
           <ul class="mlist">
-            <li><span class="mico">📝</span><span>Конспект урока (метафора «стажёр», красные линии, .md)</span></li>
+            <li><span class="mico">📝</span><span>Конспект урока (метафора «стажёр», красные линии, DOCX)</span></li>
             <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: 05 (предписание № 57), 09 (письмо техзаказчика № 311), 14 (проект договора подряда)</span></li>
             <li><span class="mico">🧩</span><span>Заготовки промптов «роль + контекст + задача + формат» под 6 ролей</span></li>
             <li><span class="mico">🌐</span><span>HTML-интерактивы урока (тренажёр, живой чат, самопроверка, проверка № 1)</span></li>
@@ -484,7 +502,7 @@
 var CASE_DATA = {
   PTO:{name:"Инженер ПТО",
      q:"Какой класс бетона у плиты перекрытия 4 этажа секции 2, и что по гарантии на СМР по нашему договору?",
-     doc:"Договор подряда · ООО «СтройМонолит».md",
+     doc:"Договор подряда · ООО «СтройМонолит».docx",
      off:"Для жилых монолитных перекрытий обычно применяют бетон класса B20–B25. Гарантийный срок на СМР в договорах подряда чаще всего 3–5 лет — конкретику смотрите в своём договоре, формулировки сильно различаются.",
      on:"Плита перекрытия 4 этажа секции 2 — бетон <b>B25</b> (по спецификации КР). Гарантийный срок на результат работ по договору подряда с ООО «СтройМонолит» — <b>5 лет</b> с даты ввода объекта в эксплуатацию (п. 5 договора).",
      cite:"Источник: спецификация КР по секции 2; Договор подряда № __ , п. 5 «Качество и гарантия».",
@@ -494,7 +512,7 @@ var CASE_DATA = {
         fmt:"Таблица: пункт письма · требование · срок · какой документ нужен для ответа."}},
   SK:{name:"Стройконтроль / технадзор",
      q:"Что нужно сделать по замечаниям техзаказчика из письма №311, чтобы закрыть отставание по секции 2?",
-     doc:"Письмо техзаказчика №311 от 24.06.2026.md",
+     doc:"Письмо техзаказчика №311 от 24.06.2026.docx",
      off:"Обычно при отставании от графика составляют план мероприятий по наверстыванию: усиление бригад, пересмотр очерёдности работ, еженедельная сверка факта с планом. Детали зависят от конкретной ситуации на объекте.",
      on:"По письму №311 от 24.06.2026 нужно закрыть 3 пункта: 1) скорректированный график по секции 2 (этажи 4–9, отставание ~8%) — <b>до 30.06.2026</b>; 2) реестр актов исполнительной за июнь с документами входного контроля — <b>до 01.07.2026</b>; 3) еженедельный фотоотчёт по установленной форме — <b>с 30.06.2026</b>.",
      cite:"Источник: письмо технического заказчика АО «ЕкатеринбургТехзаказчик» исх. №311 от 24.06.2026, пп. 1–3.",
@@ -504,7 +522,7 @@ var CASE_DATA = {
         fmt:"Официальное письмо: по каждому пункту письма — мероприятие, ответственный, срок."}},
   GIP:{name:"ГИП / проектировщик",
      q:"Как правильно ответить на замечание техзаказчика по качеству исполнительной документации из письма №311?",
-     doc:"Письмо техзаказчика №311 от 24.06.2026.md",
+     doc:"Письмо техзаказчика №311 от 24.06.2026.docx",
      off:"В таких случаях обычно поясняют причину расхождений и прикладывают откорректированные документы. Общих формулировок недостаточно — нужно видеть само замечание и состав исполнительной документации по объекту.",
      on:"Пункт 2 письма №311 указывает: по ряду актов АОСР отсутствуют документы входного контроля материалов. Нужен реестр актов за июнь с приведением исполнительной документации в соответствие — срок <b>до 01.07.2026</b>. Это перекликается с актом освидетельствования (файл 04) и предписанием стройконтроля (файл 05).",
      cite:"Источник: письмо техзаказчика №311 от 24.06.2026, п. 2.",
@@ -514,7 +532,7 @@ var CASE_DATA = {
         fmt:"Короткая пояснительная записка: суть замечания, причина, план устранения, срок."}},
   SM:{name:"Сметчик",
      q:"Какая цена и порядок расчётов по договору подряда с ООО «СтройМонолит», и как её обосновать?",
-     doc:"Договор подряда · ООО «СтройМонолит».md",
+     doc:"Договор подряда · ООО «СтройМонолит».docx",
      off:"В договорах строительного подряда цена обычно твёрдая и определяется на основании локальной сметы, изменение возможно только в предусмотренных законом случаях. Точные цифры и порядок расчётов смотрите в самом договоре — общих цифр здесь нет.",
      on:"Цена договора — <b>твёрдая</b>, определяется на основании ЛСР (п. 2). Изменение цены возможно только в случаях, предусмотренных законом. Работы принимаются по актам <b>КС-2</b> и справке <b>КС-3</b> ежемесячно, скрытые работы — по актам АОСР (п. 4). Пеня за просрочку — 1/300 ключевой ставки ЦБ от цены неисполненного за каждый день (п. 6).",
      cite:"Источник: Проект договора подряда, ЖК «Уютный дом на Матвеева», пп. 2, 4, 6.",
@@ -524,7 +542,7 @@ var CASE_DATA = {
         fmt:"Таблица: пункт договора · обязанность/условие · срок · риск (если есть)."}},
   PR:{name:"Прораб / начальник участка",
      q:"Что мне как прорабу секции 2 нужно предоставить по письму техзаказчика №311 и в какие сроки?",
-     doc:"Письмо техзаказчика №311 от 24.06.2026.md",
+     doc:"Письмо техзаказчика №311 от 24.06.2026.docx",
      off:"При отставании от графика обычно требуют скорректированный план работ и усиленный контроль исполнительной документации. Без самого письма назвать точные сроки и формы отчётности нельзя.",
      on:"По письму №311: 1) до <b>30.06.2026</b> — скорректированный график по монолитным работам этажей 4–9 секции 2 (отставание ~8%); 2) до <b>01.07.2026</b> — навести порядок в исполнительной документации, добавить документы входного контроля к актам; 3) с <b>30.06.2026</b> — еженедельный фотоотчёт по форме техзаказчика.",
      cite:"Источник: письмо техзаказчика №311 от 24.06.2026, пп. 1–3.",
@@ -534,7 +552,7 @@ var CASE_DATA = {
         fmt:"Список из 3 пунктов: что сделать, к какому сроку, что подготовить."}},
   OT:{name:"Инженер ОТ",
      q:"Что говорит договор подряда про охрану труда и пожарную безопасность на объекте?",
-     doc:"Договор подряда · ООО «СтройМонолит».md",
+     doc:"Договор подряда · ООО «СтройМонолит».docx",
      off:"Обычно в договорах подряда есть общая формулировка про соблюдение подрядчиком норм охраны труда и пожарной безопасности. Конкретные требования и ответственность зависят от текста самого договора.",
      on:"По п. 7 договора подрядчик обязан: вести исполнительную документацию (по приказу Минстроя России № 344/пр), обеспечить входной контроль материалов, <b>соблюдать охрану труда и пожарную безопасность</b>, устранять замечания строительного контроля в установленные сроки.",
      cite:"Источник: Проект договора подряда, ЖК «Уютный дом на Матвеева», п. 7 «Обязанности подрядчика».",
@@ -592,8 +610,7 @@ var CASE_DATA = {
         '<span class="docchip" id="taDocChip">📎 <span id="taDocName">документ</span></span>'+
       '</div>'+
       '<div class="meter">'+
-        '<div class="ml"><span>Знание о вашей компании</span><span id="taKnowPct">18%</span></div>'+
-        '<div class="bar" id="taKnowBar"><i></i></div>'+
+        '<div class="ml"><span>Уровень работы с контекстом</span><span id="taKnowPct">без документов — общий ответ</span></div>'+
         '<div class="verdict" id="taVerdict" style="color:var(--brand)">⚠️ Отвечает «в среднем по рынку» — может ошибиться</div>'+
       '</div>'+
       '<div class="answer off" id="taAnswer">'+
@@ -616,10 +633,10 @@ var CASE_DATA = {
   }
   function render(){
     var d=CASE_DATA[role], on=toggle.checked;
-    var ans=mount.querySelector('#taAnswer'), bar=mount.querySelector('#taKnowBar');
+    var ans=mount.querySelector('#taAnswer');
     mount.querySelector('#taDocChip').classList.toggle('show',on);
-    ans.classList.toggle('on',on); ans.classList.toggle('off',!on); bar.classList.toggle('on',on);
-    mount.querySelector('#taKnowPct').textContent=on?'96%':'18%';
+    ans.classList.toggle('on',on); ans.classList.toggle('off',!on);
+    mount.querySelector('#taKnowPct').textContent=on?'с приложенным комплектом — ответ по источнику':'без документов — общий ответ';
     mount.querySelector('#taAnsHead').innerHTML=on?'✅ ИИ с вашими документами':'🤖 ИИ без ваших документов';
     mount.querySelector('#taAnsBody').innerHTML=on?d.on:d.off;
     var v=mount.querySelector('#taVerdict');
@@ -721,32 +738,38 @@ var CASE_DATA = {
       '<input id="dEmail" type="email" placeholder="you@example.ru">'+
     '</div>'+
     '<div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">'+
-      '<button class="btn" id="dDownloadBtn">⬇ Скачать моё задание (.txt)</button>'+
+      ''+
       '<span class="muted" id="dMsg" style="font-size:13px"></span>'+
     '</div>'+
     '<div class="transfer-note">'+
       '<div class="tnlabel">⚙ Для переноса в платформу Актион</div>'+
-      'Здесь платформа подключает отправку куратору — проверка №1 (см. паспорта шагов). В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.'+
+      'Здесь платформа подключает отправку куратору — проверка №1 (см. паспорта шагов).'+
     '</div>';
-
-  mount.querySelector('#dDownloadBtn').addEventListener('click',function(){
-    var m=mount.querySelector('#dMsg');
-    var prompt=(typeof window.__getBuilderPrompt==='function')?window.__getBuilderPrompt():'';
-    var role=(typeof window.__getBuilderRole==='function')?window.__getBuilderRole():'';
-    var roleName=(CASE_DATA[role]&&CASE_DATA[role].name)?CASE_DATA[role].name:role;
-    var lcResult=window.__lcResult||'';
-    var email=mount.querySelector('#dEmail').value.trim();
-    if(!prompt){m.textContent='Сначала соберите промпт в блоке 7 выше';return;}
-    var raw='Шаг 5 — моё задание (проверка №1)\n\nРоль: '+roleName+'\n\nПромпт:\n'+prompt+'\n\nОтвет ИИ (из блока «Сделай в живом чате»):\n'+lcResult+'\n\nОтвет на e-mail: '+email;
-    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url; a.download='shag-05-zadanie.txt'; document.body.appendChild(a); a.click();
-    document.body.removeChild(a);
-    setTimeout(function(){URL.revokeObjectURL(url);},1000);
-    m.textContent='Файл скачан ✓';
-  });
 })();
 </script>
+
+
+
+
+
+
+
+
+<!-- COURSE_INTERACTIVE_SUPPORT_START:lesson-1 -->
+<style>
+.course-interactive-host iframe{display:block;width:100%;height:920px;border:0;background:var(--bg);margin-top:10px}.course-interactive-host .course-interactive-open{display:inline-block;margin-top:8px;font-size:13px}
+.course-prompt-library{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:18px}.course-prompt-kicker{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}.course-prompt-library h2{margin-top:0}.course-prompt{border:1px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card);overflow:hidden}.course-prompt summary{cursor:pointer;padding:11px 14px;font-weight:700}.course-prompt-body{padding:0 14px 14px;background:#fff;border-top:1px solid var(--line)}.course-prompt-body pre{white-space:pre-wrap;font:13px/1.55 Consolas,'Courier New',monospace}.course-prompt-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end;margin-top:10px}.course-prompt-copy,.course-prompt-ref{font:inherit;border:1px solid var(--blue);border-radius:var(--rs);background:#fff;color:var(--blue);cursor:pointer;font-weight:700}.course-prompt-copy{padding:6px 10px}.course-prompt-ref{padding:2px 7px;margin-left:5px;font-size:13px}.course-prompt-status{font-size:13px;color:var(--green)}
+@media(max-width:620px){.course-interactive-host iframe{height:1100px}}
+</style><script id="course-interactive-data" type="application/json">{"id":"lesson-1","prompts":[],"downstream":["#selfcheck","#practice"]}</script><script>
+(function(){const cfg=JSON.parse(document.getElementById('course-interactive-data').textContent),host=document.querySelector('[data-course-interactive="'+cfg.id+'"]'),frame=host&&host.querySelector('iframe');
+function hideLegacy(){['lcResult','liveResult'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.review')||el).hidden=true});['lcConfirm','lcContinue','liveCheck'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.lcgate,.gatecheck')||el).hidden=true});['lcStatus','gateResult'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=true})}
+function unlock(){cfg.downstream.forEach(selector=>{const el=document.querySelector(selector);if(!el)return;el.classList.remove('locked');const wrap=el.closest('.lockwrap');if(wrap)wrap.classList.remove('is-locked')});try{localStorage.setItem('course-interactive:'+cfg.id,'done')}catch(_e){}}
+function completed(){try{return localStorage.getItem('course-interactive:'+cfg.id)==='done'}catch(_e){return false}}function init(){hideLegacy();if(completed())unlock()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+new MutationObserver(()=>{hideLegacy();if(completed())unlock()}).observe(document.documentElement,{childList:true,subtree:true});addEventListener('message',event=>{if(!frame||event.source!==frame.contentWindow||!event.data||event.data.id!==cfg.id)return;if(event.data.type==='course-interactive-height')frame.style.height=Math.max(520,Number(event.data.height)||920)+'px';if(event.data.type==='course-interactive-complete')unlock()});
+async function copyText(text){try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);return true}catch(_e){const t=document.createElement('textarea');t.value=text;t.readOnly=true;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_x){}t.remove();return ok}}
+document.querySelectorAll('.course-prompt-copy').forEach(button=>button.onclick=async()=>{const item=cfg.prompts.find(x=>x.key===button.dataset.promptKey),status=button.nextElementSibling;const ok=item&&await copyText(item.text);status.textContent=ok?'Скопировано':'Выделите текст и скопируйте вручную';setTimeout(()=>status.textContent='',2500)});
+const codes=[...new Set(cfg.prompts.map(x=>x.code))];document.querySelectorAll('p,li,td,th,summary,h2,h3,label,.note').forEach(el=>{if(el.closest('.course-prompt-library,.course-interactive-host,script,style,pre,select')||el.querySelector('.course-prompt-ref')||el.textContent.length>650||!/промпт/i.test(el.textContent))return;const found=codes.filter(code=>el.textContent.includes(code));if(!found.length)return;const b=document.createElement('button');b.type='button';b.className='course-prompt-ref';b.textContent='🧩';b.title='Открыть упомянутый промпт';b.setAttribute('aria-label','Открыть упомянутый промпт');b.onclick=()=>{const library=document.getElementById('coursePromptLibrary');if(!library)return;const matches=[...library.querySelectorAll('.course-prompt')].filter(x=>found.includes(x.dataset.promptCode));matches.forEach(x=>x.open=true);(matches[0]||library).scrollIntoView({behavior:'smooth',block:'start'})};el.append(' ',b)});
+})();</script>
+<!-- COURSE_INTERACTIVE_SUPPORT_END:lesson-1 -->
 </body>
 </html>

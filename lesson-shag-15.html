@@ -176,17 +176,12 @@
   </div>
 
   <div class="kicker">Курс «30 шагов: рабочий ИИ-инструмент для строителя» · Неделя 3 · Шаг 15 · Роль: инженер ПТО <span class="rule" style="background:var(--green)"></span></div>
-  <h1>Шаг 15. Таблицы с ИИ</h1>
-  <p class="lead">Свести ВОР и смету, посчитать проценты выполнения, перепроверить итоги — обычно это полдня в Excel: формулы, копипаст, сверка вручную. С тремя точными запросами к ИИ та же работа занимает 15 минут. <b>Ключевой навык — заставить ИИ вернуть результат в формате, который сразу вставляется в Excel.</b></p>
+  <h1>Шаг 15. Таблицы: ИИ готовит, вы проверяете</h1>
+  <p class="lead">ИИ может подготовить формулу, черновую сверку и таблицу нужной структуры. <b>Ваша задача — задать источник и формат, а затем проверить каждую значимую цифру по исходному XLSX.</b></p>
   <div class="meta">
     <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 2 · библиотека промптов</span>
     <span class="pill">🎓 Уверенный</span>
   </div>
-  <div class="transfer-note compact">
-    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-    Платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли» из требований к разработке) — строка «Роль: …» выше должна обновляться без правки HTML урока.
-  </div>
-
   <div class="grid">
     <div>
 
@@ -194,7 +189,7 @@
       <section class="sec">
         <p class="stp">Что внутри урока</p>
         <ul class="toc">
-          <li>1 · <a href="#theory">Полдня в Excel против трёх запросов</a></li>
+          <li>1 · <a href="#theory">Таблицы: ИИ готовит, вы проверяете</a></li>
           <li>2 · <a href="#screens">Три приёма по шагам</a></li>
           <li>3 · <a href="#formula">Приём 1 · формула словами</a></li>
           <li>4 · <a href="#audit">Приём 2 · разбор выгрузки</a></li>
@@ -210,10 +205,10 @@
       <!-- ═══ 1 · THEORY ═══ -->
       <section class="sec" id="theory">
         <p class="stp">1 · Зачем это нужно</p>
-        <h2>Полдня в Excel — или три запроса к ИИ</h2>
-        <p>Свести объёмы из ВОР со сметой, посчитать проценты выполнения по позициям, найти расхождение между документами — рутина инженера ПТО, которая обычно превращается в полдня формул, копипаста и ручной сверки строка за строкой.</p>
+        <h2>Таблицы: ИИ готовит, вы проверяете</h2>
+        <p>Свести объёмы из ВОР со сметой, посчитать проценты выполнения по позициям и найти расхождения — задачи, где ИИ может подготовить формулы и черновую сверку. Результат всегда проверяйте по исходному документу.</p>
         <p>ИИ не «понимает» Excel как программу, но отлично работает с таблицей как с текстом: пишет формулы по описанию, находит аномалии в выгрузке, считает итоги и возвращает результат в формате, который сразу вставляется обратно в лист. <b>Экономит не саму работу с данными, а рутину вокруг неё.</b></p>
-        <div class="why">💡 <b>Зачем это вам:</b> три точных запроса вместо получаса ручных формул и сверки — время идёт на проверку смысла цифр, а не на их пересчёт руками.</div>
+        <div class="why">💡 <b>Зачем это вам:</b> ИИ берёт на себя механическую подготовку, а специалист тратит время на проверку смысла цифр и источника.</div>
         <h3>Три приёма этого урока</h3>
         <ul class="checks num">
           <li><b>Формула словами</b> — описываете, что должна считать формула Excel, ИИ выдаёт готовую формулу с объяснением.</li>
@@ -228,8 +223,8 @@
         <h2>Одна мысль — один экран</h2>
         <div class="progress" id="scrProgress"></div>
         <div class="screen on">
-          <h3>Экран 1: полдня в Excel против трёх запросов</h3>
-          <p>Сводка объёмов, процент выполнения, сверка ВОР со сметой — задачи, где 90% времени уходит не на анализ, а на механику: набрать формулу, скопировать диапазон, свести вручную. ИИ забирает именно эту механику.</p>
+          <h3>Экран 1: ИИ готовит таблицу, специалист проверяет</h3>
+          <p>Сводка объёмов, процент выполнения и сверка ВОР со сметой — задачи, где ИИ помогает с механикой: формулой, диапазоном и структурой вывода. Каждую цифру сверяйте с источником.</p>
         </div>
         <div class="screen">
           <h3>Экран 2: три приёма — от формулы до структуры</h3>
@@ -238,7 +233,7 @@
         <div class="screen">
           <h3>Экран 3: что не отдаём ИИ</h3>
           <p>ИИ может «дорисовать» несуществующие строки, чтобы сумма выглядела красиво — итоги всегда пересчитывайте сами. А денежные итоги сметы — точка, где решает только профильное ПО (ГРАНД-Смета и аналоги), не чат.</p>
-          <div class="note green">✅ Формула словами → разбор выгрузки → схема результата заранее. Три приёма закрывают почти всю рутину с таблицами ПТО.</div>
+          <div class="note green">✅ Формула словами → разбор выгрузки → схема результата заранее. На каждом этапе результат нужно сопоставить с исходной таблицей.</div>
         </div>
         <div class="snav">
           <button class="btn ghost" id="scrPrev">← Назад</button>
@@ -259,17 +254,16 @@
             <div class="bub u">Напиши формулу Excel, которая считает процент выполнения по позиции ВОР: план в столбце C, факт — в столбце D, результат нужен в столбце E в процентах с одним знаком после запятой. Объясни логику.</div>
             <div class="bub a">Формула для ячейки E2 (протяните вниз по всем строкам):
 
-=ОКРУГЛ(D2/C2*100;1)
+=ЕСЛИ(C2=0;"";D2/C2)
 
-Логика: D2/C2 — доля выполненного объёма от плана (доля от 1); *100 переводит в проценты; ROUND(...,1) округляет до одного знака после запятой, чтобы не было «65,3333333%».
+Логика: D2/C2 — доля выполненного объёма от плана. Формат ячейки — «Процентный» с одним знаком после запятой.
 
-Формат ячейки E2 — «Числовой» с одним десятичным знаком (не «Процентный», иначе умножит на 100 ещё раз). Если план может быть равен 0, добавьте защиту от деления на ноль:
-
-=ЕСЛИ(C2=0;"";ОКРУГЛ(D2/C2*100;1))</div>
+Формат ячеек столбца E — «Процентный», 0,0%. При C2=0 результат оставляется пустым.</div>
           </div>
-          <div class="ctrls"><span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
+          <div class="ctrls"><span class="muted" style="font-size:12px">Пример ответа по приложенному файлу</span></div>
         </div>
-        <div class="note green" style="margin-top:14px">✅ Формула + объяснение логики в одном ответе — можно вставить в Excel с русской локалью (в английской — ROUND/IF и запятые вместо точек с запятой). Совет: вместо текста «—» оставляйте пустую ячейку, иначе столбец смешает текст и числа и сломает СУММ/сортировку и не потерять, почему она работает именно так.</div>
+        <div class="note green" style="margin-top:14px">✅ Формулу и объяснение логики можно перенести в Excel с русской локалью; в английской локали используются IF и запятые вместо точек с запятой. Вместо текста «—» оставляйте пустую ячейку, иначе столбец смешает текст и числа и может нарушить расчёты и сортировку.</div>
+        <div class="note" style="margin-top:14px"><b>Контроль:</b> при плане 300 и факте 196 формула даёт 65,3%. Заголовок столбца — <b>«Выполнение, %»</b>, формат — <b>0,0%</b>.</div>
       </section>
 
       <!-- ═══ 4 · AUDIT ═══ -->
@@ -320,9 +314,9 @@
 
 Это проверка на внутреннюю непротиворечивость самой ведомости, не на соответствие факту на площадке — сверка с актами и сметой отдельно.</div>
           </div>
-          <div class="ctrls"><span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
+          <div class="ctrls"><span class="muted" style="font-size:12px">Пример ответа по приложенному файлу</span></div>
         </div>
-        <div class="note green" style="margin-top:14px">✅ <b>Демо-сверка:</b> 578,4 м³ плит перекрытия = 96,4 м³ (объём одного этажа) × 6 этажей. ИИ не изобрёл эту проверку — она заложена в примечаниях к ВОР; но именно так и выглядит «попросить ИИ найти внутреннюю логику в цифрах».</div>
+        <div class="note green" style="margin-top:14px">✅ <b>Контрольная сверка:</b> 578,4 м³ плит перекрытия = 96,4 м³ (объём одного этажа) × 6 этажей. Проверка следует из примечаний к ВОР; так выглядит задача на поиск внутренней логики в цифрах.</div>
       </section>
 
       <!-- ═══ 5 · STRUCTURED (ключевой) ═══ -->
@@ -333,7 +327,7 @@
 
         <div class="note">🔁 <b>Правило:</b> схему результата (колонки таблицы или структуру JSON) задавайте в промпте до того, как вставляете данные — иначе ИИ выберет формат сам, и он не обязательно будет совместим с Excel.</div>
 
-        <h3>Демо на ЛСР № 01-01-01 (файл 11)</h3>
+        <h3>Пример на ЛСР № 01-01-01 (файл 11)</h3>
         <details class="doc">
           <summary>📋 ЛСР № 01-01-01 — раздел «Подготовительные работы» <span class="dtag">документ 11 · открыть</span></summary>
           <div class="docbody">
@@ -368,7 +362,7 @@
 6 | Погрузка строительного мусора экскаватором | 1 т | 6,552
 7 | Перевозка грузов I класса самосвалом до 15 т | т | 6,552</div>
           </div>
-          <div class="ctrls"><span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
+          <div class="ctrls"><span class="muted" style="font-size:12px">Пример ответа по приложенному файлу</span></div>
         </div>
 
         <p style="margin-top:14px">Такой ответ вставляется в Excel через «Текст по столбцам» (разделитель «|») за один шаг. Если нужна интеграция с другой системой — та же логика работает для JSON:</p>
@@ -378,6 +372,28 @@
 
         <div class="note green">✅ Схема, заданная заранее, — разница между «текст, который ещё разбирать руками» и «данные, готовые к вставке».</div>
       </section>
+
+<!-- APPROVED_INTERACTIVE_START:lesson-shag-15 -->
+<section class="course-prompt-library" id="coursePromptLibrary"><p class="course-prompt-kicker">Промпты урока</p><h2>Откройте нужный промпт и скопируйте его кнопкой 📋.</h2><details class="course-prompt" data-prompt-code="C1"><summary>🧩 Промпт C1 · ПТО · Извлечение объёмов из акта/ВОР в таблицу</summary><div class="course-prompt-body"><div class="course-prompt-actions"><button type="button" class="course-prompt-copy" data-prompt-key="p1" aria-label="Скопировать Промпт C1 · ПТО · Извлечение объёмов из акта/ВОР в таблицу" title="Скопировать промпт">📋</button><span class="course-prompt-status" aria-live="polite"></span></div><pre>Ты — инженер ПТО. Задача: распознай приложенный акт/ведомость и выведи объёмы в таблицу: позиция, наименование, ед. изм., количество. Отдельно посчитай итог по бетону и по арматуре. Формат: таблица + строка «Итого».
+Документ: [вставьте / приложите скан]</pre></div></details><details class="course-prompt" data-prompt-code="C3"><summary>🧩 Промпт C3 · ПТО · Сводка объёмов за период</summary><div class="course-prompt-body"><div class="course-prompt-actions"><button type="button" class="course-prompt-copy" data-prompt-key="p2" aria-label="Скопировать Промпт C3 · ПТО · Сводка объёмов за период" title="Скопировать промпт">📋</button><span class="course-prompt-status" aria-live="polite"></span></div><pre>Ты — инженер ПТО. Источник: файл «01_График-производства-работ.xlsx», срез на 28.06.2026. Собери сводку по строкам, где есть план и факт. Не достраивай отсутствующие значения. Формат: № | работа | план | факт | выполнение, % | статус | основание статуса. После таблицы отдельно перечисли подтверждённые и неподтверждённые выводы.</pre></div></details></section>
+<section class="sec course-interactive-host" data-course-interactive="lesson-shag-15"><p class="stp">Проверка задания</p><h2>Соберите проверяемую таблицу</h2><iframe src="interactives/lesson-shag-15.html" title="Проверка задания: Соберите проверяемую таблицу" loading="lazy"></iframe><a class="course-interactive-open" href="interactives/lesson-shag-15.html" target="_blank" rel="noopener">Открыть проверку отдельно</a></section>
+<!-- APPROVED_INTERACTIVE_END:lesson-shag-15 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <!-- ═══ 6 · TRAPS ═══ -->
       <section class="sec" id="traps">
@@ -400,18 +416,18 @@
       <section class="sec" id="materials">
         <p class="stp">7 · Материалы урока</p>
         <h2>Материалы урока</h2>
-        <p class="muted">Всё содержимое этого шага — текстовые материалы, документы кейса, промпты и HTML-интерактив — собрано в один архив.</p>
+        <p class="muted">В архиве — конспект DOCX, интерактивы, таблицы XLSX и промпт-пак.</p>
         <div class="materials">
           <ul class="mlist">
-            <li><span class="mico">📝</span><span>Конспект урока (три приёма работы с таблицами, ловушки, .md)</span></li>
-            <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: 11 (ЛСР № 01-01-01), 12 (ВОР № 02-01-01)</span></li>
-            <li><span class="mico">🧩</span><span>Промпты C1 (извлечение объёмов в таблицу) и C3 (сводка объёмов за период) из промпт-пака ПТО</span></li>
-            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+            <li><span class="mico">📝</span><span>Конспект урока — urok-tekst.docx</span></li>
+            <li><span class="mico">📁</span><span>Таблицы кейса: 01_График-производства-работ.xlsx, 11_Локальный-сметный-расчёт_ЛСР.xlsx, 12_Ведомость-объёмов-работ_ВОР.xlsx</span></li>
+            <li><span class="mico">🧩</span><span><b>Промпт-пак-ПТО.docx</b> и четыре автономных HTML-интерактива</span></li>
+            <li><span class="mico">📋</span><span>Состав-материалов.docx с перечнем файлов и порядком работы</span></li>
           </ul>
           <div class="dl">
             <a class="btn dark" href="materials/shag-15.zip">⬇ Скачать архив материалов</a>
           </div>
-          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага.</p>
+          <p class="mcap">Состав-материалов.docx в архиве описывает состав файлов и порядок работы.</p>
         </div>
       </section>
 
@@ -430,13 +446,10 @@
         </div>
         <div class="lcgate">
           <input type="checkbox" id="lcConfirm">
-          <label for="lcConfirm">Я получил ответ на свой запрос</label>
+          <label for="lcConfirm">Я зафиксировал(а) результат или выбрал(а) продолжение без принятого результата</label>
         </div>
+        <div class="lcgate"><input type="checkbox" id="lcContinue"><label for="lcContinue">Продолжить, если внешний сервис не принял таблицу или запрос</label></div>
         <p class="lcstatus" id="lcStatus">Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.</p>
-        <div class="transfer-note">
-          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-          Демо-гейт реализован локальным JS (без сохранения данных). На платформе эта блокировка должна опираться на реальное событие взаимодействия участника с чатом (или просто на заполненное поле + чекбокс, как здесь) — ничего никуда не отправляется и в демо-версии.
-        </div>
       </section>
 
       <!-- ═══ SELFCHECK ═══ -->
@@ -462,26 +475,17 @@
           <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
           <p class="stp">10 · Практика и проверка</p>
           <h2>Сделайте на своей задаче</h2>
-          <p class="muted">Возьмите свою реальную (или учебную) сводку объёмов за период — например, по графику производства работ — и запросите у ИИ сводку выполненных объёмов с выделением позиций с отставанием, промптом C3 из вашего промпт-пака ПТО. Обезличьте данные: без реальных цен, реквизитов и коммерческой тайны.</p>
+          <p class="muted">Откройте <b>01_График-производства-работ.xlsx</b>, используйте срез на 28.06.2026 и запросите у ИИ сводку выполненных объёмов с выделением позиций с отставанием по промпту C3. Позиция 3 — подтверждённое отставание; по позициям 4 и 5 данных для вывода недостаточно.</p>
           <details class="doc" style="margin:4px 0 16px">
             <summary>🧩 Промпт C3 — сводка объёмов за период <span class="dtag">промпт-пак ПТО · это промпт C3 из твоего промпт-пака ПТО</span></summary>
             <div class="docbody">
               <span class="promptbadge" style="margin-top:12px;display:inline-block">C3 · Сводка объёмов за период (файл 01)</span>
-<pre>Ты — инженер ПТО. Контекст: график производства работ с фактической готовностью. Задача: собери сводку выполненных объёмов за июнь и выдели позиции с отставанием от плана. Формат: таблица + короткий вывод «риски и что предпринять».
-График: [вставьте]</pre>
+<pre>Ты — инженер ПТО. Источник: файл «01_График-производства-работ.xlsx», срез на 28.06.2026. Собери сводку по строкам, где есть план и факт. Не достраивай отсутствующие значения. Формат: № | работа | план | факт | выполнение, % | статус | основание статуса. После таблицы отдельно перечисли подтверждённые и неподтверждённые выводы.</pre>
             </div>
           </details>
           <div class="review">
-            <label>Что получилось — вставьте результат от ИИ</label>
-            <textarea id="sRes" rows="4" placeholder="Сводка объёмов, которую выдал ИИ"></textarea>
-            <label>Ваш e-mail для ответа куратора</label>
-            <input id="sEmail" type="email" placeholder="you@example.ru">
-            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
-              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
-          </div>
-          <div class="transfer-note">
-            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-            Здесь платформа подключает отправку куратору — проверка (см. паспорта шагов). В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
+            <label>Зафиксируйте результат по пяти пунктам</label>
+            <textarea id="sRes" rows="9" placeholder="1. Источник и дата среза: 01_График-производства-работ.xlsx, 28.06.2026&#10;2. Точный текст промпта C3: …&#10;3. Полученная таблица: …&#10;4. Ручная проверка одной строки (исходные значения и расчёт): …&#10;5. Подтверждённые и неподтверждённые выводы: позиция 3 — …; позиции 4 и 5 — …"></textarea>
           </div>
           <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «таблицы с ИИ».</b> Что забрать: формула словами закрывает разовый расчёт; разбор выгрузки ловит нестыковки в объёмах; схема результата, заданная заранее, — то, что превращает ответ чата в данные для Excel, а не в текст для перепечатки.</div>
         </section>
@@ -489,8 +493,8 @@
 
       <!-- ═══ COURSE NAV ═══ -->
       <div class="coursenav">
-        <a href="#prev-lesson"><span>←</span><span><small>Шаг 14</small>Работа с длинными документами</span></a>
-        <a href="#next-lesson" class="next"><span><small>Шаг 16</small>Сравнение смет и КП</span><span>→</span></a>
+        <a href="lesson-shag-14.html"><span>←</span><span><small>Шаг 14</small>Работа с длинными документами</span></a>
+        <a href="lesson-kp.html" class="next"><span><small>Шаг 16</small>Сравнение смет и КП</span><span>→</span></a>
       </div>
 
     </div>
@@ -501,10 +505,6 @@
         <div class="lvltrack" id="asstTrack"></div>
         <ul class="caps" id="asstCaps"></ul>
         <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
-        <div class="transfer-note">
-          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-          Сейчас уровень задаётся константой ASSISTANT_LEVEL в JS ниже. На платформе виджет должен принимать текущий прогресс участника извне (проброс прогресса, П-6 из требований к разработке), не хардкодиться в HTML урока.
-        </div>
       </div>
       <script>
       (function(){
@@ -556,13 +556,13 @@
 
 /* ── BLOCK: LIVE-CHAT — гейт итогов урока ── */
 (function(){
-  var result=document.getElementById('lcResult'),confirmEl=document.getElementById('lcConfirm');
+  var result=document.getElementById('lcResult'),confirmEl=document.getElementById('lcConfirm'),continueEl=document.getElementById('lcContinue');
   if(!result||!confirmEl)return;
   var status=document.getElementById('lcStatus');
   var lockTargets=[document.getElementById('selfcheck'),document.getElementById('practice')];
   var lockWraps=[document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
   function upd(){
-    var ready=result.value.trim().length>0 && confirmEl.checked;
+    var ready=(result.value.trim().length>0 || (continueEl && continueEl.checked)) && confirmEl.checked;
     lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
     lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
     if(status){
@@ -572,6 +572,7 @@
   }
   result.addEventListener('input',upd);
   confirmEl.addEventListener('change',upd);
+  if(continueEl)continueEl.addEventListener('change',upd);
   upd();
 })();
 
@@ -589,24 +590,31 @@
   upd();
 })();
 
-/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально ── */
-(function(){
-  var btn=document.getElementById('sendRev');if(!btn)return;
-  btn.addEventListener('click',function(){
-    var res=document.getElementById('sRes').value.trim(),
-        email=document.getElementById('sEmail').value.trim(),
-        m=document.getElementById('revMsg');
-    if(!res){m.textContent='Вставьте результат';return;}
-    var raw='Шаг 15 (Таблицы с ИИ) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
-    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url;a.download='zadanie-shag-15.txt';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    setTimeout(function(){URL.revokeObjectURL(url);},1000);
-    m.textContent='Файл скачан ✓';
-  });
-})();
+
 </script>
+
+
+
+
+
+
+
+
+<!-- COURSE_INTERACTIVE_SUPPORT_START:lesson-shag-15 -->
+<style>
+.course-interactive-host iframe{display:block;width:100%;height:920px;border:0;background:var(--bg);margin-top:10px}.course-interactive-host .course-interactive-open{display:inline-block;margin-top:8px;font-size:13px}
+.course-prompt-library{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:18px}.course-prompt-kicker{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}.course-prompt-library h2{margin-top:0}.course-prompt{border:1px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card);overflow:hidden}.course-prompt summary{cursor:pointer;padding:11px 14px;font-weight:700}.course-prompt-body{padding:0 14px 14px;background:#fff;border-top:1px solid var(--line)}.course-prompt-body pre{white-space:pre-wrap;font:13px/1.55 Consolas,'Courier New',monospace}.course-prompt-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end;margin-top:10px}.course-prompt-copy,.course-prompt-ref{font:inherit;border:1px solid var(--blue);border-radius:var(--rs);background:#fff;color:var(--blue);cursor:pointer;font-weight:700}.course-prompt-copy{padding:6px 10px}.course-prompt-ref{padding:2px 7px;margin-left:5px;font-size:13px}.course-prompt-status{font-size:13px;color:var(--green)}
+@media(max-width:620px){.course-interactive-host iframe{height:1100px}}
+</style><script id="course-interactive-data" type="application/json">{"id":"lesson-shag-15","prompts":[{"key":"p1","role":"ПТО","code":"C1","title":"Извлечение объёмов из акта/ВОР в таблицу","text":"Ты — инженер ПТО. Задача: распознай приложенный акт/ведомость и выведи объёмы в таблицу: позиция, наименование, ед. изм., количество. Отдельно посчитай итог по бетону и по арматуре. Формат: таблица + строка «Итого».\nДокумент: [вставьте / приложите скан]","source":"Курс-для-перепубликации-git_2026-09-04\\docs\\Курс-ИИ_Промпт-пак-ПТО_v1.md"},{"key":"p2","role":"ПТО","code":"C3","title":"Сводка объёмов за период","text":"Ты — инженер ПТО. Источник: файл «01_График-производства-работ.xlsx», срез на 28.06.2026. Собери сводку по строкам, где есть план и факт. Не достраивай отсутствующие значения. Формат: № | работа | план | факт | выполнение, % | статус | основание статуса. После таблицы отдельно перечисли подтверждённые и неподтверждённые выводы.","source":"Курс-для-перепубликации-git_2026-09-04/lesson-shag-15.html (details «Промпт C3»)"}],"downstream":["#selfcheck","#practice"]}</script><script>
+(function(){const cfg=JSON.parse(document.getElementById('course-interactive-data').textContent),host=document.querySelector('[data-course-interactive="'+cfg.id+'"]'),frame=host&&host.querySelector('iframe');
+function hideLegacy(){['lcResult','liveResult'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.review')||el).hidden=true});['lcConfirm','lcContinue','liveCheck'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.lcgate,.gatecheck')||el).hidden=true});['lcStatus','gateResult'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=true})}
+function unlock(){cfg.downstream.forEach(selector=>{const el=document.querySelector(selector);if(!el)return;el.classList.remove('locked');const wrap=el.closest('.lockwrap');if(wrap)wrap.classList.remove('is-locked')});try{localStorage.setItem('course-interactive:'+cfg.id,'done')}catch(_e){}}
+function completed(){try{return localStorage.getItem('course-interactive:'+cfg.id)==='done'}catch(_e){return false}}function init(){hideLegacy();if(completed())unlock()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+new MutationObserver(()=>{hideLegacy();if(completed())unlock()}).observe(document.documentElement,{childList:true,subtree:true});addEventListener('message',event=>{if(!frame||event.source!==frame.contentWindow||!event.data||event.data.id!==cfg.id)return;if(event.data.type==='course-interactive-height')frame.style.height=Math.max(520,Number(event.data.height)||920)+'px';if(event.data.type==='course-interactive-complete')unlock()});
+async function copyText(text){try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);return true}catch(_e){const t=document.createElement('textarea');t.value=text;t.readOnly=true;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_x){}t.remove();return ok}}
+document.querySelectorAll('.course-prompt-copy').forEach(button=>button.onclick=async()=>{const item=cfg.prompts.find(x=>x.key===button.dataset.promptKey),status=button.nextElementSibling;const ok=item&&await copyText(item.text);status.textContent=ok?'Скопировано':'Выделите текст и скопируйте вручную';setTimeout(()=>status.textContent='',2500)});
+const codes=[...new Set(cfg.prompts.map(x=>x.code))];document.querySelectorAll('p,li,td,th,summary,h2,h3,label,.note').forEach(el=>{if(el.closest('.course-prompt-library,.course-interactive-host,script,style,pre,select')||el.querySelector('.course-prompt-ref')||el.textContent.length>650||!/промпт/i.test(el.textContent))return;const found=codes.filter(code=>el.textContent.includes(code));if(!found.length)return;const b=document.createElement('button');b.type='button';b.className='course-prompt-ref';b.textContent='🧩';b.title='Открыть упомянутый промпт';b.setAttribute('aria-label','Открыть упомянутый промпт');b.onclick=()=>{const library=document.getElementById('coursePromptLibrary');if(!library)return;const matches=[...library.querySelectorAll('.course-prompt')].filter(x=>found.includes(x.dataset.promptCode));matches.forEach(x=>x.open=true);(matches[0]||library).scrollIntoView({behavior:'smooth',block:'start'})};el.append(' ',b)});
+})();</script>
+<!-- COURSE_INTERACTIVE_SUPPORT_END:lesson-shag-15 -->
 </body>
 </html>

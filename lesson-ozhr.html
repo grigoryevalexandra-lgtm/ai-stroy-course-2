@@ -169,7 +169,7 @@
         </details>
 
         <h3 style="margin-top:20px">Промпт для автопротокола</h3>
-        <p class="muted">Вставьте транскрипт вместо «…» и отправьте в ИИ-чат — на выходе таблица поручений, а не пересказ разговора.</p>
+        <p class="muted">Вставьте транскрипт и попросите таблицу поручений с ответственным, сроком и источником фразы; это черновик, не официальный протокол.</p>
         <div class="copy" id="promptE1">Ты — инженер ПТО. Задача: из приложенной расшифровки планёрки сделай протокол: решения и поручения. Формат: таблица «поручение → ответственный → срок». Ничего не придумывай — только из текста.
 Транскрипт: «…»</div>
         <p class="promptnote">Это промпт E1 из твоего промпт-пака ПТО («Протокол планёрки из транскрипта»).</p>
@@ -248,6 +248,29 @@
         </div>
         <div class="transfer-note">⚙ Для переноса в платформу Актион: здесь подключается отправка куратору — приём текста из textarea, сохранение в личном кабинете, статус проверки.</div>
       </section>
+
+<!-- APPROVED_INTERACTIVE_START:lesson-ozhr -->
+<section class="course-prompt-library" id="coursePromptLibrary"><p class="course-prompt-kicker">Промпты урока</p><h2>Откройте нужный промпт и скопируйте его кнопкой 📋.</h2><details class="course-prompt" data-prompt-code="E1"><summary>🧩 Промпт E1 · ПТО · Протокол планёрки из транскрипта</summary><div class="course-prompt-body"><div class="course-prompt-actions"><button type="button" class="course-prompt-copy" data-prompt-key="p1" aria-label="Скопировать Промпт E1 · ПТО · Протокол планёрки из транскрипта" title="Скопировать промпт">📋</button><span class="course-prompt-status" aria-live="polite"></span></div><pre>Ты — инженер ПТО. Задача: из приложенной расшифровки планёрки сделай протокол: решения и поручения. Формат: таблица «поручение → ответственный → срок». Ничего не придумывай — только из текста.
+Транскрипт: [вставьте]</pre></div></details><details class="course-prompt" data-prompt-code="E2"><summary>🧩 Промпт E2 · ПТО · Недельный отчёт из записей ОЖР</summary><div class="course-prompt-body"><div class="course-prompt-actions"><button type="button" class="course-prompt-copy" data-prompt-key="p2" aria-label="Скопировать Промпт E2 · ПТО · Недельный отчёт из записей ОЖР" title="Скопировать промпт">📋</button><span class="course-prompt-status" aria-live="polite"></span></div><pre>Ты — инженер ПТО. Задача: преобразуй черновые записи ОЖР за неделю в краткий отчёт руководителю: что сделано, простои, проблемы. Формат: 3 блока, до 120 слов.
+Записи ОЖР: [вставьте]</pre></div></details></section>
+<section class="sec course-interactive-host" data-course-interactive="lesson-ozhr"><p class="stp">Проверка задания</p><h2>ОЖР или протокол: проверьте голосовую запись</h2><iframe src="interactives/lesson-ozhr.html" title="Проверка задания: ОЖР или протокол: проверьте голосовую запись" loading="lazy"></iframe><a class="course-interactive-open" href="interactives/lesson-ozhr.html" target="_blank" rel="noopener">Открыть проверку отдельно</a></section>
+<!-- APPROVED_INTERACTIVE_END:lesson-ozhr -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <section class="card" style="margin-top:20px">
         <p class="step-title">Материалы урока</p>
@@ -336,5 +359,29 @@ document.getElementById('protocolBtn').addEventListener('click',()=>{
   field.addEventListener('input',upd);
 })();
 </script>
+
+
+
+
+
+
+
+
+<!-- COURSE_INTERACTIVE_SUPPORT_START:lesson-ozhr -->
+<style>
+.course-interactive-host iframe{display:block;width:100%;height:920px;border:0;background:var(--bg);margin-top:10px}.course-interactive-host .course-interactive-open{display:inline-block;margin-top:8px;font-size:13px}
+.course-prompt-library{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:18px}.course-prompt-kicker{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}.course-prompt-library h2{margin-top:0}.course-prompt{border:1px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card);overflow:hidden}.course-prompt summary{cursor:pointer;padding:11px 14px;font-weight:700}.course-prompt-body{padding:0 14px 14px;background:#fff;border-top:1px solid var(--line)}.course-prompt-body pre{white-space:pre-wrap;font:13px/1.55 Consolas,'Courier New',monospace}.course-prompt-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end;margin-top:10px}.course-prompt-copy,.course-prompt-ref{font:inherit;border:1px solid var(--blue);border-radius:var(--rs);background:#fff;color:var(--blue);cursor:pointer;font-weight:700}.course-prompt-copy{padding:6px 10px}.course-prompt-ref{padding:2px 7px;margin-left:5px;font-size:13px}.course-prompt-status{font-size:13px;color:var(--green)}
+@media(max-width:620px){.course-interactive-host iframe{height:1100px}}
+</style><script id="course-interactive-data" type="application/json">{"id":"lesson-ozhr","prompts":[{"key":"p1","role":"ПТО","code":"E1","title":"Протокол планёрки из транскрипта","text":"Ты — инженер ПТО. Задача: из приложенной расшифровки планёрки сделай протокол: решения и поручения. Формат: таблица «поручение → ответственный → срок». Ничего не придумывай — только из текста.\nТранскрипт: [вставьте]","source":"Курс-для-перепубликации-git_2026-09-04/lesson-ozhr.html#promptE1"},{"key":"p2","role":"ПТО","code":"E2","title":"Недельный отчёт из записей ОЖР","text":"Ты — инженер ПТО. Задача: преобразуй черновые записи ОЖР за неделю в краткий отчёт руководителю: что сделано, простои, проблемы. Формат: 3 блока, до 120 слов.\nЗаписи ОЖР: [вставьте]","source":"Курс-для-перепубликации-git_2026-09-04\\docs\\Курс-ИИ_Промпт-пак-ПТО_v1.md"}],"downstream":["#practice"]}</script><script>
+(function(){const cfg=JSON.parse(document.getElementById('course-interactive-data').textContent),host=document.querySelector('[data-course-interactive="'+cfg.id+'"]'),frame=host&&host.querySelector('iframe');
+function hideLegacy(){['lcResult','liveResult'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.review')||el).hidden=true});['lcConfirm','lcContinue','liveCheck'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.lcgate,.gatecheck')||el).hidden=true});['lcStatus','gateResult'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=true})}
+function unlock(){cfg.downstream.forEach(selector=>{const el=document.querySelector(selector);if(!el)return;el.classList.remove('locked');const wrap=el.closest('.lockwrap');if(wrap)wrap.classList.remove('is-locked')});try{localStorage.setItem('course-interactive:'+cfg.id,'done')}catch(_e){}}
+function completed(){try{return localStorage.getItem('course-interactive:'+cfg.id)==='done'}catch(_e){return false}}function init(){hideLegacy();if(completed())unlock()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+new MutationObserver(()=>{hideLegacy();if(completed())unlock()}).observe(document.documentElement,{childList:true,subtree:true});addEventListener('message',event=>{if(!frame||event.source!==frame.contentWindow||!event.data||event.data.id!==cfg.id)return;if(event.data.type==='course-interactive-height')frame.style.height=Math.max(520,Number(event.data.height)||920)+'px';if(event.data.type==='course-interactive-complete')unlock()});
+async function copyText(text){try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);return true}catch(_e){const t=document.createElement('textarea');t.value=text;t.readOnly=true;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_x){}t.remove();return ok}}
+document.querySelectorAll('.course-prompt-copy').forEach(button=>button.onclick=async()=>{const item=cfg.prompts.find(x=>x.key===button.dataset.promptKey),status=button.nextElementSibling;const ok=item&&await copyText(item.text);status.textContent=ok?'Скопировано':'Выделите текст и скопируйте вручную';setTimeout(()=>status.textContent='',2500)});
+const codes=[...new Set(cfg.prompts.map(x=>x.code))];document.querySelectorAll('p,li,td,th,summary,h2,h3,label,.note').forEach(el=>{if(el.closest('.course-prompt-library,.course-interactive-host,script,style,pre,select')||el.querySelector('.course-prompt-ref')||el.textContent.length>650||!/промпт/i.test(el.textContent))return;const found=codes.filter(code=>el.textContent.includes(code));if(!found.length)return;const b=document.createElement('button');b.type='button';b.className='course-prompt-ref';b.textContent='🧩';b.title='Открыть упомянутый промпт';b.setAttribute('aria-label','Открыть упомянутый промпт');b.onclick=()=>{const library=document.getElementById('coursePromptLibrary');if(!library)return;const matches=[...library.querySelectorAll('.course-prompt')].filter(x=>found.includes(x.dataset.promptCode));matches.forEach(x=>x.open=true);(matches[0]||library).scrollIntoView({behavior:'smooth',block:'start'})};el.append(' ',b)});
+})();</script>
+<!-- COURSE_INTERACTIVE_SUPPORT_END:lesson-ozhr -->
 </body>
 </html>

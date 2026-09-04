@@ -336,7 +336,7 @@
         <p class="muted">Всё содержимое этого шага — конспект, шаблон Паспорта навыков и чек-лист готовности — собрано в один архив.</p>
         <div class="materials">
           <ul class="mlist">
-            <li><span class="mico">📝</span><span>Конспект урока (теория «пакет из трёх вещей», критерии оценки, .md)</span></li>
+            <li><span class="mico">📝</span><span>Конспект урока (теория «пакет из трёх вещей», критерии оценки, DOCX)</span></li>
             <li><span class="mico">📁</span><span>Шаблон «Паспорт навыков и ИИ-набор» (документ 23 из Библии проекта «Уютный дом на Матвеева»)</span></li>
             <li><span class="mico">✅</span><span>Чек-лист готовности к защите (6 пунктов, тот же список, что в интерактиве)</span></li>
             <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
@@ -358,12 +358,10 @@
           <textarea id="sRes" rows="4" placeholder="Например: сверял акт скрытых работ со спецификацией через ИИ, нашёл расхождение по объёму, перепроверил по документу вручную…"></textarea>
           <label>Ваш e-mail для ответа куратора</label>
           <input id="sEmail" type="email" placeholder="you@example.ru">
-          <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
-            <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
         </div>
         <div class="transfer-note">
           <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-          Здесь платформа принимает пакет на проверку куратором — <b>проверка №4</b>. В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется. На проверку куратор получает весь пакет целиком: это описание + результат Шага 29 + карточка Шага 28.
+          Здесь платформа принимает пакет на проверку куратором — <b>проверка №4</b>. На проверку куратор получает весь пакет целиком: это описание + результат Шага 29 + карточка Шага 28.
         </div>
       </section>
 
@@ -471,24 +469,7 @@
   upd();
 })();
 
-/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально (без бэкенда, без отправки) ── */
-(function(){
-  var btn=document.getElementById('sendRev');if(!btn)return;
-  btn.addEventListener('click',function(){
-    var res=document.getElementById('sRes').value.trim(),
-        email=document.getElementById('sEmail').value.trim(),
-        m=document.getElementById('revMsg');
-    if(!res){m.textContent='Вставьте описание';return;}
-    var raw='Шаг 30 (Защита и Паспорт навыков) — пакет на проверку\n\nКороткое описание «как я применил ИИ на реальной задаче»:\n'+res+'\n\nОтвет на e-mail: '+email;
-    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url;a.download='zadanie-shag-30.txt';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    setTimeout(function(){URL.revokeObjectURL(url);},1000);
-    m.textContent='Файл скачан ✓';
-  });
-})();
+
 </script>
 </body>
 </html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Шаг 5. Контекст решает: ИИ не знает вашу компанию — Высшая инженерная школа</title>
+<style>
+  /* ── Дизайн-токены Актион (единые для всех уроков) ── */
+  :root{--bg:#ffffff;--card:#faf8f5;--card2:#f3efe9;--ink:#1a1814;--muted:#6f7280;--line:#e9e4dc;--brand:#e2231a;--blue:#237cf9;--green:#1f9d57;--yellow:#f5b500;--purple:#9b5de5;--r:16px;--rs:10px;--font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif}
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{overflow-x:hidden;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg,video,iframe,pre,table{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}.navlink a{font-size:13.5px;font-weight:600}
+  .author{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:18px 0 4px;flex-wrap:wrap}
+  .author .ava{width:58px;height:58px;border-radius:12px;flex:0 0 auto;background:#fff;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:10px;text-align:center;overflow:hidden}
+  .author .ava img{width:100%;height:100%;object-fit:cover}
+  .author .who b{font-size:15.5px}.author .who .role{font-size:13px;color:var(--muted)}
+  .author .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:18px 0 6px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.12;margin:4px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:15.5px;max-width:760px}
+  .lvl{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;margin-top:8px}
+  .lvl .dotx{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .meta .pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;margin-top:18px}
+  .sec{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:18px}
+  .stp{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}
+  h2{font-size:21px;margin:2px 0 12px;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:16px;margin:18px 0 8px;font-weight:800}
+  p{margin:0 0 12px}.muted{color:var(--muted)}
+  .why{background:var(--card);border-left:4px solid var(--blue);border-radius:12px;padding:13px 15px;font-size:14.5px;margin:14px 0}
+  .note{font-size:13.5px;color:#7a5b16;background:#fdf6e3;border:1px solid #f3e3b3;border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note.green{color:#157a41;background:#eef8f1;border-color:#cdebd8}.note.red{color:#a3201a;background:#fdf0ef;border-color:#f3c7c3}
+  .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:var(--rs);padding:11px 17px;font-size:14px;background:var(--blue);color:#fff;transition:.15s}
+  .btn:hover{filter:brightness(.95)}.btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.dark{background:var(--ink)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+  .btn.sm{padding:8px 13px;font-size:13px}
+  .checks{list-style:none;padding:0;margin:8px 0 0}
+  .checks li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .checks li:last-child{border-bottom:none}.checks li:before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .checks.bad li:before{content:"✕";color:var(--brand)}
+  .checks.num{counter-reset:c}.checks.num li:before{counter-increment:c;content:counter(c);background:var(--ink);color:#fff;width:18px;height:18px;border-radius:50%;font-size:11px;display:grid;place-items:center;top:8px}
+  .toc{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.toc li{padding:5px 0}.toc a{color:var(--ink)}
+  .tw{overflow-x:auto;margin-top:6px}
+  table.cmp{border-collapse:collapse;width:100%;font-size:12.5px;min-width:480px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  table.cmp th{background:var(--card);font-weight:800;font-size:11.5px;text-transform:uppercase;color:var(--muted)}
+  td.bad{background:#fde4e2;color:#8f1410;font-weight:700}td.good{background:#eef8f1}
+  /* ── Демо-диалог (чат) + disclaimer ── */
+  .chat{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:8px}
+  .chat .ch{display:flex;align-items:center;gap:9px;background:var(--card);border-bottom:1px solid var(--line);padding:9px 13px;font-size:13px;font-weight:700}
+  .chat .ch .gi{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#1f9d57,#2bb56a);color:#fff;display:grid;place-items:center;font-size:12px}
+  .chat .body{padding:13px;background:#fff}
+  .sys{font-size:11.5px;color:var(--muted);background:var(--card2);border-radius:7px;padding:5px 9px;margin-bottom:9px;display:inline-block}
+  .bub{font-size:13.5px;border-radius:11px;padding:9px 12px;margin:7px 0;max-width:94%;white-space:pre-wrap}
+  .bub.u{background:var(--blue);color:#fff;margin-left:auto}.bub.a{background:var(--card);border:1px solid var(--line)}
+  .chat .ctrls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:11px 13px;border-top:1px solid var(--line);background:var(--card)}
+  .ai-disclaimer{font-size:12px;color:var(--muted)}
+  /* ── Тренажёр без/с документами ── */
+  .trainerbox{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card);margin-top:10px}
+  .roles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px}
+  .role{cursor:pointer;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;transition:.15s;display:flex;gap:10px;align-items:flex-start}
+  .role:hover{border-color:var(--ink)}
+  .role.sel{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+  .role .ic{font-size:22px}.role b{display:block;font-size:14px;margin-bottom:2px}.role span{font-size:12px;color:var(--muted)}
+  .q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0}
+  .q .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+  .q .txt{font-size:15.5px;font-weight:700}
+  .toggle-row{display:flex;align-items:center;gap:14px;margin:6px 0 16px;flex-wrap:wrap}
+  .switch{position:relative;display:inline-block;width:52px;height:28px;flex:0 0 auto}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{position:absolute;cursor:pointer;inset:0;background:var(--line);border-radius:30px;transition:.2s}
+  .slider:before{content:"";position:absolute;height:20px;width:20px;left:4px;bottom:4px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  input:checked + .slider{background:var(--green)}input:checked + .slider:before{transform:translateX(24px)}
+  .toggle-label b{font-size:14.5px}.toggle-label span{display:block;font-size:12px;color:var(--muted)}
+  .docchip{display:inline-flex;align-items:center;gap:7px;background:#e7f6ee;border:1px solid #bfe6cf;color:#157a41;border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:700;opacity:0;transform:translateY(-4px);transition:.25s;pointer-events:none}
+  .docchip.show{opacity:1;transform:none}
+  .meter{margin:6px 0 16px}
+  .meter .ml{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px}
+  .bar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden}
+  .bar i{display:block;height:100%;width:18%;background:var(--brand);border-radius:6px;transition:.45s}
+  .bar.on i{width:96%;background:var(--green)}
+  .verdict{font-size:13px;font-weight:700;margin-top:5px}
+  .answer{border-radius:14px;padding:16px;border:1px solid var(--line);transition:.3s;min-height:100px;background:#fff}
+  .answer.off{background:#fdf0ef;border-color:#f3c7c3}
+  .answer.on{background:#eef8f1;border-color:#cdebd8}
+  .answer .ahead{display:flex;align-items:center;gap:9px;margin-bottom:10px;font-weight:800;font-size:14px}
+  .answer.off .ahead{color:var(--brand)}.answer.on .ahead{color:#157a41}
+  .answer .abody{font-size:14px}.answer .cite{margin-top:10px;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+  /* ── Материалы / живой чат / гейт ── */
+  .materials{display:flex;flex-direction:column;gap:12px}
+  .materials .mlist{list-style:none;padding:0;margin:0}
+  .materials .mlist li{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .materials .mlist li:last-child{border-bottom:none}
+  .materials .mlist .mico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:13px}
+  .materials .mcap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .livechat{display:flex;flex-direction:column;gap:12px}
+  .livechat .lcbtns{display:flex;gap:10px;flex-wrap:wrap}
+  .livechat .lcbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:var(--rs);padding:11px 16px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .livechat .lcbtn:hover{border-color:var(--ink)}
+  .livechat .lcbtn .dotc{width:9px;height:9px;border-radius:50%}
+  .livechat .lcinstruction{font-size:14px}
+  .livechat .lcgate{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin-top:2px}
+  .livechat .lcgate input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--green)}
+  .lcstatus{font-size:13px;font-weight:700;color:var(--muted)}
+  .lcstatus.ready{color:var(--green)}
+  .review label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  .review textarea,.review input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+  .review textarea:focus,.review input:focus{outline:none;border-color:var(--blue)}
+  .selfcheck{list-style:none;padding:0;margin:8px 0 0}
+  .selfcheck li{border-bottom:1px solid var(--line)}
+  .selfcheck li:last-child{border-bottom:none}
+  .selfcheck label{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;cursor:pointer;margin:0}
+  .selfcheck input{width:18px;height:18px;flex:0 0 auto;margin:3px 0 0;accent-color:var(--green)}
+  .scbar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden;margin-top:14px}
+  .scbar i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;transition:.35s}
+  .scmsg{font-size:13px;font-weight:700;margin-top:7px;color:var(--muted)}
+  .dl{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .dl button,.prevbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+  .dl button:hover,.prevbtn:hover{border-color:var(--ink)}
+  .coursenav{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .coursenav a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:var(--rs);padding:11px 17px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .coursenav a:hover{border-color:var(--ink)}
+  .coursenav a.next{background:var(--ink);border-color:var(--ink);color:#fff}
+  .coursenav a small{display:block;font-weight:600;font-size:11px;color:var(--muted)}
+  .coursenav a.next small{color:rgba(255,255,255,.65)}
+  .asst{position:sticky;top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .asst .hd{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .asst .ico{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .asst .hd b{font-size:14.5px}.asst .hd span{font-size:11px;color:var(--green);font-weight:700}
+  .lvltrack{display:flex;gap:5px;margin:12px 0 2px}
+  .lvltrack i{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .lvltrack i.on{background:var(--green)}.lvltrack i.cur{background:var(--blue)}
+  .caps{list-style:none;margin:12px 0 0;padding:0}
+  .caps li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .caps li:last-child{border-bottom:none}.caps li.lock{color:var(--muted)}
+  .caps li .s{flex:0 0 auto;width:18px}
+  .caps li small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+  .caps li.cur b{color:var(--ink)}
+  .newb{font-size:9px;font-weight:800;color:#fff;background:var(--green);border-radius:4px;padding:1px 5px;margin-left:5px;white-space:nowrap}
+  .lockwrap{position:relative}
+  .locked{position:relative;opacity:.4;pointer-events:none;user-select:none;filter:grayscale(.3);transition:opacity .2s,filter .2s}
+  .locked .lockbadge{display:none}
+  .lockwrap .lockbadge{display:none;position:absolute;top:14px;right:14px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 12px;align-items:center;gap:6px;z-index:2}
+  .lockwrap.is-locked .lockbadge{display:inline-flex}
+  .transfer-note{border:1.5px dashed var(--purple);background:#faf6ff;border-radius:12px;padding:12px 14px;font-size:13px;color:#5b3a94;margin-top:12px}
+  .transfer-note .tnlabel{display:flex;align-items:center;gap:7px;font-weight:800;font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--purple);margin-bottom:5px}
+  .transfer-note.compact{margin-top:8px;padding:10px 12px}
+  .promptbadge{display:inline-block;font-size:11px;font-weight:800;color:var(--purple);background:#faf6ff;border:1px solid #e6d5fa;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+  .kv{display:grid;grid-template-columns:130px 1fr;gap:10px 14px;margin:14px 0}
+  .kv .k{color:var(--muted);font-size:13px;padding-top:9px}
+  .kv input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:9px 11px;font-size:14px;font-family:inherit}
+  .kv input:focus{outline:none;border-color:var(--blue)}
+  .kv input::placeholder{color:#b7b2a8}
+  .example-row{display:flex;justify-content:flex-end;margin-top:-6px}
+  .link-btn{background:none;border:none;padding:0;color:var(--blue);font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:underline}
+  .assembled{background:#fff;border:1px dashed var(--blue);border-radius:10px;padding:14px;font-size:13.5px;white-space:pre-wrap;margin-top:6px;min-height:58px;word-break:break-word}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}.asst{position:static}}
+  @media(max-width:560px){.roles{grid-template-columns:1fr}.kv{grid-template-columns:1fr}.kv .k{padding-top:0}}
+  @media(max-width:420px){h1{font-size:25px}.sec{padding:18px 16px}}
+.matrow{margin:10px 0 4px}.matbtn{display:inline-block;background:#111;color:#fff;padding:9px 16px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none}.matbtn:hover{opacity:.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span><span class="navlink"><a href="index.html">← Все шаги</a></span>
+  </div>
+
+  <div class="author">
+    <div class="ava"><span>ФОТО</span></div>
+    <div class="who"><b>Евгений Эрман, к.т.н.</b>
+      <div class="role">руководитель Лаборатории ИИ-решений девелоперской компании «РАЗУМ»</div></div>
+    <span class="tag">Автор урока</span>
+  </div>
+
+  <div class="kicker">Курс «30 шагов: рабочий ИИ-инструмент для строителя» · Неделя 1 · Шаг 5 · Роль: любая <span class="rule" style="background:var(--blue)"></span></div>
+  <h1>Шаг 5. Контекст решает: ИИ не знает вашу компанию</h1>
+  <div class="matrow"><a class="matbtn" href="materials/shag-05.zip" download>⬇ Материалы урока (архив): тексты, файлы кейса, интерактив</a></div>
+  <p class="lead">Почему чат «тупеет» без ваших документов — и становится умнее, когда их подключаешь. На примере ЖК «Уютный дом на Матвеева». 15–20 минут, с тренажёром и проверкой.</p>
+  <div class="meta">
+    <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 0 → 1</span>
+    <span class="pill">🎓 Новичок</span>
+  </div>
+  <div class="transfer-note compact">
+    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+    Платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли» из требований к разработке) — строка «Роль: …» выше должна обновляться без правки HTML урока.
+  </div>
+
+  <div class="grid">
+    <div>
+
+      <!-- ═══ TOC ═══ -->
+      <section class="sec">
+        <p class="stp">Что внутри урока</p>
+        <ul class="toc">
+          <li>1 · <a href="#motivation">Зачем это нужно: ответ «водой»</a></li>
+          <li>2 · <a href="#theory">Теория: ИИ — стажёр в первый день</a></li>
+          <li>3 · <a href="#trainer">Тренажёр: без документов / с документами</a></li>
+          <li>4 · <a href="#table">Предписание № 57: что видит и что отвечает ИИ</a></li>
+          <li>5 · <a href="#demo">Разбор демо-примера</a></li>
+          <li>6 · <a href="#redlines">Красные линии</a></li>
+          <li>7 · <a href="#builder">Соберите свой промпт</a></li>
+          <li>8 · <a href="#materials">Материалы урока</a></li>
+          <li>9 · <a href="#livechat">Сделай в живом чате</a></li>
+          <li>10 · <a href="#practice">Практика и проверка</a></li>
+        </ul>
+        <div class="note">📄 К уроку приложены: текст предписания № 57, письмо техзаказчика № 311, фрагмент договора подряда и разбор тренажёра «без документов / с документами».</div>
+      </section>
+
+      <!-- ═══ 1 · MOTIVATION ═══ -->
+      <section class="sec" id="motivation">
+        <p class="stp">1 · Зачем это нужно</p>
+        <h2>Почему ИИ отвечает «водой»</h2>
+        <p>Задайте голому чат-боту вопрос из своей рабочей переписки — например, «какой у нас гарантийный срок на СМР по договору?» — и получите обтекаемый ответ вроде «обычно 3–5 лет, зависит от условий договора». Формально не ошибка. Практически — бесполезно: вы и так знаете, что «зависит от договора», вам нужен ответ <b>по вашему конкретному договору</b>.</p>
+        <p>Дело не в том, что модель слабая. Дело в том, что она вообще не видела ваш договор, ваше письмо от техзаказчика, ваше предписание стройконтроля. Она отвечает «в среднем по больнице» — потому что другой информации у неё просто нет.</p>
+        <div class="why">💡 <b>Зачем это вам:</b> как только вы даёте ИИ ваши документы, тот же самый чат перестаёт «лить воду» и начинает отвечать конкретно, со ссылкой на пункт и цитатой — это и есть разница между игрушкой и рабочим инструментом.</div>
+      </section>
+
+      <!-- ═══ 2 · THEORY ═══ -->
+      <section class="sec" id="theory">
+        <p class="stp">2 · Теория</p>
+        <h2>ИИ — блестящий стажёр в первый рабочий день</h2>
+        <div class="why" style="border-left-color:var(--yellow)">
+          🎓 Он прочитал пол-интернета и знает отрасль вообще: нормативы, типовые формы договоров, общую логику стройки. Но про <b>вашу</b> компанию и ваш объект — ровным счётом ничего: ни договоров, ни писем заказчика, ни регламентов, ни истории переписки с подрядчиком. На вопрос «как у нас» стажёр в первый день ответит «как обычно бывает» — и прозвучит уверенно, даже когда промахнётся.
+        </div>
+        <p>Дайте стажёру ваши документы — и он через минуту заговорит как коллега, который знает вашу кухню. Ровно то же самое происходит с ИИ. Это и называется <b>контекст</b>: набор ваших данных, который вы даёте модели прямо в диалоге (по-научному — близко к идее RAG, «ответ с опорой на ваши данные», подробнее — на Неделе 3).</p>
+        <h3>Без контекста vs с контекстом</h3>
+        <div class="tw">
+          <table class="cmp">
+            <tr><th>Без контекста</th><th>С вашими документами</th></tr>
+            <tr><td class="bad">Отвечает «в среднем по рынку»</td><td class="good">Отвечает по вашим данным</td></tr>
+            <tr><td class="bad">Может выдумать пункт норматива или цифру</td><td class="good">Даёт ссылку на пункт / документ</td></tr>
+            <tr><td class="bad">Уверенный тон ≠ достоверность</td><td class="good">Ответ можно проверить</td></tr>
+          </table>
+        </div>
+        <div class="note">⚠️ Контекст не отменяет проверку — критичные цифры и формулировки всё равно сверяются с первоисточником (см. Шаг 2). Но контекст резко снижает саму вероятность «воды» и выдумки.</div>
+      </section>
+
+      <!-- ═══ 3 · TRAINER (интерактив А) ═══ -->
+      <section class="sec" id="trainer">
+        <p class="stp">3 · Интерактив</p>
+        <h2>Тренажёр: один вопрос — два разных ИИ</h2>
+        <p class="muted">Выберите свою роль, затем включите тумблер «Подключить документы компании» и сравните, как меняется ответ на один и тот же рабочий вопрос по объекту ЖК «Уютный дом на Матвеева».</p>
+        <div id="trainerA-mount"><!-- интерактив А монтируется сюда через IIFE ниже --></div>
+      </section>
+
+      <!-- ═══ 4 · TABLE: ПРЕДПИСАНИЕ № 57 ═══ -->
+      <section class="sec" id="table">
+        <p class="stp">4 · Документ-источник</p>
+        <h2>Предписание № 57: что видит ИИ и что отвечает</h2>
+        <p class="muted">Тот же принцип «без контекста / с контекстом» — на примере одного реального документа кейса. Раскройте документ, затем сравните три ответа ИИ на вопрос «что нужно сделать по этому предписанию».</p>
+
+        <details class="doc">
+          <summary>📋 Предписание № 57 об устранении нарушений <span class="dtag">документ 05 · открыть</span></summary>
+          <div class="docbody">
+<pre>ПРЕДПИСАНИЕ № 57
+об устранении нарушений при производстве строительно-монтажных работ
+
+Объект: ЖК «Уютный дом на Матвеева», 1-я очередь, секция 2.
+Кому: производителю работ ООО «СтройМонолит», прорабу Иванову И.И. (вымышл.)
+Дата: 25.06.2026.
+
+Выявленные нарушения:
+
+1. При армировании плиты перекрытия на отм. +12,000 (захватка 2-Б) фактический
+   защитный слой бетона в трёх местах составляет 12–15 мм при проектном 25 мм.
+   Нарушение СП 70.13330.2012 «Несущие и ограждающие конструкции» (п. по
+   защитному слою) и проекта КЖ-05.
+2. Отсутствует акт входного контроля партии арматуры Ø16 (поступление от
+   18.06.2026).
+3. Складирование арматуры на открытой площадке без подкладок, с признаками
+   коррозии.
+
+Требования:
+— по п. 1 — устранить, обеспечить проектный защитный слой, предъявить
+  повторно к освидетельствованию до 28.06.2026;
+— по п. 2 — представить документы входного контроля до 26.06.2026;
+— по п. 3 — обеспечить надлежащее хранение немедленно.
+
+До устранения нарушения по п. 1 бетонирование захватки 2-Б ЗАПРЕЩАЮ.
+
+Представитель строительного контроля ___________ /Петров П.П. (вымышл.)/</pre>
+          </div>
+        </details>
+
+        <div class="tw">
+          <table class="cmp">
+            <tr><th>Что видит ИИ</th><th>Что отвечает без контекста</th><th>Что отвечает с контекстом</th></tr>
+            <tr>
+              <td>Только сам вопрос: «Что нужно сделать по предписанию стройконтроля?»</td>
+              <td class="bad">«Обычно составляют план мероприятий по устранению: описываете нарушение, назначаете ответственного, указываете срок. Общей формы предписания нет — зависит от организации, которая его выдала.»</td>
+              <td class="good">«По предписанию № 57 нужно закрыть 3 пункта: 1) защитный слой 12–15 мм вместо 25 мм — устранить и предъявить к освидетельствованию до <b>28.06.2026</b>; 2) нет акта входного контроля арматуры Ø16 — представить до <b>26.06.2026</b>; 3) хранение арматуры без подкладок — исправить немедленно. Бетонирование захватки 2-Б запрещено до устранения п. 1.»</td>
+            </tr>
+          </table>
+        </div>
+        <div class="note">🔎 Заметьте: во втором столбце ИИ не сказал ничего неправильного — но и ничего полезного. В третьем — три конкретных пункта, три даты и прямая ссылка на текст документа.</div>
+      </section>
+
+      <!-- ═══ 5 · DEMO ═══ -->
+      <section class="sec" id="demo">
+        <p class="stp">5 · Разбор демо-примера</p>
+        <h2>Один и тот же запрос — до и после контекста</h2>
+        <p>Возьмём вопрос сметчика: «какая цена и порядок расчётов по договору подряда с ООО «СтройМонолит»?». Ниже — два прогона одного и того же чата.</p>
+
+        <h3>Без документа</h3>
+        <div class="chat">
+          <div class="ch"><span class="gi">G</span> GigaChat · веб-чат</div>
+          <div class="body">
+            <span class="sys">⚙️ Роль: сметчик · документ не приложен</span>
+            <div class="bub u">Какая цена и порядок расчётов по договору подряда с ООО «СтройМонолит»?</div>
+            <div class="bub a">В договорах строительного подряда цена обычно твёрдая и определяется на основании локальной сметы, изменение возможно только в предусмотренных законом случаях. Расчёты чаще всего идут по актам выполненных работ ежемесячно. Точные цифры и порядок расчётов смотрите в самом договоре — я не располагаю его текстом.</div>
+          </div>
+          <div class="ctrls"><span class="ai-disclaimer">Ответ смоделирован для урока</span></div>
+        </div>
+        <div class="note red">Вода: правильно в общем, бесполезно конкретно. Нет ни одной цифры и ссылки на пункт вашего договора.</div>
+
+        <h3>С приложенным договором</h3>
+        <div class="chat">
+          <div class="ch"><span class="gi">G</span> GigaChat · веб-чат</div>
+          <div class="body">
+            <span class="sys">⚙️ Роль: сметчик · документ: Договор подряда · ООО «СтройМонолит».md</span>
+            <div class="bub u">Какая цена и порядок расчётов по договору подряда с ООО «СтройМонолит»?</div>
+            <div class="bub a">Цена договора — <b>твёрдая</b>, определяется на основании ЛСР (п. 2). Изменение цены возможно только в случаях, предусмотренных законом. Работы принимаются по актам <b>КС-2</b> и справке <b>КС-3</b> ежемесячно, скрытые работы — по актам АОСР (п. 4). Пеня за просрочку — 1/300 ключевой ставки ЦБ от цены неисполненного за каждый день (п. 6).<br><br>Источник: Проект договора подряда, ЖК «Уютный дом на Матвеева», пп. 2, 4, 6.</div>
+          </div>
+          <div class="ctrls"><span class="ai-disclaimer">Ответ смоделирован для урока — черновик требует проверки цифр по первоисточнику</span></div>
+        </div>
+        <div class="note green">✅ Конкретный ответ с цитатами и ссылками на пункты. Это уже черновик, который можно проверить построчно — а не общие слова.</div>
+      </section>
+
+      <!-- ═══ 6 · RED LINES ═══ -->
+      <section class="sec" id="redlines">
+        <p class="stp">6 · Красные линии</p>
+        <h2>Что нельзя прикладывать ИИ</h2>
+        <ul class="checks bad">
+          <li><b>Персональные данные (ФЗ-152).</b> Реальные ФИО, телефоны, паспортные данные сотрудников и жильцов — в промптах и приложенных файлах используйте обезличенные формулировки («прораб Иванов И.И. (вымышл.)» вместо реального имени).</li>
+          <li><b>Коммерческая тайна.</b> Реальные закупочные цены, наценки, условия с конкретными поставщиками, внутренние финансовые модели — не для внешних ИИ-сервисов без согласования с руководителем.</li>
+          <li><b>Несогласованные финансовые условия.</b> Черновики цены, скидок, штрафов, которые ещё не утверждены — их публикация в чужом облачном сервисе может создать риск раньше, чем условия вообще согласованы внутри компании.</li>
+          <li><b>Юридически значимые документы «как есть».</b> Ответ на предписание, письмо заказчику, акт — только черновик от ИИ, финальную версию подписывает и несёт за неё ответственность человек.</li>
+        </ul>
+        <div class="note">⚠️ Правило простое: если сомневаетесь, можно ли прикладывать документ — обезличьте его или спросите руководителя, прежде чем вставлять в чат.</div>
+      </section>
+
+      <!-- ═══ 7 · BUILDER ═══ -->
+      <section class="sec" id="builder">
+        <p class="stp">7 · Практика на вашей задаче</p>
+        <h2>Соберите запрос, который даёт ИИ контекст</h2>
+        <p class="muted">Хороший запрос = роль + контекст (ваши данные) + задача + формат. Заполните под свою реальную задачу — внизу соберётся готовый промпт. Можно взять пример для своей роли.</p>
+        <div class="kv">
+          <div class="k">Роль для ИИ</div><input id="pRole" type="text" placeholder="Например: ты инженер ПТО на объекте...">
+          <div class="k">Контекст / документ</div><input id="pCtx" type="text" placeholder="Например: прикладываю письмо техзаказчика №311...">
+          <div class="k">Задача</div><input id="pTask" type="text" placeholder="Например: выдели все требования и сроки...">
+          <div class="k">Формат ответа</div><input id="pFmt" type="text" placeholder="Например: чек-лист по пунктам со сроками">
+        </div>
+        <div class="example-row"><button class="link-btn" id="showExampleBtn">показать пример для моей роли</button></div>
+        <div class="kv" style="grid-template-columns:130px 1fr;margin-top:-4px">
+          <div class="k">Роль (кейс)</div>
+          <select id="pRoleSelect" style="width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:9px 11px;font-size:14px;font-family:inherit">
+            <option value="PTO">Инженер ПТО</option>
+            <option value="SK">Стройконтроль / технадзор</option>
+            <option value="GIP">ГИП / проектировщик</option>
+            <option value="SM">Сметчик</option>
+            <option value="PR">Прораб / начальник участка</option>
+            <option value="OT">Инженер ОТ</option>
+          </select>
+        </div>
+        <div class="stp" style="margin-top:6px">Ваш промпт</div>
+        <div class="assembled" id="assembled">—</div>
+        <div class="note">Возьмите заготовку и попробуйте на любом доступном ИИ-чате (GigaChat, Алиса — принцип один). Ответ понадобится в блоке «Сделай в живом чате» ниже.</div>
+      </section>
+
+      <!-- ═══ MATERIALS ═══ -->
+      <section class="sec" id="materials">
+        <p class="stp">8 · Материалы урока</p>
+        <h2>Материалы урока</h2>
+        <p class="muted">Всё содержимое этого шага — текстовые материалы, документы кейса, промпты и HTML-интерактивы — собрано в один архив.</p>
+        <div class="materials">
+          <ul class="mlist">
+            <li><span class="mico">📝</span><span>Конспект урока (метафора «стажёр», красные линии, .md)</span></li>
+            <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: 05 (предписание № 57), 09 (письмо техзаказчика № 311), 14 (проект договора подряда)</span></li>
+            <li><span class="mico">🧩</span><span>Заготовки промптов «роль + контекст + задача + формат» под 6 ролей</span></li>
+            <li><span class="mico">🌐</span><span>HTML-интерактивы урока (тренажёр, живой чат, самопроверка, проверка № 1)</span></li>
+          </ul>
+          <div class="dl">
+            <a class="btn dark" href="materials/shag-05.zip">⬇ Скачать архив материалов</a>
+          </div>
+          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага.</p>
+        </div>
+      </section>
+
+      <!-- ═══ LIVE-CHAT (интерактив Б) ═══ -->
+      <section class="sec" id="livechat">
+        <p class="stp">9 · Сделай в живом чате</p>
+        <h2>Сделай в живом чате</h2>
+        <p class="lcinstruction">Возьмите промпт, который вы собрали в блоке 7, откройте один из чатов ниже, вставьте промпт и скопируйте сюда ответ. Ничего никуда не отправляется — это ваша личная проверка. Выберите маршрут. А. Учебный материал из архива урока — можно в публичный SaaS. Б. Свой материал: определите класс по светофору данных (Шаг 3): зелёный — можно в публичный SaaS; жёлтый — проверьте правила работодателя и используйте разрешённый сервис; красный — не загружайте, возьмите учебный аналог.</p>
+        <div id="trainerB-mount"><!-- интерактив Б монтируется сюда через IIFE ниже --></div>
+      </section>
+
+      <!-- ═══ SELFCHECK (интерактив В) ═══ -->
+      <div class="lockwrap" id="selfcheckWrap">
+        <section class="sec locked" id="selfcheck">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">10 · Самопроверка</p>
+          <h2>Перед сдачей отметьте</h2>
+          <div id="trainerC-mount"><!-- интерактив В монтируется сюда через IIFE ниже --></div>
+        </section>
+      </div>
+
+      <!-- ═══ PROVERKA №1 (интерактив Г) ═══ -->
+      <div class="lockwrap" id="practiceWrap">
+        <section class="sec locked" id="practice">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">11 · Практика и проверка</p>
+          <h2>Заберите шаблон для вашей роли — Проверка № 1</h2>
+          <p class="muted">Сохраните готовый промпт в свою личную библиотеку — будете пополнять её весь курс. Скачайте задание для проверки куратором.</p>
+          <div id="trainerD-mount"><!-- интерактив Г монтируется сюда через IIFE ниже --></div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент прокачан до Уровня 1:</b> ИИ ничего не знает о вашей компании и объекте, пока вы не дали ему контекст; хороший запрос = роль + контекст + задача + формат; уверенный тон ИИ — не гарантия правды, критичное проверяем.</div>
+        </section>
+      </div>
+
+      <!-- ═══ COURSE NAV ═══ -->
+      <div class="coursenav">
+        <a href="#prev-lesson"><span>←</span><span><small>Шаг 4</small>Первый осмысленный запрос</span></a>
+        <a href="#next-lesson" class="next"><span><small>Шаг 6</small>Следующий шаг курса</span><span>→</span></a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="asst" id="asstWidget">
+        <div class="hd"><div class="ico">🤖</div><div><b>Ваш ИИ-ассистент</b><br><span id="asstLvlLabel"></span></div></div>
+        <div class="lvltrack" id="asstTrack"></div>
+        <ul class="caps" id="asstCaps"></ul>
+        <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Сейчас уровень задаётся константой ASSISTANT_LEVEL в JS ниже. На платформе виджет должен принимать текущий прогресс участника извне (проброс прогресса, П-6 из требований к разработке), не хардкодиться в HTML урока.
+        </div>
+      </div>
+      <script>
+      (function(){
+        var ASSISTANT_LEVEL = 1;
+        var ASSISTANT_LEVELS = [
+          {icon:'💬', name:'Голый чат',            desc:'отвечает «из головы», без вашего контекста'},
+          {icon:'🎭', name:'Роль и контекст',       desc:'знает, кто вы и на каком объекте работаете'},
+          {icon:'📚', name:'Библиотека промптов',   desc:'типовые задачи решает по готовым шаблонам'},
+          {icon:'📄', name:'Документы и знания',    desc:'работает с вашими сметами, КП, регламентами'},
+          {icon:'🧰', name:'Рабочий набор',         desc:'инструменты и агентные сценарии под роль'}
+        ];
+        var ASSISTANT_UNLOCK_NOTE = 'На следующих шагах ассистент поднимется до уровня 2 — «Библиотека промптов»: типовые задачи по готовым шаблонам под вашу роль.';
+        var L=Math.max(0,Math.min(4,ASSISTANT_LEVEL));
+        document.getElementById('asstLvlLabel').textContent='Уровень '+L+' · '+ASSISTANT_LEVELS[L].name;
+        var track=document.getElementById('asstTrack');
+        for(var i=0;i<ASSISTANT_LEVELS.length;i++){var seg=document.createElement('i');if(i<L)seg.className='on';else if(i===L)seg.className='cur';track.appendChild(seg);}
+        var caps=document.getElementById('asstCaps');
+        ASSISTANT_LEVELS.forEach(function(lv,i){
+          var li=document.createElement('li');
+          if(i<L){li.innerHTML='<span class="s">✅</span><span>'+lv.name+'</span>';}
+          else if(i===L){li.className='cur';li.innerHTML='<span class="s">✅</span><span><b>'+lv.name+'</b><span class="newb">этот урок</span><small>'+lv.desc+'</small></span>';}
+          else{li.className='lock';li.innerHTML='<span class="s">🔒</span><span>'+lv.name+'<small>'+lv.desc+'</small></span>';}
+          caps.appendChild(li);
+        });
+        var noteEl=document.getElementById('asstNote');
+        if(ASSISTANT_UNLOCK_NOTE){noteEl.innerHTML='🔜 '+ASSISTANT_UNLOCK_NOTE;}else{noteEl.style.display='none';}
+      })();
+      </script>
+    </aside>
+  </div>
+</div>
+
+<script>
+/* ── Мир кейса: ЖК «Уютный дом на Матвеева». Генподрядчик — ООО «СтройМонолит». ── */
+var CASE_DATA = {
+  PTO:{name:"Инженер ПТО",
+     q:"Какой класс бетона у плиты перекрытия 4 этажа секции 2, и что по гарантии на СМР по нашему договору?",
+     doc:"Договор подряда · ООО «СтройМонолит».md",
+     off:"Для жилых монолитных перекрытий обычно применяют бетон класса B20–B25. Гарантийный срок на СМР в договорах подряда чаще всего 3–5 лет — конкретику смотрите в своём договоре, формулировки сильно различаются.",
+     on:"Плита перекрытия 4 этажа секции 2 — бетон <b>B25</b> (по спецификации КР). Гарантийный срок на результат работ по договору подряда с ООО «СтройМонолит» — <b>5 лет</b> с даты ввода объекта в эксплуатацию (п. 5 договора).",
+     cite:"Источник: спецификация КР по секции 2; Договор подряда № __ , п. 5 «Качество и гарантия».",
+     p:{role:"Ты инженер ПТО на объекте ЖК «Уютный дом на Матвеева», знаешь состав проектной документации по 87-ПП.",
+        ctx:"Прикладываю письмо техзаказчика АО «ЕкатеринбургТехзаказчик» исх. №311 от 24.06.2026 с замечаниями по секции 2.",
+        task:"Выдели из письма все требования и сроки в виде чек-листа, сгруппируй по пунктам.",
+        fmt:"Таблица: пункт письма · требование · срок · какой документ нужен для ответа."}},
+  SK:{name:"Стройконтроль / технадзор",
+     q:"Что нужно сделать по замечаниям техзаказчика из письма №311, чтобы закрыть отставание по секции 2?",
+     doc:"Письмо техзаказчика №311 от 24.06.2026.md",
+     off:"Обычно при отставании от графика составляют план мероприятий по наверстыванию: усиление бригад, пересмотр очерёдности работ, еженедельная сверка факта с планом. Детали зависят от конкретной ситуации на объекте.",
+     on:"По письму №311 от 24.06.2026 нужно закрыть 3 пункта: 1) скорректированный график по секции 2 (этажи 4–9, отставание ~8%) — <b>до 30.06.2026</b>; 2) реестр актов исполнительной за июнь с документами входного контроля — <b>до 01.07.2026</b>; 3) еженедельный фотоотчёт по установленной форме — <b>с 30.06.2026</b>.",
+     cite:"Источник: письмо технического заказчика АО «ЕкатеринбургТехзаказчик» исх. №311 от 24.06.2026, пп. 1–3.",
+     p:{role:"Ты специалист стройконтроля на объекте ЖК «Уютный дом на Матвеева».",
+        ctx:"Прикладываю письмо техзаказчика №311 от 24.06.2026 с замечаниями по секции 2.",
+        task:"Составь черновик официального ответа с планом мероприятий по каждому пункту и сроками.",
+        fmt:"Официальное письмо: по каждому пункту письма — мероприятие, ответственный, срок."}},
+  GIP:{name:"ГИП / проектировщик",
+     q:"Как правильно ответить на замечание техзаказчика по качеству исполнительной документации из письма №311?",
+     doc:"Письмо техзаказчика №311 от 24.06.2026.md",
+     off:"В таких случаях обычно поясняют причину расхождений и прикладывают откорректированные документы. Общих формулировок недостаточно — нужно видеть само замечание и состав исполнительной документации по объекту.",
+     on:"Пункт 2 письма №311 указывает: по ряду актов АОСР отсутствуют документы входного контроля материалов. Нужен реестр актов за июнь с приведением исполнительной документации в соответствие — срок <b>до 01.07.2026</b>. Это перекликается с актом освидетельствования (файл 04) и предписанием стройконтроля (файл 05).",
+     cite:"Источник: письмо техзаказчика №311 от 24.06.2026, п. 2.",
+     p:{role:"Ты ГИП на объекте ЖК «Уютный дом на Матвеева».",
+        ctx:"Прикладываю письмо техзаказчика №311 от 24.06.2026, п. 2 (замечание по исполнительной документации).",
+        task:"Составь пояснительную записку с планом устранения замечания.",
+        fmt:"Короткая пояснительная записка: суть замечания, причина, план устранения, срок."}},
+  SM:{name:"Сметчик",
+     q:"Какая цена и порядок расчётов по договору подряда с ООО «СтройМонолит», и как её обосновать?",
+     doc:"Договор подряда · ООО «СтройМонолит».md",
+     off:"В договорах строительного подряда цена обычно твёрдая и определяется на основании локальной сметы, изменение возможно только в предусмотренных законом случаях. Точные цифры и порядок расчётов смотрите в самом договоре — общих цифр здесь нет.",
+     on:"Цена договора — <b>твёрдая</b>, определяется на основании ЛСР (п. 2). Изменение цены возможно только в случаях, предусмотренных законом. Работы принимаются по актам <b>КС-2</b> и справке <b>КС-3</b> ежемесячно, скрытые работы — по актам АОСР (п. 4). Пеня за просрочку — 1/300 ключевой ставки ЦБ от цены неисполненного за каждый день (п. 6).",
+     cite:"Источник: Проект договора подряда, ЖК «Уютный дом на Матвеева», пп. 2, 4, 6.",
+     p:{role:"Ты сметчик, готовишь обоснование цены по договору подряда с ООО «СтройМонолит».",
+        ctx:"Прикладываю проект договора подряда (фрагмент) по объекту ЖК «Уютный дом на Матвеева».",
+        task:"Выдели из договора все обязанности подрядчика и все сроки в виде чек-листа, отдельно отметь риски в статьях о цене и ответственности.",
+        fmt:"Таблица: пункт договора · обязанность/условие · срок · риск (если есть)."}},
+  PR:{name:"Прораб / начальник участка",
+     q:"Что мне как прорабу секции 2 нужно предоставить по письму техзаказчика №311 и в какие сроки?",
+     doc:"Письмо техзаказчика №311 от 24.06.2026.md",
+     off:"При отставании от графика обычно требуют скорректированный план работ и усиленный контроль исполнительной документации. Без самого письма назвать точные сроки и формы отчётности нельзя.",
+     on:"По письму №311: 1) до <b>30.06.2026</b> — скорректированный график по монолитным работам этажей 4–9 секции 2 (отставание ~8%); 2) до <b>01.07.2026</b> — навести порядок в исполнительной документации, добавить документы входного контроля к актам; 3) с <b>30.06.2026</b> — еженедельный фотоотчёт по форме техзаказчика.",
+     cite:"Источник: письмо техзаказчика №311 от 24.06.2026, пп. 1–3.",
+     p:{role:"Ты прораб секции 2 на объекте ЖК «Уютный дом на Матвеева».",
+        ctx:"Прикладываю письмо техзаказчика №311 от 24.06.2026.",
+        task:"Составь для себя короткий план действий по пунктам письма с датами.",
+        fmt:"Список из 3 пунктов: что сделать, к какому сроку, что подготовить."}},
+  OT:{name:"Инженер ОТ",
+     q:"Что говорит договор подряда про охрану труда и пожарную безопасность на объекте?",
+     doc:"Договор подряда · ООО «СтройМонолит».md",
+     off:"Обычно в договорах подряда есть общая формулировка про соблюдение подрядчиком норм охраны труда и пожарной безопасности. Конкретные требования и ответственность зависят от текста самого договора.",
+     on:"По п. 7 договора подрядчик обязан: вести исполнительную документацию (по приказу Минстроя России № 344/пр), обеспечить входной контроль материалов, <b>соблюдать охрану труда и пожарную безопасность</b>, устранять замечания строительного контроля в установленные сроки.",
+     cite:"Источник: Проект договора подряда, ЖК «Уютный дом на Матвеева», п. 7 «Обязанности подрядчика».",
+     p:{role:"Ты инженер по охране труда на объекте ЖК «Уютный дом на Матвеева».",
+        ctx:"Прикладываю проект договора подряда (фрагмент), п. 7 «Обязанности подрядчика».",
+        task:"Выдели обязанности подрядчика по охране труда и предложи, что включить в раздел ОТ ППР.",
+        fmt:"Список пунктов с кратким пояснением к каждому."}}
+};
+
+/* ── BLOCK: PROMPT BUILDER (секция 7) — не интерактив-виджет, а линейная практика на странице ── */
+(function(){
+  var ids=['pRole','pCtx','pTask','pFmt'];
+  var assembled=document.getElementById('assembled');
+  var roleSelect=document.getElementById('pRoleSelect');
+  if(!assembled||!roleSelect)return;
+  function assemble(){
+    var r=document.getElementById('pRole').value.trim(), c=document.getElementById('pCtx').value.trim(),
+        t=document.getElementById('pTask').value.trim(), f=document.getElementById('pFmt').value.trim();
+    assembled.textContent=(r||c||t||f) ? (r+"\n"+c+"\n\nЗадача: "+t+"\nФормат ответа: "+f) : '—';
+  }
+  ids.forEach(function(id){document.getElementById(id).addEventListener('input',assemble);});
+  document.getElementById('showExampleBtn').addEventListener('click',function(){
+    var d=CASE_DATA[roleSelect.value].p;
+    document.getElementById('pRole').value=d.role;
+    document.getElementById('pCtx').value=d.ctx;
+    document.getElementById('pTask').value=d.task;
+    document.getElementById('pFmt').value=d.fmt;
+    assemble();
+  });
+  window.__getBuilderPrompt=function(){return assembled.textContent==='—'?'':assembled.textContent;};
+  window.__getBuilderRole=function(){return roleSelect.value;};
+  assemble();
+})();
+</script>
+
+<!-- ═══════════════════════ ИНТЕРАКТИВ А: ТРЕНАЖЁР «БЕЗ ДОКУМЕНТОВ / С ДОКУМЕНТАМИ» ═══════════════════════ -->
+<script>
+(function(){
+  var mount=document.getElementById('trainerA-mount');
+  if(!mount)return;
+  mount.innerHTML =
+    '<div class="trainerbox">'+
+      '<div class="roles" id="taRoles">'+
+        '<div class="role sel" data-role="PTO"><div class="ic">📋</div><div><b>Инженер ПТО</b><span>комплектность РД, акты</span></div></div>'+
+        '<div class="role" data-role="SK"><div class="ic">🦺</div><div><b>Стройконтроль</b><span>предписания, контроль СМР</span></div></div>'+
+        '<div class="role" data-role="GIP"><div class="ic">📐</div><div><b>ГИП / проектировщик</b><span>ответы на замечания</span></div></div>'+
+        '<div class="role" data-role="SM"><div class="ic">🧮</div><div><b>Сметчик</b><span>сравнение КП, ЛСР/ВОР</span></div></div>'+
+        '<div class="role" data-role="PR"><div class="ic">🏗️</div><div><b>Прораб</b><span>ОЖР, заявки, отчёты</span></div></div>'+
+        '<div class="role" data-role="OT"><div class="ic">⚠️</div><div><b>Инженер ОТ</b><span>инструктажи, ППР</span></div></div>'+
+      '</div>'+
+      '<div class="q"><div class="lbl">Ваш вопрос к ИИ</div><div class="txt" id="taQText">—</div></div>'+
+      '<div class="toggle-row">'+
+        '<label class="switch"><input type="checkbox" id="taToggle"><span class="slider"></span></label>'+
+        '<div class="toggle-label"><b>Подключить документы компании</b><span>загрузить рабочие файлы в контекст ИИ</span></div>'+
+        '<span class="docchip" id="taDocChip">📎 <span id="taDocName">документ</span></span>'+
+      '</div>'+
+      '<div class="meter">'+
+        '<div class="ml"><span>Знание о вашей компании</span><span id="taKnowPct">18%</span></div>'+
+        '<div class="bar" id="taKnowBar"><i></i></div>'+
+        '<div class="verdict" id="taVerdict" style="color:var(--brand)">⚠️ Отвечает «в среднем по рынку» — может ошибиться</div>'+
+      '</div>'+
+      '<div class="answer off" id="taAnswer">'+
+        '<div class="ahead" id="taAnsHead">🤖 ИИ без ваших документов</div>'+
+        '<div class="abody" id="taAnsBody">—</div>'+
+        '<div class="cite" id="taAnsCite" style="display:none"></div>'+
+      '</div>'+
+      '<div class="note">Заметили? ИИ не стал «умнее» — он просто получил <b>контекст</b>. Тот же чат, та же модель. Изменилось одно: ему дали ваши документы.</div>'+
+    '</div>';
+
+  var role='PTO';
+  var toggle=mount.querySelector('#taToggle');
+
+  function loadRole(){
+    var d=CASE_DATA[role];
+    mount.querySelector('#taQText').textContent=d.q;
+    mount.querySelector('#taDocName').textContent=d.doc;
+    toggle.checked=false;
+    render();
+  }
+  function render(){
+    var d=CASE_DATA[role], on=toggle.checked;
+    var ans=mount.querySelector('#taAnswer'), bar=mount.querySelector('#taKnowBar');
+    mount.querySelector('#taDocChip').classList.toggle('show',on);
+    ans.classList.toggle('on',on); ans.classList.toggle('off',!on); bar.classList.toggle('on',on);
+    mount.querySelector('#taKnowPct').textContent=on?'96%':'18%';
+    mount.querySelector('#taAnsHead').innerHTML=on?'✅ ИИ с вашими документами':'🤖 ИИ без ваших документов';
+    mount.querySelector('#taAnsBody').innerHTML=on?d.on:d.off;
+    var v=mount.querySelector('#taVerdict');
+    if(on){v.style.color='var(--green)';v.innerHTML='✓ Отвечает по вашим данным — со ссылкой, можно проверить';}
+    else{v.style.color='var(--brand)';v.innerHTML='⚠️ Отвечает «в среднем по рынку» — может ошибиться';}
+    var cite=mount.querySelector('#taAnsCite');
+    cite.style.display=on?'block':'none'; cite.textContent=on?d.cite:'';
+  }
+  mount.querySelectorAll('.role').forEach(function(el){
+    el.addEventListener('click',function(){
+      mount.querySelectorAll('.role').forEach(function(r){r.classList.remove('sel');});
+      el.classList.add('sel'); role=el.dataset.role; loadRole();
+    });
+  });
+  toggle.addEventListener('change',render);
+  loadRole();
+})();
+</script>
+
+<!-- ═══════════════════════ ИНТЕРАКТИВ Б: СДЕЛАЙ В ЖИВОМ ЧАТЕ (ГЕЙТ) ═══════════════════════ -->
+<script>
+(function(){
+  var mount=document.getElementById('trainerB-mount');
+  if(!mount)return;
+  mount.innerHTML =
+    '<div class="livechat">'+
+      '<div class="lcbtns">'+
+        '<a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>'+
+        '<a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>'+
+      '</div>'+
+      '<div class="review">'+
+        '<label for="lcResult">Вставь сюда свой результат — ответ, который выдал ИИ-чат</label>'+
+        '<textarea id="lcResult" rows="5" placeholder="Скопируйте сюда ответ живого ИИ-чата"></textarea>'+
+      '</div>'+
+      '<div class="lcgate">'+
+        '<input type="checkbox" id="lcConfirm">'+
+        '<label for="lcConfirm">Я получил ответ на свой запрос</label>'+
+      '</div>'+
+      '<p class="lcstatus" id="lcStatus">Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.</p>'+
+      '<div class="transfer-note">'+
+        '<div class="tnlabel">⚙ Для переноса в платформу Актион</div>'+
+        'Демо-гейт реализован локальным JS (без сохранения данных). На платформе эта блокировка должна опираться на реальное событие взаимодействия участника с чатом (или просто на заполненное поле + чекбокс, как здесь) — ничего никуда не отправляется и в демо-версии.'+
+      '</div>'+
+    '</div>';
+
+  var result=mount.querySelector('#lcResult'), confirmEl=mount.querySelector('#lcConfirm');
+  var status=mount.querySelector('#lcStatus');
+  var lockTargets=[document.getElementById('selfcheck'),document.getElementById('practice')];
+  var lockWraps=[document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
+  function upd(){
+    var ready=result.value.trim().length>0 && confirmEl.checked;
+    lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
+    lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
+    status.textContent=ready?'✅ Итоги урока открыты.':'Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.';
+    status.classList.toggle('ready',ready);
+    window.__lcResult=result.value.trim();
+  }
+  result.addEventListener('input',upd);
+  confirmEl.addEventListener('change',upd);
+  upd();
+})();
+</script>
+
+<!-- ═══════════════════════ ИНТЕРАКТИВ В: ЧЕК-ЛИСТ САМОПРОВЕРКИ ═══════════════════════ -->
+<script>
+(function(){
+  var mount=document.getElementById('trainerC-mount');
+  if(!mount)return;
+  mount.innerHTML =
+    '<ul class="selfcheck" id="scList">'+
+      '<li><label><input type="checkbox"> Я попробовал(а) один и тот же вопрос без документа и с документом — и увидел(а) разницу в ответе.</label></li>'+
+      '<li><label><input type="checkbox"> Мой промпт содержит роль, контекст (документ/данные), задачу и формат ответа.</label></li>'+
+      '<li><label><input type="checkbox"> Я не приложил(а) к запросу персональные данные, коммерческую тайну или несогласованные финансовые условия.</label></li>'+
+      '<li><label><input type="checkbox"> Я понимаю: уверенный тон ИИ не гарантирует точность — критичные цифры и ссылки проверяю по первоисточнику.</label></li>'+
+    '</ul>'+
+    '<div class="scbar"><i id="scBar"></i></div>'+
+    '<div class="scmsg" id="scMsg">0 из 4 — пройдитесь по списку</div>';
+
+  var boxes=mount.querySelectorAll('input[type=checkbox]'), bar=mount.querySelector('#scBar'), msg=mount.querySelector('#scMsg');
+  function upd(){
+    var n=0; boxes.forEach(function(b){if(b.checked)n++;});
+    bar.style.width=(100*n/boxes.length)+'%';
+    msg.textContent=(n===boxes.length)?('✅ Все '+n+' пунктов — можно двигаться дальше'):(n+' из '+boxes.length+' — пройдитесь по списку');
+    msg.style.color=(n===boxes.length)?'var(--green)':'var(--muted)';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',upd);});
+  upd();
+})();
+</script>
+
+<!-- ═══════════════════════ ИНТЕРАКТИВ Г: ПРОВЕРКА №1 (СКАЧАТЬ ЗАДАНИЕ) ═══════════════════════ -->
+<script>
+(function(){
+  var mount=document.getElementById('trainerD-mount');
+  if(!mount)return;
+  mount.innerHTML =
+    '<div class="review">'+
+      '<label for="dEmail">Ваш e-mail для ответа куратора</label>'+
+      '<input id="dEmail" type="email" placeholder="you@example.ru">'+
+    '</div>'+
+    '<div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">'+
+      '<button class="btn" id="dDownloadBtn">⬇ Скачать моё задание (.txt)</button>'+
+      '<span class="muted" id="dMsg" style="font-size:13px"></span>'+
+    '</div>'+
+    '<div class="transfer-note">'+
+      '<div class="tnlabel">⚙ Для переноса в платформу Актион</div>'+
+      'Здесь платформа подключает отправку куратору — проверка №1 (см. паспорта шагов). В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.'+
+    '</div>';
+
+  mount.querySelector('#dDownloadBtn').addEventListener('click',function(){
+    var m=mount.querySelector('#dMsg');
+    var prompt=(typeof window.__getBuilderPrompt==='function')?window.__getBuilderPrompt():'';
+    var role=(typeof window.__getBuilderRole==='function')?window.__getBuilderRole():'';
+    var roleName=(CASE_DATA[role]&&CASE_DATA[role].name)?CASE_DATA[role].name:role;
+    var lcResult=window.__lcResult||'';
+    var email=mount.querySelector('#dEmail').value.trim();
+    if(!prompt){m.textContent='Сначала соберите промпт в блоке 7 выше';return;}
+    var raw='Шаг 5 — моё задание (проверка №1)\n\nРоль: '+roleName+'\n\nПромпт:\n'+prompt+'\n\nОтвет ИИ (из блока «Сделай в живом чате»):\n'+lcResult+'\n\nОтвет на e-mail: '+email;
+    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url; a.download='shag-05-zadanie.txt'; document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    m.textContent='Файл скачан ✓';
+  });
+})();
+</script>
+</body>
+</html>

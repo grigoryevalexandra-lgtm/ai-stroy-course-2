@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<!--
+  ════════════════════════════════════════════════════════════════════
+  МИНИ-ФИНАЛ пилотного среза ПТО · Курс «ИИ в строительстве»
+  Актион, Высшая инженерная школа. ДЕМО-КОМПЛЕКТ для переноса (не продуктив).
+  Урок P5 из плана пилота. Собран из Шаблона-урока v2, референсы: Урок-1 v4, Урок-ОЖР v2.
+  Сквозной кейс «Уютный дом на Матвеева» — нить «качество монолита».
+  Все числа и факты — строго из документов кейса (04, 05, 06, 16, 02).
+  ════════════════════════════════════════════════════════════════════
+-->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Мини-финал: неделя инженера ПТО с ИИ — Высшая инженерная школа</title>
+<style>
+  :root{--bg:#ffffff;--card:#faf8f5;--card2:#f3efe9;--ink:#1a1814;--muted:#6f7280;--line:#e9e4dc;--brand:#e2231a;--blue:#237cf9;--green:#1f9d57;--yellow:#f5b500;--purple:#9b5de5;--r:16px;--rs:10px;--font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif}
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{overflow-x:hidden;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg,video,iframe,pre,table{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}.navlink a{font-size:13.5px;font-weight:600}
+  .author{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:18px 0 4px;flex-wrap:wrap}
+  .author .ava{width:58px;height:58px;border-radius:12px;flex:0 0 auto;background:#fff;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:10px;text-align:center}
+  .author .who b{font-size:15.5px}.author .who .role{font-size:13px;color:var(--muted)}
+  .author .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:18px 0 6px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.12;margin:4px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:15.5px;max-width:780px}
+  .lvl{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;margin-top:8px}
+  .lvl .dotx{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .meta .pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+  .meta .pill.long{color:var(--brand);border-color:var(--brand)}
+  .grid{display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;margin-top:18px}
+  .sec{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:18px}
+  .stp{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}
+  h2{font-size:21px;margin:2px 0 12px;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:16px;margin:18px 0 8px;font-weight:800}
+  p{margin:0 0 12px}.muted{color:var(--muted)}
+  .why{background:var(--card);border-left:4px solid var(--blue);border-radius:12px;padding:13px 15px;font-size:14.5px;margin:14px 0}
+  .note{font-size:13.5px;color:#7a5b16;background:#fdf6e3;border:1px solid #f3e3b3;border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note.green{color:#157a41;background:#eef8f1;border-color:#cdebd8}.note.red{color:#a3201a;background:#fdf0ef;border-color:#f3c7c3}
+  .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:var(--rs);padding:11px 17px;font-size:14px;background:var(--blue);color:#fff;transition:.15s}
+  .btn:hover{filter:brightness(.95)}.btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.dark{background:var(--ink)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+  .btn.sm{padding:8px 13px;font-size:13px}
+  .checks{list-style:none;padding:0;margin:8px 0 0}
+  .checks li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .checks li:last-child{border-bottom:none}.checks li:before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .checks.bad li:before{content:"✕";color:var(--brand)}
+  .toc{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.toc li{padding:5px 0}.toc a{color:var(--ink)}
+  /* ── Эпизоды недели ── */
+  .weekmap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0 4px}
+  .weekmap .day{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 8px;text-align:center;font-size:11.5px}
+  .weekmap .day b{display:block;font-size:13px;margin-bottom:2px}
+  .weekmap .day small{color:var(--muted);font-size:10.5px;display:block;line-height:1.35}
+  @media(max-width:560px){.weekmap{grid-template-columns:repeat(2,1fr)}}
+  .ep{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+  .ep>.ephd{display:flex;align-items:center;gap:12px;padding:15px 18px;background:var(--card)}
+  .ep .epday{flex:0 0 auto;width:44px;height:44px;border-radius:11px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;line-height:1.1;text-align:center}
+  .ep.e1 .epday{background:var(--brand)}.ep.e2 .epday{background:var(--yellow);color:var(--ink)}.ep.e3 .epday{background:var(--blue)}.ep.e4 .epday{background:var(--green)}.ep.e5 .epday{background:var(--purple)}
+  .ep .ephd .ept b{font-size:15.5px;display:block}.ep .ephd .ept small{color:var(--muted);font-size:12.5px}
+  .ep .epbody{padding:18px}
+  /* ── Раскрывающийся документ ── */
+  details.doc{border:1px solid var(--line);border-radius:12px;background:var(--card2);margin:6px 0 14px;overflow:hidden}
+  details.doc>summary{cursor:pointer;list-style:none;padding:12px 15px;font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:9px}
+  details.doc>summary::-webkit-details-marker{display:none}
+  details.doc>summary .chev{margin-left:auto;transition:.2s;color:var(--muted)}
+  details.doc[open]>summary .chev{transform:rotate(180deg)}
+  details.doc .docwrap{padding:0 15px 15px}
+  .docpaper{background:#fff;border:1px solid var(--line);border-radius:9px;padding:15px 17px;font-size:13px;line-height:1.6}
+  .docpaper .dt{font-weight:800;font-size:13.5px;text-align:center;margin-bottom:8px}
+  .docpaper .dm{color:var(--muted);font-size:11.5px}
+  .docpaper ol,.docpaper ul{margin:6px 0;padding-left:20px}
+  .docpaper li{margin:3px 0}
+  .tw{overflow-x:auto;margin-top:6px}
+  table.doctbl{border-collapse:collapse;width:100%;font-size:12px;min-width:420px}
+  table.doctbl th,table.doctbl td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+  table.doctbl th{background:var(--card);font-weight:800;font-size:11px}
+  td.hl{background:#fde4e2;color:#8f1410;font-weight:700}
+  /* ── Демо-ответ ИИ ── */
+  .airesp{background:#eef8f1;border:1px solid #cdebd8;border-radius:12px;padding:15px 17px;margin-top:12px}
+  .airesp .at{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--green);font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .airesp .abody{font-size:13.5px;line-height:1.6}
+  .airesp .abody b{color:var(--ink)}
+  .simlabel{font-size:11.5px;color:var(--muted);font-style:italic;border-top:1px dashed #cdebd8;padding-top:8px;margin-top:10px}
+  .promptlink{font-size:12.5px;color:var(--muted);margin:9px 0 0}
+  .promptlink b{color:var(--blue)}
+  /* ── Копируемый промпт ── */
+  .copy{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:12.5px;white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;color:#3a3631;word-break:break-word}
+  .cprow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  /* ── Выбор варианта / квиз / расхождение ── */
+  .opts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+  .opt{cursor:pointer;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;font-size:13.5px;font-family:inherit;color:var(--ink);transition:.15s}
+  .opt:hover{border-color:var(--ink)}
+  .opt.ok{border-color:var(--green);background:#eef8f1}
+  .opt.err{border-color:var(--brand);background:#fdf0ef}
+  .opt:disabled{cursor:default;opacity:.9}
+  .opt small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+  .qfb{margin-top:6px}
+  .qq{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:14.5px;font-weight:700;margin:0 0 6px}
+  /* ── Экраны «одна мысль» (интро) ── */
+  .progress{display:flex;gap:6px;margin:4px 0 18px}
+  .progress .dot{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .progress .dot.on{background:var(--blue)}
+  .screen{display:none}.screen.on{display:block}
+  .snav{display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap}
+  /* ── Мой ИИ-набор ПТО ── */
+  .kit{display:flex;flex-direction:column;gap:12px}
+  .kititem{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
+  .kititem .kh{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px;margin-bottom:8px;flex-wrap:wrap}
+  .kititem .kcode{font-size:10.5px;font-weight:800;color:#fff;background:var(--ink);border-radius:5px;padding:2px 7px}
+  .kititem .kday{font-size:11.5px;color:var(--muted);margin-left:auto}
+  .kititem .kprompt{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px;font-size:12px;white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;color:#3a3631;word-break:break-word}
+  .kititem .kbtn{margin-top:9px}
+  /* ── Попробуй сам / textarea ── */
+  .review label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  .review textarea,.review input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+  .review textarea:focus,.review input:focus{outline:none;border-color:var(--blue)}
+  .dl{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .dl button,.prevbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+  .dl button:hover,.prevbtn:hover{border-color:var(--ink)}
+  /* ── Чек-лист самопроверки ── */
+  .selfcheck{list-style:none;padding:0;margin:8px 0 0}
+  .selfcheck li{border-bottom:1px solid var(--line)}.selfcheck li:last-child{border-bottom:none}
+  .selfcheck label{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;cursor:pointer;margin:0}
+  .selfcheck input{width:18px;height:18px;flex:0 0 auto;margin:3px 0 0;accent-color:var(--green)}
+  .scbar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden;margin-top:14px}
+  .scbar i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;transition:.35s}
+  .scmsg{font-size:13px;font-weight:700;margin-top:7px;color:var(--muted)}
+  /* ── Live-chat блок ── */
+  .livechat{display:flex;flex-direction:column;gap:12px}
+  .livechat .lcbtns{display:flex;gap:10px;flex-wrap:wrap}
+  .livechat .lcbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:var(--rs);padding:11px 16px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .livechat .lcbtn:hover{border-color:var(--ink)}
+  .livechat .lcbtn .dotc{width:9px;height:9px;border-radius:50%}
+  .livechat .lcgate{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin-top:2px}
+  .livechat .lcgate input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--green)}
+  .lcstatus{font-size:13px;font-weight:700;color:var(--muted)}.lcstatus.ready{color:var(--green)}
+  /* ── Гейт ── */
+  .locked{opacity:.4;pointer-events:none;user-select:none;filter:grayscale(.3);transition:opacity .2s,filter .2s}
+  .lockwrap{position:relative}
+  .lockwrap .lockbadge{display:none;position:absolute;top:14px;right:14px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 12px;align-items:center;gap:6px;z-index:2}
+  .lockwrap.is-locked .lockbadge{display:inline-flex}
+  /* ── Материалы ── */
+  .materials .mlist{list-style:none;padding:0;margin:0}
+  .materials .mlist li{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .materials .mlist li:last-child{border-bottom:none}
+  .materials .mlist .mico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:13px}
+  .materials .mcap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  /* ── transfer-note ── */
+  .transfer-note{border:1.5px dashed var(--purple);background:#faf6ff;border-radius:12px;padding:12px 14px;font-size:13px;color:#5b3a94;margin-top:12px}
+  .transfer-note .tnlabel{display:flex;align-items:center;gap:7px;font-weight:800;font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--purple);margin-bottom:5px}
+  .transfer-note.compact{margin-top:8px;padding:10px 12px}
+  /* ── Ассистент ── */
+  .coursenav{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .coursenav a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:var(--rs);padding:11px 17px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .coursenav a:hover{border-color:var(--ink)}
+  .coursenav a small{display:block;font-weight:600;font-size:11px;color:var(--muted)}
+  .asst{position:sticky;top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .asst .hd{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .asst .ico{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .asst .hd b{font-size:14.5px}.asst .hd span{font-size:11px;color:var(--green);font-weight:700}
+  .lvltrack{display:flex;gap:5px;margin:12px 0 2px}
+  .lvltrack i{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .lvltrack i.on{background:var(--green)}.lvltrack i.cur{background:var(--blue)}
+  .caps{list-style:none;margin:12px 0 0;padding:0}
+  .caps li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .caps li:last-child{border-bottom:none}.caps li.lock{color:var(--muted)}.caps li .s{flex:0 0 auto;width:18px}
+  .caps li small{display:block;color:var(--muted);font-size:11px;font-weight:400}.caps li.cur b{color:var(--ink)}
+  .newb{font-size:9px;font-weight:800;color:#fff;background:var(--green);border-radius:4px;padding:1px 5px;margin-left:5px;white-space:nowrap}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}.asst{position:static}}
+  @media(max-width:420px){h1{font-size:24px}.sec{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span><span class="navlink"><a href="index.html">← Все шаги</a></span>
+  </div>
+
+  <!-- AUTHOR -->
+  <div class="author">
+    <div class="ava"><span>ФОТО</span></div>
+    <div class="who"><b>Евгений Эрман, к.т.н.</b>
+      <div class="role">руководитель Лаборатории ИИ-решений девелоперской компании «РАЗУМ»</div></div>
+    <span class="tag">Автор урока</span>
+  </div>
+
+  <!-- LESSON HEADER -->
+  <div class="kicker">Пилот ПТО · Мини-финал · Роль: инженер ПТО <span class="rule" style="background:var(--purple)"></span></div>
+  <h1>Мини-финал: неделя инженера ПТО с ИИ</h1>
+  <p class="lead">Сквозной кейс по нити <b>«качество монолита»</b>. Вы проживаете рабочую неделю на ЖК «Уютный дом на Матвеева» — от предписания стройконтроля до сводки руководителю — и на каждом шаге собираете свой <b>«пакет по этапу»</b> с помощью ИИ. Эпизоды — условная рабочая неделя: даты документов кейса охватывают период 18–26 июня.</p>
+  <div class="meta">
+    <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 3 · документы и знания</span>
+    <span class="pill">🎓 Итог пилотного среза</span>
+  </div>
+  <div class="transfer-note compact">
+    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+    Здесь платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли») — строка «Роль: инженер ПТО» выше должна обновляться без правки HTML урока.
+  </div>
+
+  <div class="grid">
+    <div><!-- левая колонка -->
+
+      <!-- TOC -->
+      <section class="sec">
+        <p class="stp">Что внутри урока</p>
+        <ul class="toc">
+          <li>0 · <a href="#intro">Как устроен мини-финал</a></li>
+          <li>1 · <a href="#mon">День 1 — предписание № 57</a></li>
+          <li>2 · <a href="#tue">День 2 — входной контроль, письмо поставщику</a></li>
+          <li>3 · <a href="#wed">День 3 — сверка АОСР № 142</a></li>
+          <li>4 · <a href="#thu">День 4 — протокол планёрки</a></li>
+          <li>5 · <a href="#fri">День 5 — сводка недели руководителю</a></li>
+          <li>6 · <a href="#livechat">Финал: повтори эпизод в живом чате</a></li>
+          <li>7 · <a href="#kit">Мой ИИ-набор ПТО</a></li>
+          <li>8 · <a href="#selfcheck">Чек-лист самопроверки</a></li>
+        </ul>
+        <div class="note">📄 К уроку приложен архив: тексты, документы кейса (04, 05, 06, 16, 02) и промпт-пак ПТО.</div>
+      </section>
+
+      <!-- INTRO SCREENS -->
+      <section class="sec" id="intro">
+        <p class="stp">0 · Как устроен мини-финал</p>
+        <h2>Одна неделя — пять документов — один пакет</h2>
+        <div class="progress" id="scrProgress"></div>
+        <div class="screen on">
+          <h3>Это не новая теория, а сборка навыков</h3>
+          <p>За неделю на объекте инженеру ПТО прилетает всё сразу: предписание, вопрос по входному контролю, акт на сверку, планёрка, отчёт руководителю. Вы уже прошли эти приёмы по отдельности — теперь пройдёте их <b>подряд, на одном кейсе</b>.</p>
+        </div>
+        <div class="screen">
+          <h3>Каждый день — документ, промпт и мини-действие</h3>
+          <p>Пять эпизодов, День 1 — День 5. В каждом: реальный документ кейса (раскрывается прямо здесь), готовый промпт из вашего <b>промпт-пака ПТО</b> и короткое действие — выбрать, ответить, найти расхождение.</p>
+        </div>
+        <div class="screen">
+          <h3>Главное правило недели: технология устранения и сроки — черновик, пока их не подтвердил ИТР</h3>
+          <p>Демо-ответы ИИ помечены «смоделировано» — это ориентир, а не спойлер. Смотрите, где в ответе <b>наблюдение</b> (что буквально написано в документе), где <b>черновик-гипотеза</b> (способ устранения, ответственный, срок или ссылка на норматив — первая версия от ИИ, до проверки), а где <b>подтверждённый факт</b> (сверено с документом кейса). Вывод о том, что акт нельзя подписывать, ИИ вправе дать прямо и категорично — это верная реакция на найденную ловушку; а вот технологию устранения, точные сроки и ответственных исполнителей ИИ только предлагает — подтверждает их ИТР по проектной документации.</p>
+          <div class="note green">✅ Цель недели: пять промптов, которые останутся у вас как рабочий инструмент ПТО, и привычка отделять черновик-гипотезу (что предлагает ИИ) от подтверждённого факта (что решает ИТР).</div>
+        </div>
+        <div class="snav">
+          <button class="btn ghost" id="scrPrev">← Назад</button>
+          <button class="btn" id="scrNext">Дальше →</button>
+        </div>
+        <div class="weekmap">
+          <div class="day"><b>День 1</b><small>Предписание № 57</small></div>
+          <div class="day"><b>День 2</b><small>Письмо поставщику</small></div>
+          <div class="day"><b>День 3</b><small>Сверка АОСР</small></div>
+          <div class="day"><b>День 4</b><small>Протокол планёрки</small></div>
+          <div class="day"><b>День 5</b><small>Сводка недели</small></div>
+        </div>
+      </section>
+
+      <!-- ═══════ ЭПИЗОД 1 · ПОНЕДЕЛЬНИК ═══════ -->
+      <div class="ep e1" id="mon">
+        <div class="ephd">
+          <div class="epday">День 1</div>
+          <div class="ept"><b>Пришло предписание № 57</b><small>Задача: структура ответа с планом устранения. Приём «шаг назад» 🔁</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 1, утро. Стройконтроль выставил предписание по захватке 2-Б: защитный слой, входной контроль, хранение арматуры. Бетонирование запрещено до устранения. Нужен официальный ответ с планом и сроками.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: Предписание стройконтроля № 57 <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">ПРЕДПИСАНИЕ № 57<br>об устранении нарушений при производстве СМР</div>
+              <p class="dm">Объект: ЖК «Уютный дом на Матвеева», 1-я очередь, секция 2. Кому: ООО «СтройМонолит», прорабу Иванову И.И. Дата: 25.06.2026.</p>
+              <p><b>Выявленные нарушения:</b></p>
+              <ol>
+                <li>При армировании плиты перекрытия на отм. +12,000 (захватка 2-Б) фактический защитный слой бетона в трёх местах <b>12–15 мм при проектном 25 мм</b>. Нарушение СП 70.13330.2012 и проекта КЖ-05.</li>
+                <li>Отсутствует акт входного контроля партии арматуры <b>Ø16 (поступление от 18.06.2026)</b>.</li>
+                <li>Складирование арматуры на открытой площадке без подкладок, с признаками коррозии.</li>
+              </ol>
+              <p><b>Требования (сроки):</b></p>
+              <ul>
+                <li>п. 1 — устранить, предъявить повторно к освидетельствованию <b>до 28.06.2026</b>;</li>
+                <li>п. 2 — представить документы входного контроля <b>до 26.06.2026</b>;</li>
+                <li>п. 3 — обеспечить надлежащее хранение <b>немедленно</b>.</li>
+              </ul>
+              <p>До устранения нарушения по п. 1 бетонирование захватки 2-Б <b>запрещаю</b>. Представитель стройконтроля /Петров П.П./</p>
+            </div></div>
+          </details>
+
+          <h3>🔁 Сначала — «шаг назад»</h3>
+          <p class="muted">В сложной задаче не бросайтесь писать письмо. Сначала спросите у ИИ принцип, потом применяйте. Вы задали: <i>«Какова правильная структура ответа на предписание стройконтроля и что обязательно включить?»</i> — и получили три варианта плана ответа. Выберите лучший.</p>
+
+          <div class="opts" data-choice>
+            <button class="opt" data-fb="Тон извинения и обещаний без конкретики — стройконтроль ждёт не эмоций, а плана: по каждому пункту мероприятие, ответственный и срок не позднее указанного в предписании.">
+              <b>Вариант A.</b> Письмо-извинение: признать вину, заверить, что «всё исправим в кратчайшие сроки», попросить не останавливать работы.
+              <small>Мягкий тон, без разбивки по пунктам</small>
+            </button>
+            <button class="opt" data-correct data-fb="Верно. Ответ структурирован по трём пунктам предписания, у каждого — мероприятие, ответственный и срок в рамках предписания (п.1 до 28.06, п.2 до 26.06, п.3 немедленно). Это и есть корректная структура ответа на предписание.">
+              <b>Вариант B.</b> По каждому из 3 пунктов: суть нарушения → мероприятие по устранению → ответственный → срок (не позднее срока предписания). Нейтральный деловой тон.
+              <small>Разбивка 1–3, ответственные и сроки из предписания</small>
+            </button>
+            <button class="opt" data-fb="Оспаривать ссылку на СП можно только предметно и отдельным письмом — и сначала это надо проверить по первоисточнику. Как ответ на предписание в срок это не годится: работы стоят.">
+              <b>Вариант C.</b> Оспорить предписание: усомниться в ссылке на СП 70.13330 и требовать снять запрет на бетонирование.
+              <small>Спор по нормативу вместо плана устранения</small>
+            </button>
+          </div>
+          <div class="qfb" data-choice-fb></div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ по варианту B</div>
+            <div class="abody">
+              <p style="margin:0 0 8px"><b>Исх. ответ на предписание № 57 от 25.06.2026</b></p>
+              <p style="margin:0 0 6px"><b>п. 1 (защитный слой 12–15 мм при проектном 25 мм, захватка 2-Б):</b> демонтаж/корректировка фиксаторов и подъём арматурной сетки до проектного защитного слоя 25 мм по КЖ-05; повторное предъявление к освидетельствованию — <b>ответственный: прораб Иванов И.И., срок до 28.06.2026</b>.</p>
+              <p style="margin:0 0 6px"><b>п. 2 (нет входного контроля арматуры Ø16 от 18.06):</b> запрос сертификата у поставщика по ТН № 540, оформление акта входного контроля — <b>ответственный: инженер ПТО, срок до 26.06.2026</b>.</p>
+              <p style="margin:0 0 6px"><b>п. 3 (хранение арматуры):</b> перемещение на подкладки под навес, зачистка следов коррозии — <b>ответственный: прораб, немедленно</b>.</p>
+              <p style="margin:0"><i>[уточнить]</i> — реквизиты исходящего, ФИО подписанта со стороны генподрядчика.</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Числа и сроки взяты из предписания № 57. Проверяйте ссылку на СП по первоисточнику: ИИ не заменяет норматив.</div>
+              <div class="simlabel">⚠ Технологию устранения и ответственных ИИ предлагает как черновик-гипотезу — подтверждает их только ИТР по проектной документации.</div>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт A1 из твоего промпт-пака ПТО</b> («Ответ на предписание стройконтроля») + приём «шаг назад» 🔁.</p>
+        </div>
+      </div>
+
+      <!-- ═══════ ЭПИЗОД 2 · ВТОРНИК ═══════ -->
+      <div class="ep e2" id="tue">
+        <div class="ephd">
+          <div class="epday">День 2</div>
+          <div class="ept"><b>Входной контроль: арматура Ø16 без сертификата</b><small>Задача: письмо поставщику. Демо + квиз «что обязательно в письме?»</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 2, разбираете п. 2 предписания. Открываете журнал входного контроля — запись № 3: арматура Ø16, ТН № 540 от 18.06, документ качества <b>отсутствует</b>, к применению <b>не допущена</b>. Это ровно то нарушение из предписания. Нужно письмо поставщику.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: Журнал входного контроля (запись № 3) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Журнал входного контроля материалов</div>
+              <p class="dm">Объект: ЖК «Уютный дом на Матвеева», секция 2. Ответственный: инженер ПТО.</p>
+              <div class="tw"><table class="doctbl">
+                <tr><th>№</th><th>Дата</th><th>Материал</th><th>Поставщик</th><th>Партия / ТН</th><th>Документ качества</th><th>Результат</th></tr>
+                <tr><td>1</td><td>12.05.2026</td><td>Арматура А500С Ø12,16,20</td><td>МеталлТорг</td><td>ТН № 451</td><td>Сертификат № 7781-А от 12.05.2026</td><td>Соответствует ГОСТ 34028-2016</td></tr>
+                <tr><td>2</td><td>28.05.2026</td><td>Бетон B25 W6 F150</td><td>БетонЗавод-2</td><td>ТТН № 1207</td><td>Паспорт качества № 88</td><td>Соответствует</td></tr>
+                <tr class="hl"><td>3</td><td>18.06.2026</td><td>Арматура Ø16</td><td>МеталлТорг</td><td class="hl">ТН № 540</td><td class="hl">отсутствует</td><td class="hl">НЕ ДОПУЩЕНА к применению</td></tr>
+                <tr><td>4</td><td>05.06.2026</td><td>Газобетон D500 (1 партия)</td><td>СтройБлок</td><td>ТТН № 861</td><td>Паспорт № 9</td><td>Соответствует</td></tr>
+              </table></div>
+            </div></div>
+          </details>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: письмо поставщику</div>
+            <div class="abody">
+              <p style="margin:0 0 6px"><b>Поставщику ООО «МеталлТорг»</b></p>
+              <p style="margin:0 0 6px">Уведомляем, что партия арматуры <b>Ø16, поступившая 18.06.2026 по товарной накладной № 540</b>, принята без документа о качестве. По записи журнала входного контроля партия <b>не допущена к применению</b>; предлагаю ссылку на СП 48.13330 — точный пункт и применимость требует подтверждения ПТО перед отправкой письма.</p>
+              <p style="margin:0 0 6px">Просим в срок <b>до 26.06.2026</b> предоставить сертификат соответствия партии требованиям <b>ГОСТ 34028-2016</b> (класс А500С). До получения документа материал в работу не передаётся.</p>
+              <p style="margin:0"><i>[уточнить]</i> — исходящий №, ФИО и подпись со стороны генподрядчика.</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Реквизиты партии (ТН № 540, дата 18.06, ГОСТ 34028-2016) — из журнала входного контроля.</div>
+              <div class="simlabel">⚠ Ссылка на СП 48.13330 — черновик-гипотеза ИИ: в документах кейса номер СП для входного контроля не указан. Точный норматив подтверждает ПТО перед отправкой.</div>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт A2 из твоего промпт-пака ПТО</b> («Письмо поставщику о недостающем документе качества»).</p>
+
+          <h3>Мини-квиз: что обязательно в таком письме?</h3>
+          <div data-quiz>
+            <p class="qq">Без какого элемента письмо поставщику превратится в «просто напоминалку» и не сработает как документ входного контроля?</p>
+            <div class="opts">
+              <button class="opt" data-fb="Вежливость важна, но не она делает письмо документом. Без точной идентификации партии и срока поставщик может отписаться общими словами.">Вежливая формулировка и извинения за беспокойство</button>
+              <button class="opt" data-correct data-fb="Верно. Нужны точные реквизиты партии (ТН № 540 от 18.06, Ø16), ссылка на требуемый документ (сертификат по ГОСТ 34028-2016) и конкретный срок. Без этого письмо не привязано к нарушению и его нельзя приложить к ответу на предписание.">Точные реквизиты партии (ТН № 540, дата), требуемый документ (сертификат по ГОСТ 34028-2016) и срок</button>
+              <button class="opt" data-fb="Цена и объём партии тут второстепенны — вопрос не коммерческий, а о допуске материала. Ключевое — идентификация партии, требуемый документ и срок.">Стоимость партии и объём поставки в тоннах</button>
+            </div>
+            <div class="qfb"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ ЭПИЗОД 3 · СРЕДА ═══════ -->
+      <div class="ep e3" id="wed">
+        <div class="ephd">
+          <div class="epday">День 3</div>
+          <div class="ept"><b>Сверка АОСР № 142 со спецификацией и предписанием</b><small>Задача: найти расхождение. Интерактив</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 3. На стол лёг акт освидетельствования скрытых работ № 142 по армированию плиты. Прежде чем разрешать бетонирование, ПТО сверяет акт со спецификацией КЖ и с открытым предписанием № 57. Ваша задача — найти, где у акта проблема.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документы: АОСР № 142 + спецификация КЖ <span class="chev">▾</span></summary>
+            <div class="docwrap">
+              <div class="docpaper" style="margin-bottom:12px">
+                <div class="dt">АКТ № 142 освидетельствования скрытых работ</div>
+                <p class="dm">г. Екатеринбург, 23.06.2026. Объект: ЖК «Уютный дом на Матвеева», секция 2. Лицо, осуществляющее строительство: ООО «СтройМонолит».</p>
+                <p><b>Предъявлено:</b> армирование монолитной плиты перекрытия на отм. +12,000 (4-й этаж), захватка 2-Б. По проекту КЖ-05, листы 4–7, изм. 1.</p>
+                <p><b>Применены:</b> арматура А500С Ø12, Ø16, Ø20 — ГОСТ 34028-2016, сертификат № 7781-А от 12.05.2026; бетон B25 W6 F150.</p>
+                <p><b>Объём выполненных работ:</b></p>
+                <ul>
+                  <li>площадь армирования — <b>482 м²</b>;</li>
+                  <li>масса уложенной арматуры — <b>11,8 т</b>;</li>
+                  <li>защитный слой — <b>25 мм</b>.</li>
+                </ul>
+                <p><b>Разрешается:</b> бетонирование плиты перекрытия на отм. +12,000.</p>
+              </div>
+              <div class="docpaper">
+                <div class="dt">Спецификация КЖ (фрагмент, на типовой этаж)</div>
+                <div class="tw"><table class="doctbl">
+                  <tr><th>Поз.</th><th>Наименование</th><th>Класс</th><th>Ед.</th><th>Кол-во</th></tr>
+                  <tr><td>2</td><td>Плита перекрытия t=200</td><td>B25, W6</td><td>м³</td><td>96,4 (пл. 482 м²)</td></tr>
+                  <tr><td>5</td><td>Арматура рабочая А500С Ø12–25</td><td>А500С</td><td>т</td><td>11,8</td></tr>
+                </table></div>
+                <p class="dm" style="margin-top:8px">Защитный слой по общим данным КЖ: плита перекрытия — <b>25 мм</b>.</p>
+              </div>
+            </div>
+          </details>
+
+          <h3>Найди расхождение</h3>
+          <p class="muted">Три показателя. Один из них — не расхождение между документами, а именно та причина, по которой акт нельзя закрывать сегодня. Что мешает разрешить бетонирование?</p>
+          <div class="opts" data-choice>
+            <button class="opt" data-fb="Совпадает. Масса арматуры в акте — 11,8 т, и в спецификации поз. 5 — тоже 11,8 т. Это как раз пример корректной сверки: документы бьются между собой.">
+              <b>Масса арматуры: 11,8 т в акте vs 11,8 т в спецификации</b>
+              <small>Сверьте поз. 5 спецификации с актом</small>
+            </button>
+            <button class="opt" data-fb="Совпадает. Площадь армирования 482 м² в акте = площадь плиты 482 м² (поз. 2). Расхождения нет.">
+              <b>Площадь: 482 м² в акте vs 482 м² в спецификации</b>
+              <small>Поз. 2 спецификации</small>
+            </button>
+            <button class="opt" data-correct data-fb="Верно. Формально в акте записан защитный слой 25 мм — «по проекту». Но по открытому предписанию № 57 фактический защитный слой на этой же захватке 2-Б составляет 12–15 мм. Значит, акт противоречит предписанию: подписывать его и разрешать бетонирование нельзя, пока нарушение по п. 1 не устранено и работы не предъявлены повторно (до 28.06).">
+              <b>Защитный слой: в акте 25 мм, а по предписанию № 57 фактически 12–15 мм на той же захватке 2-Б</b>
+              <small>Сверьте акт с предписанием, не только со спецификацией</small>
+            </button>
+          </div>
+          <div class="qfb" data-choice-fb></div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: вывод сверки</div>
+            <div class="abody">
+              <p style="margin:0 0 6px"><b>Соответствие спецификации:</b> масса арматуры (11,8 т) и площадь (482 м²) в акте № 142 <b>совпадают</b> со спецификацией КЖ (поз. 5 и 2). Класс арматуры А500С и бетон B25 W6 F150 — по проекту.</p>
+              <p style="margin:0 0 6px"><b>Есть вопросы по предписанию № 57:</b> в акте защитный слой указан 25 мм (проектный), однако по предписанию фактический защитный слой на захватке 2-Б — <b>12–15 мм</b>. Акт противоречит открытому нарушению по п. 1.</p>
+              <p style="margin:0"><b>Вывод:</b> акт № 142 нельзя закрывать и разрешать бетонирование, пока нарушение по защитному слою не устранено и работы не предъявлены повторно к освидетельствованию (срок по предписанию — до 28.06.2026).</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Все числа — из акта № 142, спецификации КЖ и предписания № 57.</div>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт D1 из твоего промпт-пака ПТО</b> («Сверка АОСР со спецификацией и предписанием»).</p>
+        </div>
+      </div>
+
+      <!-- ═══════ ЭПИЗОД 4 · ЧЕТВЕРГ ═══════ -->
+      <div class="ep e4" id="thu">
+        <div class="ephd">
+          <div class="epday">День 4</div>
+          <div class="ept"><b>Планёрка → протокол с поручениями</b><small>Задача: автопротокол из транскрипта. Демо на файле 06</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 4. Прошла еженедельная планёрка, диктофон записал всё как есть — сбивчиво, вперемешку. ПТО ведёт протокол. Вместо часа расшифровки — промпт: из «сырого» текста ИИ достаёт решения и поручения таблицей «кто / что / срок».</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: транскрипт планёрки (26.06.2026) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Транскрипт планёрки — ЖК «Уютный дом», 26.06.2026, 09:05</div>
+              <p class="dm">Участники: РП, прораб (Иванов И.И.), ПТО, стройконтроль, снабжение. Сырая расшифровка с диктофона.</p>
+              <p style="font-size:12.5px;color:#4a463f">РП: По монолиту 4–9 этажи — отстаём? Прораб: Отстаём, двадцать два процента, по графику под тридцать. Догоним, если дадут второй кран. РП: Снабжение, что по крану? Снабжение: Подадим с понедельника, но нужна заявка сегодня до обеда и согласование по ТБ. Стройконтроль: Пока не закрыто предписание пятьдесят семь по защитному слою — бетонирование два-Б не разрешаю. И нет входного контроля по арматуре, партия от восемнадцатого. ПТО: Документы поднимем сегодня. РП: Прораб — переделать защитный слой и предъявить до субботы. Снабжение — заявку на кран сегодня. ПТО — входной контроль до завтра. Стройконтроль — как закроем, добро на бетон. По фасаду подрядчик первого августа.</p>
+            </div></div>
+          </details>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: протокол планёрки</div>
+            <div class="abody">
+              <div class="tw"><table class="doctbl">
+                <tr><th>Поручение</th><th>Ответственный</th><th>Срок</th></tr>
+                <tr><td>Переделать защитный слой (захватка 2-Б), предъявить повторно к освидетельствованию</td><td>Прораб (Иванов И.И.)</td><td>до 27.06 (суббота)*</td></tr>
+                <tr><td>Заявка на второй кран + согласование по ТБ</td><td>Снабжение</td><td>сегодня до обеда</td></tr>
+                <tr><td>Собрать документы входного контроля арматуры (партия от 18.06)</td><td>ПТО</td><td>до 27.06 (завтра)*</td></tr>
+                <tr><td>Разрешение на бетонирование 2-Б после устранения нарушения</td><td>Стройконтроль</td><td>по факту закрытия</td></tr>
+              </table></div>
+              <p style="margin:8px 0 0"><b>Решения:</b> отставание по монолиту (22% при плане ~30%); фасадный подрядчик выходит 01.08.</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Взято только из транскрипта, ничего не добавлено; ПТО проверяет сроки.</div>
+              <div class="simlabel">⚠ * Дата «27.06» — перевод дня недели/относительной ссылки («суббота», «завтра») в календарное число, черновик-гипотеза ИИ; точную дату подтверждает ПТО по календарю (официальный срок по предписанию № 57, п. 1 — 28.06.2026, отличается от внутренней договорённости на планёрке).</div>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт E1 из твоего промпт-пака ПТО</b> («Протокол планёрки из транскрипта»).</p>
+          <div class="note">⚠️ <b>Красная линия.</b> Диктофон на планёрке — только с согласия участников, предупредите вслух. ФИО в публичные сервисы не загружаем без необходимости.</div>
+        </div>
+      </div>
+
+      <!-- ═══════ ЭПИЗОД 5 · ПЯТНИЦА ═══════ -->
+      <div class="ep e5" id="fri">
+        <div class="ephd">
+          <div class="epday">День 5</div>
+          <div class="ept"><b>Сводка недели руководителю</b><small>Задача: собрать всё в короткий отчёт (стиль C1 / E2)</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 5, конец недели. Руководитель проекта ждёт короткую сводку: что было по нити «качество монолита», что закрыто, что в работе. Вы отдаёте ИИ результаты четырёх эпизодов и просите собрать отчёт до 120 слов.</p>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: сводка недели</div>
+            <div class="abody">
+              <p style="margin:0 0 6px"><b>Сводка ПТО за неделю · нить «качество монолита», захватка 2-Б</b></p>
+              <p style="margin:0 0 6px"><b>Сделано:</b> подготовлен ответ на предписание № 57 (3 пункта, сроки в рамках предписания); поставщику направлено требование сертификата на арматуру Ø16 (ТН № 540) со сроком до 26.06; проведена сверка АОСР № 142 — по массе (11,8 т) и площади (482 м²) сходится со спецификацией; протокол планёрки от 26.06 с поручениями оформлен.</p>
+              <p style="margin:0 0 6px"><b>Открыто / риск:</b> защитный слой на 2-Б (12–15 мм при 25 мм) не устранён — бетонирование запрещено до повторного освидетельствования (внутренний срок 27.06 по протоколу планёрки; официальный срок по предписанию № 57 — 28.06.2026); отставание по монолиту 22% при плане ~30%.</p>
+              <p style="margin:0"><b>Нужно решение:</b> второй кран на захватку (заявка — по договорённости на планёрке должна была уйти 26.06, факт подачи подтверждает снабжение).</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Собрано из результатов эпизодов пн–чт; числа из документов кейса.</div>
+              <div class="simlabel">⚠ Дата повторного освидетельствования и статус заявки на кран — черновик-гипотеза из протокола планёрки, не из подтверждающего документа; факт и точный срок подтверждает ПТО/снабжение.</div>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт C1 (сводка/итог) из твоего промпт-пака ПТО</b>, собранный в стиле недельного отчёта E2.</p>
+          <div class="note green">✅ Неделя закрыта одним пакетом: предписание → входной контроль → сверка → планёрка → сводка. Пять документов — пять промптов — один связный результат.</div>
+        </div>
+      </div>
+
+      <!-- ═══════ ФИНАЛ (а): LIVE-CHAT ШЛЮЗ ═══════ -->
+      <section class="sec" id="livechat">
+        <p class="stp">6 · Финал · Сделай в живом чате</p>
+        <h2>Повтори один эпизод на своём материале</h2>
+        <div class="livechat">
+          <p>Выберите любой из пяти эпизодов, который ближе к вашей текущей работе, возьмите соответствующий промпт из блока «Мой ИИ-набор ПТО» ниже и выполните его в реальном чат-боте — но <b>на своём документе</b> (обезличенно: без реальных цен, реквизитов и ПДн). Вставьте результат сюда.</p>
+          <div class="lcbtns">
+            <a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>
+            <a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>
+          </div>
+          <div class="review">
+            <label>Вставь сюда результат, который вернул чат-бот на твоём материале</label>
+            <textarea id="lcResult" rows="6" placeholder="Например: ответ на своё предписание, письмо своему поставщику, протокол своей планёрки…"></textarea>
+          </div>
+          <div class="lcgate">
+            <input type="checkbox" id="lcConfirm">
+            <label for="lcConfirm">Я выполнил один эпизод на своём материале и сверил результат с документом</label>
+          </div>
+          <p class="lcstatus" id="lcStatus">Итог пилота откроется после того, как вы вставите результат и отметите чекбокс.</p>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору — <b>итоговая проверка пилота</b>. В демо-комплекте гейт работает локальным JS (без сохранения и отправки данных); на платформе это событие фиксируется в личном кабинете как завершение мини-финала.
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ ФИНАЛ (б): МОЙ ИИ-НАБОР ПТО ═══════ -->
+      <div class="lockwrap" id="kitWrap">
+        <section class="sec locked" id="kit">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">7 · Финал · Мой ИИ-набор ПТО</p>
+          <h2>Пять промптов недели — ваш рабочий инструмент</h2>
+          <p class="muted">Это итог пилотного среза: пять промптов из промпт-пака ПТО, по одному на каждый эпизод недели. Копируйте и используйте на своих задачах. Не забывайте прикладывать документ и грунтовку против выдумок: «используй только данные из документа; чего нет — не выдумывай, помечай <i>[уточнить]</i>».</p>
+          <div class="kit">
+            <div class="kititem">
+              <div class="kh"><span class="kcode">A1</span> Ответ на предписание стройконтроля <span class="kday">День 1</span></div>
+              <div class="kprompt" id="p1">Ты — инженер ПТО генподрядчика на жилом доме. Контекст: получено предписание стройконтроля (приложу текст). Сначала ответь: какова правильная структура ответа на предписание и что обязательно включить? Затем составь официальный ответ с планом устранения по каждому пункту, ответственными и сроками (не позднее сроков предписания). Формат: деловое письмо, по пунктам, нейтральный тон. Используй только данные из документа; чего нет — помечай [уточнить].
+Текст предписания: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p1">📋 Скопировать A1</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">A2</span> Письмо поставщику о недостающем документе <span class="kday">День 2</span></div>
+              <div class="kprompt" id="p2">Ты — инженер ПТО. Контекст: партия материала поступила без документа о качестве и не допущена к применению. Задача: составь письмо поставщику с требованием предоставить сертификат соответствия на партию, с указанием реквизитов партии (накладная, дата), требуемого документа и срока. Формат: короткое официальное письмо. Используй только данные из документа; чего нет — помечай [уточнить].
+Данные записи входного контроля: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p2">📋 Скопировать A2</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">D1</span> Сверка АОСР со спецификацией и предписанием <span class="kday">День 3</span></div>
+              <div class="kprompt" id="p3">Ты — инженер ПТО. Задача: проверь, соответствует ли акт освидетельствования скрытых работ спецификации (класс арматуры, масса, площадь) и нет ли по нему открытых замечаний из предписания. Формат: вывод «соответствует / есть вопросы» + перечень несоответствий. Используй только данные из приложенных документов; ничего не добавляй.
+Документы (акт, спецификация, предписание): [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p3">📋 Скопировать D1</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">E1</span> Протокол планёрки из транскрипта <span class="kday">День 4</span></div>
+              <div class="kprompt" id="p4">Ты — инженер ПТО. Задача: из приложенной расшифровки планёрки сделай протокол: решения и поручения. Формат: таблица «поручение → ответственный → срок». Ничего не придумывай — только из текста.
+Транскрипт: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p4">📋 Скопировать E1</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">C1</span> Сводка недели руководителю <span class="kday">День 5</span></div>
+              <div class="kprompt" id="p5">Ты — инженер ПТО. Задача: собери короткую сводку за неделю для руководителя по результатам работы: что сделано, что открыто/риск, что требует решения. Формат: 3 блока, до 120 слов. Опирайся только на приложенные результаты и документы; цифры не выдумывай.
+Результаты недели (ответ на предписание, письмо, сверка, протокол): [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p5">📋 Скопировать C1</button>
+            </div>
+          </div>
+          <p class="promptlink" id="kitMsg" style="min-height:16px"></p>
+        </section>
+      </div>
+
+      <!-- ═══════ ФИНАЛ (в): ЧЕК-ЛИСТ САМОПРОВЕРКИ ═══════ -->
+      <div class="lockwrap" id="selfcheckWrap">
+        <section class="sec locked" id="selfcheck">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">8 · Финал · Самопроверка</p>
+          <h2>Чек-лист: неделя ПТО пройдена</h2>
+          <ul class="selfcheck" id="scList">
+            <li><label><input type="checkbox"> По предписанию № 57 собран ответ с разбивкой по 3 пунктам, ответственными и сроками</label></li>
+            <li><label><input type="checkbox"> В письме поставщику есть реквизиты партии (ТН № 540), требуемый документ (сертификат по ГОСТ 34028-2016) и срок</label></li>
+            <li><label><input type="checkbox"> При сверке АОСР № 142 я сверил акт не только со спецификацией, но и с предписанием (защитный слой 25 мм vs факт 12–15 мм)</label></li>
+            <li><label><input type="checkbox"> Протокол планёрки собран только из транскрипта, поручения — таблицей «кто / что / срок»</label></li>
+            <li><label><input type="checkbox"> Один эпизод я повторил в живом чате на своём материале и сверил результат с документом</label></li>
+            <li><label><input type="checkbox"> Помню про красные линии: ПДн и коммерческую тайну в публичные сервисы не загружаю, факты сверяю с первоисточником</label></li>
+          </ul>
+          <div class="scbar"><i id="scBar"></i></div>
+          <div class="scmsg" id="scMsg">0 из 6 — пройдитесь по списку</div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает <b>«Паспорт навыков»</b>: прохождение мини-финала засчитывается в общий прогресс участника, а самопроверка становится финальной отметкой пилотного среза ПТО.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════ ФИНАЛ (г): CURATOR / отправка ═══════ -->
+      <div class="lockwrap" id="practiceWrap">
+        <section class="sec locked" id="practice">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">9 · Сдача куратору</p>
+          <h2>Отправьте результат мини-финала</h2>
+          <p class="muted">Вставьте результат эпизода, который вы выполнили на своём материале, и e-mail для ответа куратора. Напоминаем про обезличивание: без реальных цен, реквизитов и персональных данных.</p>
+          <div class="review">
+            <label>Что получилось — вставьте результат от ИИ</label>
+            <textarea id="sRes" rows="4" placeholder="Результат вашего эпизода"></textarea>
+            <label>Ваш e-mail для ответа куратора</label>
+            <input id="sEmail" type="email" placeholder="you@example.ru">
+            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
+              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
+          </div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору — <b>итоговая проверка пилота</b>. В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
+          </div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «сквозной пакет ПТО за неделю».</b> Что забрать: пять промптов работают в связке; сверять документы между собой (акт ↔ спецификация ↔ предписание) важнее, чем каждый по отдельности; красные линии — ПДн, коммерческая тайна, первоисточник нормы.</div>
+        </section>
+      </div>
+
+      <!-- MATERIALS -->
+      <section class="sec" id="materials">
+        <p class="stp">Материалы урока</p>
+        <h2>Материалы мини-финала</h2>
+        <p class="muted">Всё содержимое этого шага — тексты, документы кейса и HTML-интерактив — собрано в один архив.</p>
+        <div class="materials">
+          <ul class="mlist">
+            <li><span class="mico">📝</span><span>Конспект мини-финала и драматургия недели (текст)</span></li>
+            <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: предписание № 57 (05), журнал входного контроля (16), АОСР № 142 (04), транскрипт планёрки (06), спецификация КЖ (02)</span></li>
+            <li><span class="mico">🧰</span><span>Промпт-пак ПТО (промпты A1, A2, C1, D1, E1)</span></li>
+            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+          </ul>
+          <div class="dl">
+            <a class="btn dark" href="materials/shag-final-pto.zip">⬇ Скачать архив материалов</a>
+          </div>
+          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага; сам интерактив публикуется на GitHub Pages и подключается через iframe.</p>
+        </div>
+      </section>
+
+      <!-- COURSE NAV -->
+      <div class="coursenav">
+        <a href="index.html"><span>←</span><span><small>Пилот ПТО</small>Ко всем шагам</span></a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="asst" id="asstWidget">
+        <div class="hd"><div class="ico">🤖</div><div><b>Ваш ИИ-ассистент</b><br><span id="asstLvlLabel"></span></div></div>
+        <div class="lvltrack" id="asstTrack"></div>
+        <ul class="caps" id="asstCaps"></ul>
+        <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Уровень задаётся константой ASSISTANT_LEVEL в JS. На платформе виджет принимает прогресс участника извне (проброс прогресса, П-6), не хардкодится в HTML урока.
+        </div>
+      </div>
+      <script>
+      (function(){
+        var ASSISTANT_LEVEL = 3;
+        var ASSISTANT_LEVELS = [
+          {icon:'💬', name:'Голый чат',            desc:'отвечает «из головы», без вашего контекста'},
+          {icon:'🎭', name:'Роль и контекст',       desc:'знает, кто вы и на каком объекте работаете'},
+          {icon:'📚', name:'Библиотека промптов',   desc:'типовые задачи ПТО по готовым шаблонам'},
+          {icon:'📄', name:'Документы и знания',    desc:'работает с предписаниями, актами, журналами'},
+          {icon:'🧰', name:'Рабочий набор',         desc:'инструменты и агентные сценарии под роль'}
+        ];
+        var ASSISTANT_UNLOCK_NOTE = 'Мини-финал закрепил уровень 3: сквозной пакет ПТО за неделю на своих документах. Дальше — уровень 4: инструменты и агент.';
+        var L=Math.max(0,Math.min(4,ASSISTANT_LEVEL));
+        document.getElementById('asstLvlLabel').textContent='Уровень '+L+' · '+ASSISTANT_LEVELS[L].name;
+        var track=document.getElementById('asstTrack');
+        for(var i=0;i<ASSISTANT_LEVELS.length;i++){var seg=document.createElement('i');if(i<L)seg.className='on';else if(i===L)seg.className='cur';track.appendChild(seg);}
+        var caps=document.getElementById('asstCaps');
+        ASSISTANT_LEVELS.forEach(function(lv,i){
+          var li=document.createElement('li');
+          if(i<L){li.innerHTML='<span class="s">✅</span><span>'+lv.name+'</span>';}
+          else if(i===L){li.className='cur';li.innerHTML='<span class="s">✅</span><span><b>'+lv.name+'</b><span class="newb">этот урок</span><small>'+lv.desc+'</small></span>';}
+          else{li.className='lock';li.innerHTML='<span class="s">🔒</span><span>'+lv.name+'<small>'+lv.desc+'</small></span>';}
+          caps.appendChild(li);
+        });
+        var noteEl=document.getElementById('asstNote');
+        if(ASSISTANT_UNLOCK_NOTE){noteEl.innerHTML='🔜 '+ASSISTANT_UNLOCK_NOTE;}else{noteEl.style.display='none';}
+      })();
+      </script>
+    </aside>
+  </div>
+</div>
+
+<script>
+/* ── INTRO SCREENS ── */
+(function(){
+  var scr=document.querySelectorAll('#intro .screen');if(!scr.length)return;
+  var prog=document.getElementById('scrProgress'),prev=document.getElementById('scrPrev'),next=document.getElementById('scrNext'),cur=0;
+  for(var i=0;i<scr.length;i++){var d=document.createElement('div');d.className='dot';prog.appendChild(d);}
+  function paint(){
+    scr.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+    [].forEach.call(prog.children,function(d,i){d.classList.toggle('on',i<=cur);});
+    prev.disabled=(cur===0);
+    next.textContent=(cur===scr.length-1)?'✓ Понятно':'Дальше →';
+  }
+  prev.addEventListener('click',function(){if(cur>0){cur--;paint();}});
+  next.addEventListener('click',function(){if(cur<scr.length-1){cur++;paint();}else{next.disabled=true;}});
+  paint();
+})();
+
+/* ── CHOICE (Пн выбор варианта, Ср найди расхождение) ── */
+(function(){
+  document.querySelectorAll('[data-choice]').forEach(function(group){
+    var fb=group.parentNode.querySelector('[data-choice-fb]');
+    group.querySelectorAll('.opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var ok=btn.hasAttribute('data-correct');
+        group.querySelectorAll('.opt').forEach(function(b){
+          b.disabled=true;
+          if(b.hasAttribute('data-correct'))b.classList.add('ok');
+        });
+        if(!ok)btn.classList.add('err');
+        if(fb)fb.innerHTML='<div class="note '+(ok?'green':'red')+'">'+(ok?'✅ <b>Верно.</b> ':'❌ <b>Не то.</b> ')+(btn.dataset.fb||'')+'</div>';
+      });
+    });
+  });
+})();
+
+/* ── QUIZ (Вт) ── */
+(function(){
+  document.querySelectorAll('[data-quiz]').forEach(function(q){
+    var fb=q.querySelector('.qfb');
+    q.querySelectorAll('.opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var ok=btn.hasAttribute('data-correct');
+        q.querySelectorAll('.opt').forEach(function(b){
+          b.disabled=true;
+          if(b.hasAttribute('data-correct'))b.classList.add('ok');
+        });
+        if(!ok)btn.classList.add('err');
+        if(fb)fb.innerHTML='<div class="note '+(ok?'green':'red')+'">'+(ok?'✅ <b>Верно.</b> ':'❌ <b>Не совсем.</b> ')+(btn.dataset.fb||'')+'</div>';
+      });
+    });
+  });
+})();
+
+/* ── KIT COPY (Мой ИИ-набор) ── */
+(function(){
+  var msg=document.getElementById('kitMsg');
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.getAttribute('data-copy'));if(!el)return;
+      navigator.clipboard.writeText(el.textContent).then(function(){
+        if(msg){msg.textContent='Промпт скопирован ✓';setTimeout(function(){msg.textContent='';},2500);}
+      }).catch(function(){if(msg)msg.textContent='Выделите и скопируйте вручную';});
+    });
+  });
+})();
+
+/* ── LIVE-CHAT GATE ── */
+(function(){
+  var result=document.getElementById('lcResult'),confirm=document.getElementById('lcConfirm');
+  if(!result||!confirm)return;
+  var status=document.getElementById('lcStatus');
+  var lockTargets=[document.getElementById('kit'),document.getElementById('selfcheck'),document.getElementById('practice')];
+  var lockWraps=[document.getElementById('kitWrap'),document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
+  function upd(){
+    var ready=result.value.trim().length>0 && confirm.checked;
+    lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
+    lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
+    if(status){
+      status.textContent=ready?'✅ Итог пилота открыт — забирайте свой ИИ-набор ниже.':'Итог пилота откроется после того, как вы вставите результат и отметите чекбокс.';
+      status.classList.toggle('ready',ready);
+    }
+  }
+  result.addEventListener('input',upd);
+  confirm.addEventListener('change',upd);
+  upd();
+})();
+
+/* ── SELFCHECK ── */
+(function(){
+  var list=document.getElementById('scList');if(!list)return;
+  var boxes=list.querySelectorAll('input[type=checkbox]'),bar=document.getElementById('scBar'),msg=document.getElementById('scMsg');
+  function upd(){
+    var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+    bar.style.width=(100*n/boxes.length)+'%';
+    msg.textContent=(n===boxes.length)?'✅ Все '+n+' пунктов — мини-финал пройден':(n+' из '+boxes.length+' — пройдитесь по списку');
+    msg.style.color=(n===boxes.length)?'var(--green)':'var(--muted)';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',upd);});
+  upd();
+})();
+
+/* ── CURATOR (демо: скачивание .txt) ── */
+(function(){
+  var btn=document.getElementById('sendRev');if(!btn)return;
+  btn.addEventListener('click',function(){
+    var res=document.getElementById('sRes').value.trim(),
+        email=document.getElementById('sEmail').value.trim(),
+        m=document.getElementById('revMsg');
+    if(!res){m.textContent='Вставьте результат';return;}
+    var raw='Мини-финал ПТО (неделя инженера ПТО с ИИ) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
+    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='zadanie-mini-final-pto.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    m.textContent='Файл скачан ✓';
+  });
+})();
+</script>
+</body>
+</html>

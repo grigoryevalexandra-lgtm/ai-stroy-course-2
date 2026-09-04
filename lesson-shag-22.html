@@ -192,10 +192,6 @@
     <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 3 · документы и знания</span>
     <span class="pill">🎓 Уверенный</span>
   </div>
-  <div class="transfer-note compact">
-    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-    Платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли» из требований к разработке) — строка «Роль: …» выше должна обновляться без правки HTML урока.
-  </div>
 
   <div class="grid">
     <div>
@@ -206,15 +202,15 @@
         <ul class="toc">
           <li>1 · <a href="#theory">Зачем это нужно: 40 страниц против одного вопроса</a></li>
           <li>2 · <a href="#mechanics">Механика «загрузил файл — спросил»</a></li>
-          <li>3 · <a href="#demo">Демо: вопрос-ответ по регламентам</a></li>
-          <li>4 · <a href="#counter">Контрдемо: чего в документе нет</a></li>
+          <li>3 · <a href="#demo">Пример: вопрос-ответ по регламентам</a></li>
+          <li>4 · <a href="#counter">Проверка: чего в документе нет</a></li>
           <li>5 · <a href="#embed">Почему ИИ находит нужное: эмбеддинги за 5 минут</a></li>
           <li>6 · <a href="#limits">Пределы: когда нужен «настоящий» RAG</a></li>
           <li>7 · <a href="#materials">Материалы урока</a></li>
           <li>8 · <a href="#livechat">Сделай в живом чате</a></li>
           <li>9 · <a href="#practice">Практика и проверка</a></li>
         </ul>
-        <div class="note">📄 К уроку приложены: регламенты Р-01, Р-02, Р-03 (документ 19 «Регламенты для базы знаний»), промпт с обязательной ссылкой на пункт и HTML-интерактив.</div>
+        <div class="note">📄 К уроку приложены: <b>urok-tekst.docx</b>, <b>19_Регламенты-для-базы-знаний-RAG.docx</b>, пять HTML-интерактивов и <b>Состав-материалов.docx</b>. Промпт B1 приведён в тексте урока.</div>
       </section>
 
       <!-- ═══ 1 · THEORY ═══ -->
@@ -251,9 +247,9 @@
         <div class="note">📌 <b>Правило одно для обоих сценариев:</b> в промпте прямо требуйте ответ со ссылкой на пункт или страницу источника. Без этого требования ассистент нередко отвечает уверенно и гладко — но без возможности проверить, откуда взят ответ.</div>
       </section>
 
-      <!-- ═══ 3 · DEMO ═══ -->
+      <!-- ═══ 3 · EXAMPLE ═══ -->
       <section class="sec" id="demo">
-        <p class="stp">3 · Демо</p>
+        <p class="stp">3 · Пример</p>
         <h2>Вопрос-ответ по регламентам «Уютного дома на Матвеева»</h2>
         <p class="muted">Три коротких внутренних регламента застройщика — раскройте документ, он же лежит в архиве материалов урока.</p>
 
@@ -305,9 +301,9 @@
         </details>
 
         <div class="chat" style="margin-top:12px">
-          <div class="ch"><span class="gi">G</span> GigaChat · файл: Регламенты Р-01…Р-03 <span style="flex:1"></span><span class="muted" style="font-size:11px;font-weight:600">демо</span></div>
+          <div class="ch"><span class="gi">G</span> Пример диалога · файл: Регламенты Р-01…Р-03</div>
           <div class="body">
-            <span class="sys">⚙️ Роль: инженер ПТО · документ: 19_Регламенты-для-базы-знаний-RAG</span>
+            <span class="sys">⚙️ Роль: инженер ПТО · документ: 19_Регламенты-для-базы-знаний-RAG.docx</span>
             <div class="bub u">Ты работаешь только с приложенным документом. Ответь на вопрос строго по его содержанию и укажи номер регламента и пункт. Если ответа в документе нет — напиши «в документе нет». Вопрос: в каком пункте регламента прописан порядок ответа на предписание строительного контроля и какой срок регистрации предписания?</div>
             <div class="bub a">По документу — <b>Регламент Р-03 «Порядок ответа на предписания строительного контроля»</b>.
 
@@ -320,15 +316,14 @@
 
 Источник: документ 19, Регламент Р-03, пункты 1–4.</div>
           </div>
-          <div class="ctrls"><span class="muted" style="font-size:12px">Ответ смоделирован для урока</span></div>
         </div>
 
         <div class="note green" style="margin-top:14px">✅ Обратите внимание на структуру ответа: сначала — прямой ответ, затем — точная ссылка на регламент и пункт. Это и есть требование из промпта B1, а не «доброта» модели — без него ответ пришлось бы перепроверять по всему документу заново.</div>
       </section>
 
-      <!-- ═══ 4 · COUNTER-DEMO ═══ -->
+      <!-- ═══ 4 · ABSENCE CHECK ═══ -->
       <section class="sec" id="counter">
-        <p class="stp">4 · Контрдемо</p>
+        <p class="stp">4 · Проверка отсутствующего ответа</p>
         <h2>Вопрос, которого в регламенте нет</h2>
         <p>Проверим ассистента на честность: зададим вопрос, ответа на который в загруженных регламентах Р-01–Р-03 нет вовсе — например, про размер штрафа за просрочку устранения нарушения. Выберите, каким должен быть правильный ответ ИИ, и сравните с ловушкой — уверенным, но выдуманным ответом.</p>
 
@@ -363,13 +358,40 @@
         <div class="why">💡 <b>Зачем это вам:</b> понимание этой механики объясняет, почему точная формулировка вопроса и требование «укажи пункт» так важны — ассистент отвечает по найденным кускам текста, а не «помнит» весь документ целиком, и хорошая ссылка на источник — единственный способ быстро проверить, что найдено то, что нужно.</div>
       </section>
 
+<!-- APPROVED_INTERACTIVE_START:lesson-shag-22 -->
+<section class="course-prompt-library" id="coursePromptLibrary"><p class="course-prompt-kicker">Промпты урока</p><h2>Откройте нужный промпт и скопируйте его кнопкой 📋.</h2><details class="course-prompt" data-prompt-code="B1"><summary>🧩 Промпт B1 · ПТО · Вопрос по своим документам</summary><div class="course-prompt-body"><div class="course-prompt-actions"><button type="button" class="course-prompt-copy" data-prompt-key="p1" aria-label="Скопировать Промпт B1 · ПТО · Вопрос по своим документам" title="Скопировать промпт">📋</button><span class="course-prompt-status" aria-live="polite"></span></div><pre>Ты работаешь только с приложенным документом. Ответь на вопрос строго по его
+содержанию и укажи номер регламента и пункт, на основании которых дан ответ.
+Если ответа в документе нет — прямо напиши «в документе нет», не придумывай
+и не дополняй ответ данными из общих знаний.
+
+Вопрос: в каком пункте регламента прописан порядок ответа на предписание
+строительного контроля и какой срок регистрации предписания?</pre></div></details></section>
+<section class="sec course-interactive-host" data-course-interactive="lesson-shag-22"><p class="stp">Проверка задания</p><h2>Ответ по регламенту с источником</h2><iframe src="interactives/lesson-shag-22.html" title="Проверка задания: Ответ по регламенту с источником" loading="lazy"></iframe><a class="course-interactive-open" href="interactives/lesson-shag-22.html" target="_blank" rel="noopener">Открыть проверку отдельно</a></section>
+<!-- APPROVED_INTERACTIVE_END:lesson-shag-22 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <!-- ═══ 6 · LIMITS ═══ -->
       <section class="sec" id="limits">
         <p class="stp">6 · Пределы</p>
         <h2>Когда одного файла в чате недостаточно</h2>
         <ul class="checks bad">
           <li><b>Документов много и они большие.</b> Один регламент на 3 страницы — не проблема. Сотни документов на объекте (весь архив исполнительной документации, все предписания за год) — это уже задача для «настоящего» RAG: постоянного индекса документов компании, который обновляется автоматически. Такое решение строит и поддерживает ИТ — это горизонт Шага 27.</li>
-          <li><b>Обезличенность обязательна.</b> В демо-чат или NotebookLM загружаются только обезличенные и разрешённые документы — без реальных ФИО, номеров договоров, коммерческих условий и персональных данных (правило Шага 3). Реальные регламенты компании — только через согласованный корпоративный контур.</li>
+          <li><b>Учитывайте режим документа и сервиса.</b> Загружайте документ во внешний сервис, если это допускают правила компании и условия работы с сервисом. Если рабочие данные передавать нельзя, используйте обезличенную копию; для закрытых материалов выбирайте согласованный корпоративный контур.</li>
         </ul>
       </section>
 
@@ -396,15 +418,14 @@
         <p class="muted">Всё содержимое этого шага — текстовые материалы, документы кейса, промпты и HTML-интерактив — собрано в один архив.</p>
         <div class="materials">
           <ul class="mlist">
-            <li><span class="mico">📝</span><span>Конспект урока (механика «знаний», эмбеддинги за 5 минут, .md)</span></li>
-            <li><span class="mico">📁</span><span>Документ кейса «Уютный дом на Матвеева»: 19 (регламенты Р-01–Р-03 для базы знаний)</span></li>
-            <li><span class="mico">🧩</span><span>Промпт B1 (вопрос-ответ по документу с обязательной ссылкой на пункт) из промпт-пака ПТО</span></li>
-            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+            <li><span class="mico">📝</span><span><b>urok-tekst.docx</b> — полный текст урока</span></li>
+            <li><span class="mico">📁</span><span><b>19_Регламенты-для-базы-знаний-RAG.docx</b> — регламенты Р-01–Р-03</span></li>
+            <li><span class="mico">🌐</span><span>Пять файлов <b>interaktiv-*.html</b> — упражнения урока</span></li>
+            <li><span class="mico">📋</span><span><b>Состав-материалов.docx</b> — список файлов и назначение комплекта</span></li>
           </ul>
           <div class="dl">
             <a class="btn dark" href="materials/shag-22.zip">⬇ Скачать архив материалов</a>
           </div>
-          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага.</p>
         </div>
       </section>
 
@@ -423,13 +444,10 @@
         </div>
         <div class="lcgate">
           <input type="checkbox" id="lcConfirm">
-          <label for="lcConfirm">Я получил ответ на свой запрос</label>
+          <label for="lcConfirm">Я зафиксировал(а) результат или выбрал(а) продолжение без принятого результата</label>
         </div>
+        <div class="lcgate"><input type="checkbox" id="lcContinue"><label for="lcContinue">Продолжить, если внешний сервис не принял документ или не вернул ответ</label></div>
         <p class="lcstatus" id="lcStatus">Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.</p>
-        <div class="transfer-note">
-          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-          Демо-гейт реализован локальным JS (без сохранения данных). На платформе эта блокировка должна опираться на реальное событие взаимодействия участника с чатом (или просто на заполненное поле + чекбокс, как здесь) — ничего никуда не отправляется и в демо-версии.
-        </div>
       </section>
 
       <!-- ═══ SELFCHECK ═══ -->
@@ -459,14 +477,6 @@
           <div class="review">
             <label>Что получилось — вставьте результат от ИИ</label>
             <textarea id="sRes" rows="4" placeholder="Ответы ИИ со ссылками на пункты"></textarea>
-            <label>Ваш e-mail для ответа куратора</label>
-            <input id="sEmail" type="email" placeholder="you@example.ru">
-            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
-              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
-          </div>
-          <div class="transfer-note">
-            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-            Здесь платформа подключает отправку куратору — проверка №4 (см. паспорта шагов). В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
           </div>
           <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «вопрос-ответ по своим документам».</b> Что забрать: загруженный документ превращает ответ «из головы» в ответ по источнику; требование ссылки на пункт в промпте обязательно; «в документе нет» — правильный ответ, а не провал; много документов — уже задача «настоящего» RAG для ИТ.</div>
         </section>
@@ -474,8 +484,8 @@
 
       <!-- ═══ COURSE NAV ═══ -->
       <div class="coursenav">
-        <a href="#prev-lesson"><span>←</span><span><small>Шаг 21</small>Предыдущий урок недели 4</span></a>
-        <a href="#next-lesson" class="next"><span><small>Шаг 23</small>Следующий урок недели 4</span><span>→</span></a>
+        <a href="lesson-shag-21.html"><span>←</span><span><small>Шаг 21</small>Предыдущий урок недели 4</span></a>
+        <a href="lesson-shag-23.html" class="next"><span><small>Шаг 23</small>Следующий урок недели 4</span><span>→</span></a>
       </div>
 
     </div>
@@ -486,10 +496,6 @@
         <div class="lvltrack" id="asstTrack"></div>
         <ul class="caps" id="asstCaps"></ul>
         <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
-        <div class="transfer-note">
-          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-          Сейчас уровень задаётся константой ASSISTANT_LEVEL в JS ниже. На платформе виджет должен принимать текущий прогресс участника извне (проброс прогресса, П-6 из требований к разработке), не хардкодиться в HTML урока.
-        </div>
       </div>
       <script>
       (function(){
@@ -565,13 +571,13 @@
 
 /* ── BLOCK: LIVE-CHAT — гейт итогов урока: пока поле пустое или чекбокс не отмечен, блоки SELFCHECK/CURATOR заблокированы ── */
 (function(){
-  var result=document.getElementById('lcResult'),confirmEl=document.getElementById('lcConfirm');
+  var result=document.getElementById('lcResult'),confirmEl=document.getElementById('lcConfirm'),continueEl=document.getElementById('lcContinue');
   if(!result||!confirmEl)return;
   var status=document.getElementById('lcStatus');
   var lockTargets=[document.getElementById('selfcheck'),document.getElementById('practice')];
   var lockWraps=[document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
   function upd(){
-    var ready=result.value.trim().length>0 && confirmEl.checked;
+    var ready=(result.value.trim().length>0 || (continueEl && continueEl.checked)) && confirmEl.checked;
     lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
     lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
     if(status){
@@ -581,6 +587,7 @@
   }
   result.addEventListener('input',upd);
   confirmEl.addEventListener('change',upd);
+  if(continueEl)continueEl.addEventListener('change',upd);
   upd();
 })();
 
@@ -598,24 +605,31 @@
   upd();
 })();
 
-/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально (без бэкенда, без отправки) ── */
-(function(){
-  var btn=document.getElementById('sendRev');if(!btn)return;
-  btn.addEventListener('click',function(){
-    var res=document.getElementById('sRes').value.trim(),
-        email=document.getElementById('sEmail').value.trim(),
-        m=document.getElementById('revMsg');
-    if(!res){m.textContent='Вставьте результат';return;}
-    var raw='Шаг 22 («Знания»: вопрос-ответ по своим документам) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
-    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url;a.download='zadanie-shag-22.txt';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    setTimeout(function(){URL.revokeObjectURL(url);},1000);
-    m.textContent='Файл скачан ✓';
-  });
-})();
+
 </script>
+
+
+
+
+
+
+
+
+<!-- COURSE_INTERACTIVE_SUPPORT_START:lesson-shag-22 -->
+<style>
+.course-interactive-host iframe{display:block;width:100%;height:920px;border:0;background:var(--bg);margin-top:10px}.course-interactive-host .course-interactive-open{display:inline-block;margin-top:8px;font-size:13px}
+.course-prompt-library{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:18px}.course-prompt-kicker{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}.course-prompt-library h2{margin-top:0}.course-prompt{border:1px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card);overflow:hidden}.course-prompt summary{cursor:pointer;padding:11px 14px;font-weight:700}.course-prompt-body{padding:0 14px 14px;background:#fff;border-top:1px solid var(--line)}.course-prompt-body pre{white-space:pre-wrap;font:13px/1.55 Consolas,'Courier New',monospace}.course-prompt-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end;margin-top:10px}.course-prompt-copy,.course-prompt-ref{font:inherit;border:1px solid var(--blue);border-radius:var(--rs);background:#fff;color:var(--blue);cursor:pointer;font-weight:700}.course-prompt-copy{padding:6px 10px}.course-prompt-ref{padding:2px 7px;margin-left:5px;font-size:13px}.course-prompt-status{font-size:13px;color:var(--green)}
+@media(max-width:620px){.course-interactive-host iframe{height:1100px}}
+</style><script id="course-interactive-data" type="application/json">{"id":"lesson-shag-22","prompts":[{"key":"p1","role":"ПТО","code":"B1","title":"Вопрос по своим документам","text":"Ты работаешь только с приложенным документом. Ответь на вопрос строго по его\nсодержанию и укажи номер регламента и пункт, на основании которых дан ответ.\nЕсли ответа в документе нет — прямо напиши «в документе нет», не придумывай\nи не дополняй ответ данными из общих знаний.\n\nВопрос: в каком пункте регламента прописан порядок ответа на предписание\nстроительного контроля и какой срок регистрации предписания?","source":"Курс-для-перепубликации-git_2026-09-04/lesson-shag-22.html#B1"}],"downstream":["#selfcheck","#practice"]}</script><script>
+(function(){const cfg=JSON.parse(document.getElementById('course-interactive-data').textContent),host=document.querySelector('[data-course-interactive="'+cfg.id+'"]'),frame=host&&host.querySelector('iframe');
+function hideLegacy(){['lcResult','liveResult'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.review')||el).hidden=true});['lcConfirm','lcContinue','liveCheck'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.lcgate,.gatecheck')||el).hidden=true});['lcStatus','gateResult'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=true})}
+function unlock(){cfg.downstream.forEach(selector=>{const el=document.querySelector(selector);if(!el)return;el.classList.remove('locked');const wrap=el.closest('.lockwrap');if(wrap)wrap.classList.remove('is-locked')});try{localStorage.setItem('course-interactive:'+cfg.id,'done')}catch(_e){}}
+function completed(){try{return localStorage.getItem('course-interactive:'+cfg.id)==='done'}catch(_e){return false}}function init(){hideLegacy();if(completed())unlock()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+new MutationObserver(()=>{hideLegacy();if(completed())unlock()}).observe(document.documentElement,{childList:true,subtree:true});addEventListener('message',event=>{if(!frame||event.source!==frame.contentWindow||!event.data||event.data.id!==cfg.id)return;if(event.data.type==='course-interactive-height')frame.style.height=Math.max(520,Number(event.data.height)||920)+'px';if(event.data.type==='course-interactive-complete')unlock()});
+async function copyText(text){try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);return true}catch(_e){const t=document.createElement('textarea');t.value=text;t.readOnly=true;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_x){}t.remove();return ok}}
+document.querySelectorAll('.course-prompt-copy').forEach(button=>button.onclick=async()=>{const item=cfg.prompts.find(x=>x.key===button.dataset.promptKey),status=button.nextElementSibling;const ok=item&&await copyText(item.text);status.textContent=ok?'Скопировано':'Выделите текст и скопируйте вручную';setTimeout(()=>status.textContent='',2500)});
+const codes=[...new Set(cfg.prompts.map(x=>x.code))];document.querySelectorAll('p,li,td,th,summary,h2,h3,label,.note').forEach(el=>{if(el.closest('.course-prompt-library,.course-interactive-host,script,style,pre,select')||el.querySelector('.course-prompt-ref')||el.textContent.length>650||!/промпт/i.test(el.textContent))return;const found=codes.filter(code=>el.textContent.includes(code));if(!found.length)return;const b=document.createElement('button');b.type='button';b.className='course-prompt-ref';b.textContent='🧩';b.title='Открыть упомянутый промпт';b.setAttribute('aria-label','Открыть упомянутый промпт');b.onclick=()=>{const library=document.getElementById('coursePromptLibrary');if(!library)return;const matches=[...library.querySelectorAll('.course-prompt')].filter(x=>found.includes(x.dataset.promptCode));matches.forEach(x=>x.open=true);(matches[0]||library).scrollIntoView({behavior:'smooth',block:'start'})};el.append(' ',b)});
+})();</script>
+<!-- COURSE_INTERACTIVE_SUPPORT_END:lesson-shag-22 -->
 </body>
 </html>

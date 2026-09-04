@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карта курса v4 — «30 шагов: рабочий ИИ-инструмент для строителя»</title>
+<style>
+  :root{
+    --bg:#0e1417; --panel:#151e22; --panel2:#1b262b; --line:#26343a;
+    --tx:#e7eef1; --mut:#8aa0a8; --amber:#f5b14d; --green:#56c06a; --red:#e5594f; --blue:#5aa9e6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.45}
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 18px 60px}
+  header.top{border-left:4px solid var(--amber);padding:6px 0 6px 16px;margin-bottom:8px}
+  h1{font-size:24px;margin:0 0 4px}
+  .slogan{color:var(--mut);font-size:14px;margin:0}
+  .pillars{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
+  .pillar{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;flex:1 1 240px}
+  .pillar b{color:var(--amber)}
+  .case{background:linear-gradient(90deg,#1c2a22,#1b262b);border:1px solid #2c4a39;border-radius:10px;padding:10px 12px;font-size:13px;margin:8px 0 4px}
+  .case b{color:var(--green)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;font-size:12px;color:var(--mut)}
+  .badge{display:inline-flex;align-items:center;gap:4px;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600;border:1px solid var(--line)}
+  .b-G{background:#15303f;color:#7cc6f0;border-color:#1f4a63}
+  .b-A{background:#3a2a16;color:#f5b14d;border-color:#5e451f}
+  .b-O{background:#16332a;color:#67d28a;border-color:#1f5340}
+  .b-K{background:#2c2238;color:#c79cf0;border-color:#473163}
+  .b-RU{background:#3a1f22;color:#f08a86;border-color:#5e2f33}
+  .b-GR{background:#23313a;color:#9fd0e0;border-color:#34505c}
+  .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+  .phase{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column}
+  .ph-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px}
+  .ph-h h2{font-size:16px;margin:0;color:var(--amber)}
+  .chip{font-size:11px;color:var(--mut);background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:2px 9px;white-space:nowrap}
+  .ph-meta{font-size:12px;color:var(--mut);margin:-2px 0 10px}
+  .ph-meta .a{color:var(--green)}
+  .ph-meta .zk{color:var(--blue)}
+  .step{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 10px;margin-bottom:7px}
+  .step .n{display:inline-block;min-width:22px;color:var(--amber);font-weight:700}
+  .step .t{font-size:13px}
+  .step .row2{margin-top:5px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .mk{font-size:10px;font-weight:700;border-radius:5px;padding:1px 6px}
+  .mk-up{background:#2a3a2c;color:var(--green);border:1px solid #345a39}
+  .mk-ck{background:#3a2a2a;color:var(--red);border:1px solid #5e3434}
+  .gr{margin-top:6px;background:#11202a;border:1px dashed #34505c;border-radius:9px;padding:9px}
+  .gr h3{margin:0 0 6px;font-size:13px;color:#9fd0e0}
+  .gr .g-items{display:flex;flex-wrap:wrap;gap:5px}
+  .gr .gi{font-size:11px;background:#16262f;border:1px solid #34505c;border-radius:6px;padding:2px 7px;color:#cfe3ec}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  @media(max-width:760px){.cols2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .card h2{font-size:16px;margin:0 0 10px;color:var(--amber)}
+  .roles{display:flex;flex-wrap:wrap;gap:7px}
+  .role{font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 9px}
+  .lvl{font-size:13px;margin:6px 0;padding-left:14px;position:relative}
+  .lvl::before{content:"";position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%}
+  .lvl.n::before{background:var(--green)} .lvl.u::before{background:var(--amber)} .lvl.p::before{background:var(--red)}
+  .rev{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:16px}
+  .rev h2{margin:0 0 10px;font-size:17px}
+  .rev table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .rev th,.rev td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  .rev th{background:var(--panel2);color:var(--amber)}
+  .foot{margin-top:22px;color:var(--mut);font-size:11.5px;border-top:1px solid var(--line);padding-top:12px}
+  .src-inline{display:inline-flex;gap:4px;margin-left:4px}
+html,body{overflow-x:hidden}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>Карта курса v4 — «30 шагов: рабочий ИИ-инструмент для строителя»</h1>
+    <p class="slogan">От нуля до уверенной практики — в своём темпе, с применением с первой недели. Продукт для Высшей инженерной школы (Актион Строительство).</p>
+  </header>
+
+  <div class="case">🏗️ <b>Сквозной кейс:</b> ЖК «Уютный дом на Матвеева» (реальные ТЭП, обезличено) — один проект ведём от старта стройки до сдачи; пакет из 19 учебных документов как тренажёрная база.</div>
+
+  <div class="pillars">
+    <div class="pillar"><b>Стержень 1.</b> ИИ-ассистент растёт по уровням: голый чат → роль и контекст → библиотека промптов → знания (свои документы) → инструменты и рабочий набор.</div>
+    <div class="pillar"><b>Стержень 2.</b> Проект «Уютный дом» движется по стадиям параллельно росту ассистента — двойная сквозная линия.</div>
+    <div class="pillar"><b>Сквозняком:</b> безопасность данных (ФЗ-152), верификация по первоисточнику, красные линии, 4 точки проверки куратором.</div>
+  </div>
+
+  <div class="legend">
+    <span>Бейджи «откуда идея»:</span>
+    <span class="badge b-G">G · Google: Persona-Task-Context-Format</span>
+    <span class="badge b-A">A · Anthropic: человек-в-петле, ассистент vs агент</span>
+    <span class="badge b-O">O · OpenAI: рутину → процесс</span>
+    <span class="badge b-K">K · Kaggle: верификация, RAG-границы</span>
+    <span class="badge b-RU">RU · Сбер/Яндекс: инструменты без VPN</span>
+    <span class="badge b-GR">Гр · блок ИИ-графики</span>
+    <span>· <span class="mk mk-up">⬆ уровень ассистента</span> · <span class="mk mk-ck">★ проверка куратором</span></span>
+  </div>
+
+  <div class="phases">
+
+    <!-- ШАГ 0 -->
+    <div class="phase">
+      <div class="ph-h"><h2>Шаг 0. Старт</h2><span class="chip">вход</span></div>
+      <div class="ph-meta">Ассистент: <span class="a">Ур.0</span> · ЖК: <span class="zk">запуск проекта, доступы</span></div>
+      <div class="step"><span class="n">0</span><span class="t">Подготовь инструмент: регистрация GigaChat/YandexGPT, что нельзя загружать, бесплатное vs платное</span><div class="row2"><span class="badge b-RU">RU</span></div></div>
+    </div>
+
+    <!-- НЕДЕЛЯ 1 -->
+    <div class="phase">
+      <div class="ph-h"><h2>Неделя 1. Основы и первый результат</h2><span class="chip">Новичок</span></div>
+      <div class="ph-meta">Ассистент: <span class="a">0 → 1</span> · ЖК: <span class="zk">старт стройки, переписка, планёрки</span></div>
+      <div class="step"><span class="n">1</span><span class="t">Как ИИ «думает»: предсказание следующего слова</span><div class="row2"><span class="badge b-A">A</span></div></div>
+      <div class="step"><span class="n">2</span><span class="t">Где ИИ врёт и как проверять (галлюцинации + верификация)</span><div class="row2"><span class="badge b-K">K</span></div></div>
+      <div class="step"><span class="n">3</span><span class="t">Безопасность данных: ФЗ-152, тайна, политика работодателя</span><div class="row2"><span class="chip">наша линия</span></div></div>
+      <div class="step"><span class="n">4</span><span class="t">Первый осмысленный запрос: роль + контекст + задача + формат</span><div class="row2"><span class="badge b-G">G</span><span class="mk mk-up">⬆ Ур.1</span></div></div>
+      <div class="step"><span class="n">5</span><span class="t">Контекст решает: без/с документами</span><div class="row2"><span class="mk mk-ck">★ проверка №1</span></div></div>
+      <div class="step"><span class="n">6</span><span class="t">Когда ИИ отказывает или ошибается</span><div class="row2"><span class="badge b-K">K</span></div></div>
+      <div class="step"><span class="n">7</span><span class="t">Практикум недели: рабочее письмо под свою роль</span></div>
+    </div>
+
+    <!-- НЕДЕЛЯ 2 -->
+    <div class="phase">
+      <div class="ph-h"><h2>Неделя 2. Документы в работе</h2><span class="chip">Уверенный</span></div>
+      <div class="ph-meta">Ассистент: <span class="a">1 → 2</span> · ЖК: <span class="zk">активная стройка: РД, предписания, записки</span></div>
+      <div class="step"><span class="n">8</span><span class="t">Пять кирпичей промпта (Persona-Task-Context-Format)</span><div class="row2"><span class="badge b-G">G</span></div></div>
+      <div class="step"><span class="n">9</span><span class="t">Примеры сильнее слов (few-shot)</span><div class="row2"><span class="badge b-K">K</span></div></div>
+      <div class="step"><span class="n">10</span><span class="t">Рабочие документы под роль (письма, ответы на предписания)</span><div class="row2"><span class="badge b-G">G</span></div></div>
+      <div class="step"><span class="n">11</span><span class="t">Длинные документы: суммаризация договора/норматива</span><div class="row2"><span class="badge b-K">K</span></div></div>
+      <div class="step"><span class="n">12</span><span class="t">Презентации и отчёты для защиты/руководства</span><div class="row2"><span class="badge b-G">G</span></div></div>
+      <div class="step"><span class="n">13</span><span class="t">Личная библиотека промптов — главный артефакт</span><div class="row2"><span class="mk mk-up">⬆ Ур.2</span></div></div>
+      <div class="step"><span class="n">14</span><span class="t">Практикум недели: документ под роль от и до</span><div class="row2"><span class="mk mk-ck">★ проверка №2</span></div></div>
+    </div>
+
+    <!-- НЕДЕЛЯ 3 -->
+    <div class="phase">
+      <div class="ph-h"><h2>Неделя 3. Данные, медиа и графика</h2><span class="chip">Уверенный → Продвинутый</span></div>
+      <div class="ph-meta">Ассистент: <span class="a">2 → 3</span> · ЖК: <span class="zk">пик СМР: сметы, акты, голос, фото, графика</span></div>
+      <div class="step"><span class="n">15</span><span class="t">Таблицы с ИИ: формулы словами, разбор выгрузки</span><div class="row2"><span class="badge b-RU">RU</span></div></div>
+      <div class="step"><span class="n">16</span><span class="t">Сравнение и анализ: сведение 5 КП, поиск отклонений; цепочка промптов: большая задача по шагам</span><div class="row2"><span class="badge b-RU">RU</span></div></div>
+      <div class="step"><span class="n">17</span><span class="t">PDF и сканы (OCR): распознать акт, извлечь объёмы</span><div class="row2"><span class="badge b-RU">RU</span></div></div>
+      <div class="step"><span class="n">18</span><span class="t">Голос на стройке: диктовка и планёрки (ОЖР, предписания + автопротокол совещания)</span><div class="row2"><span class="badge b-RU">RU</span></div></div>
+      <div class="step"><span class="n">19</span><span class="t">Фото и видео с объекта: фиксация, подписи, субтитры и выжимка обхода</span><div class="row2"><span class="badge b-RU">RU</span></div></div>
+      <div class="step"><span class="n">20</span><span class="t">ИИ-графика 1: рендер по описанию (бывшие Г1–Г6)</span><div class="row2"><span class="badge b-RU">RU: Kandinsky / Шедеврум</span></div></div>
+      <div class="step"><span class="n">21</span><span class="t">ИИ-графика 2: картинка под задачу (бывшие Г1–Г6)</span><div class="row2"><span class="badge b-RU">RU: Kandinsky / Шедеврум</span><span class="mk mk-ck">★ проверка №3</span></div></div>
+    </div>
+
+    <!-- НЕДЕЛЯ 4 -->
+    <div class="phase">
+      <div class="ph-h"><h2>Неделя 4. Знания и устойчивая практика</h2><span class="chip">Продвинутый</span></div>
+      <div class="ph-meta">Ассистент: <span class="a">3 → рабочий набор</span> · ЖК: <span class="zk">завершение, сдача, нормативка</span></div>
+      <div class="step"><span class="n">22</span><span class="t">Знания: Q&A по своим документам (RAG, со ссылкой)</span><div class="row2"><span class="badge b-K">K</span><span class="mk mk-up">⬆ Ур.3</span></div></div>
+      <div class="step"><span class="n">23</span><span class="t">Нормативка и её пределы: Q&A по СП/ГОСТ + сверка</span><div class="row2"><span class="badge b-K">K</span></div></div>
+      <div class="step"><span class="n">24</span><span class="t">Расширяю библиотеку шаблонов под все задачи роли</span></div>
+      <div class="step"><span class="n">25</span><span class="t">Встраиваю ИИ в рутину: недельный процесс, где ставить проверку человеком</span><div class="row2"><span class="badge b-O">O</span></div></div>
+      <div class="step"><span class="n">26</span><span class="t">Как не устареть: новые инструменты, стоимость/лимиты</span></div>
+      <div class="step"><span class="n">27</span><span class="t">Горизонт: инструменты и агенты, ассистент vs агент</span><div class="row2"><span class="badge b-A">A</span><span class="mk mk-up">⬆ Ур.4</span></div></div>
+      <div class="step"><span class="n">28</span><span class="t">Мой персональный ИИ-набор: инструменты + библиотека + красные линии</span><div class="row2"><span class="badge b-A">A</span></div></div>
+    </div>
+
+    <!-- ФИНАЛ -->
+    <div class="phase">
+      <div class="ph-h"><h2>Финал</h2><span class="chip">рабочий набор собран</span></div>
+      <div class="ph-meta">Ассистент: <span class="a">набор готов</span> · ЖК: <span class="zk">сквозной кейс по своей роли</span></div>
+      <div class="step"><span class="n">29</span><span class="t">Итоговый сквозной кейс: реальная задача роли с ИИ от и до</span></div>
+      <div class="step"><span class="n">30</span><span class="t">Защита и проверка → сертификат прохождения курса / «Паспорт навыков»</span><div class="row2"><span class="mk mk-ck">★ проверка №4</span></div></div>
+    </div>
+
+  </div><!--/phases-->
+
+  <div class="cols2">
+    <div class="card">
+      <h2>Ролевые ветки (сквозные сюжеты на «Уютном доме»)</h2>
+      <div class="roles">
+        <span class="role">🏢 ПТО — АОСР, ответы на предписания, сводки объёмов</span>
+        <span class="role">🔍 Стройконтроль/технадзор — предписания, фотоотчёты</span>
+        <span class="role">📐 ГИП/проектировщик — ответы ГГЭ, пояснительные</span>
+        <span class="role">💰 Сметчик — сравнение КП, объёмы из PDF</span>
+        <span class="role">👷 Прораб/нач. участка — ОЖР, заявки, отчёты</span>
+        <span class="role">🦺 Инженер ОТ — инструктажи, наряды-допуски</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Маршруты по уровням</h2>
+      <div class="lvl n"><b>Новичок:</b> Шаг 0 + Недели 1–2 + финал — применяет ИИ в документах своей роли.</div>
+      <div class="lvl u"><b>Уверенный:</b> + Неделя 3 (данные, медиа, графика) — работает с таблицами, OCR, голосом, фото.</div>
+      <div class="lvl p"><b>Продвинутый:</b> + Неделя 4 (знания, RAG, горизонт агентов) — собирает персональный ИИ-набор.</div>
+      <p style="color:var(--mut);font-size:12px;margin:10px 0 0">Уровень отвязан от должности; темп — 3–4 шага из 5 в неделю, режим паузы без потери прогресса.</p>
+    </div>
+  </div>
+
+  <div class="rev">
+    <h2>Что меняется: ревизия v3 → v4</h2>
+    <table>
+      <tr><th>Изменение</th><th>Что именно</th><th>Зачем / откуда идея</th></tr>
+      <tr><td>Неделя 3 переструктурирована</td><td>Заголовок «Данные, медиа и графика»; слияние Шага 18 «Голос → текст» и Шага 19 «Совещания → автопротокол» в один Шаг 18 «Голос на стройке: диктовка и планёрки»; Шаг 19 теперь «Фото и видео с объекта» (старое фото + видео из старого Шага 21)</td><td>диктовка и протокол — один навык speech-to-text с одним инструментом (SpeechKit/SaluteSpeech) и одной этикой записи; фото и видео — одна компетенция «камера → смысл»</td></tr>
+      <tr><td>Цепочка промптов переехала</td><td>Экран «большая задача по шагам» теперь часть Шага 16 (Сравнение и анализ), а не отдельного шага</td><td>Урок-КП уже учит поэтапности (извлечь → нормализовать → сравнить → оформить) — естественное место приёма</td></tr>
+      <tr><td>Блок «ИИ-графика» расформирован как отдельный блок</td><td>Бывшие Г1–Г6 сжаты в 2 полноценных шага: Шаг 20 «ИИ-графика 1: рендер по описанию» (границы концепт≠проект, рендер фасада по ТЭП, варианты облицовки) и Шаг 21 «ИИ-графика 2: картинка под задачу» (люди и двор, визуал для презентации, артефакты и дисклеймеры)</td><td>сохраняем ровно 30 шагов; графика — самый зрелищный блок демо, показан целиком в общем треке</td></tr>
+      <tr><td>Проверка №3 переехала</td><td>Контрольная точка недели теперь на Шаге 21 (финал недели), как и раньше была на последнем шаге</td><td>сохранение логики «проверка на выходе из недели»</td></tr>
+      <tr><td>Сквозной кейс</td><td>Один проект «Уютный дом на Матвеева» вместо абстрактных примеров; 19 учебных документов с заложенными ошибками для тренажёров</td><td>связность и узнаваемость; реальная фактура (реестр Минстроя, тендер 44-ФЗ — обезличено)</td></tr>
+      <tr><td>Двойной стержень</td><td>Рядом с растущим ассистентом — «дневник проекта»: стадия стройки на каждом шаге</td><td>нарратив, удержание в self-paced</td></tr>
+      <tr><td>Модуль 2 = ядро-витрина</td><td>«Пять кирпичей» выровнены с формулой Persona-Task-Context-Format</td><td><b>Google</b> Workspace Guide + <b>Kaggle</b> whitepaper (Boonstra)</td></tr>
+      <tr><td>Горизонт агентов</td><td>Шаги 27–28: ассистент vs агент, «человек в петле», обратимые/необратимые действия</td><td><b>Anthropic</b> «Building Effective Agents», AI Fluency</td></tr>
+      <tr><td>Встраивание в рутину</td><td>Шаг 25: превратить повторяемую задачу в воспроизводимый процесс</td><td><b>OpenAI</b> Applied AI / Enterprise</td></tr>
+      <tr><td>Усиленные сквозные линии</td><td>Верификация по первоисточнику, галлюцинации, границы RAG, безопасность ФЗ-152, 4 точки проверки</td><td><b>Kaggle</b>/<b>Anthropic</b> + наша доменная специфика (нет у вендоров)</td></tr>
+      <tr><td>RU-инструменты на фронте</td><td>Все прикладные шаги — на GigaChat/YandexGPT/SpeechKit/OCR/Kandinsky</td><td><b>Сбер/Яндекс</b>: повторяемо без VPN и корп-лицензий</td></tr>
+    </table>
+  </div>
+
+  <div class="foot">
+    Принцип: берём у вендоров <b>концепты и приёмы</b>, а примеры и формулировки <b>пересоздаём</b> на своём кейсе (курс — коммерческий продукт Action Group; тексты СП/ГОСТ и материалы вендоров дословно не копируются). Реальный объект-основа обезличен под «Уютный дом на Матвеева». · Карта курса v4 · июль 2026.
+  </div>
+
+</div>
+</body>
+</html>

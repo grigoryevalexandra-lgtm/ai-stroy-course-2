@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Шаг 25. Встраиваю ИИ в рутину — Высшая инженерная школа</title>
+<style>
+  /* ── Дизайн-токены Актион (единые для всех уроков) ── */
+  :root{--bg:#ffffff;--card:#faf8f5;--card2:#f3efe9;--ink:#1a1814;--muted:#6f7280;--line:#e9e4dc;--brand:#e2231a;--blue:#237cf9;--green:#1f9d57;--yellow:#f5b500;--purple:#9b5de5;--r:16px;--rs:10px;--font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif}
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{overflow-x:hidden;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg,video,iframe,pre,table{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}.navlink a{font-size:13.5px;font-weight:600}
+  .author{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:18px 0 4px;flex-wrap:wrap}
+  .author .ava{width:58px;height:58px;border-radius:12px;flex:0 0 auto;background:#fff;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:10px;text-align:center;overflow:hidden}
+  .author .ava img{width:100%;height:100%;object-fit:cover}
+  .author .who b{font-size:15.5px}.author .who .role{font-size:13px;color:var(--muted)}
+  .author .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:18px 0 6px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.12;margin:4px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:15.5px;max-width:760px}
+  .lvl{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;margin-top:8px}
+  .lvl .dotx{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .meta .pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;margin-top:18px}
+  .sec{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:18px}
+  .stp{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}
+  h2{font-size:21px;margin:2px 0 12px;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:16px;margin:18px 0 8px;font-weight:800}
+  p{margin:0 0 12px}.muted{color:var(--muted)}
+  .why{background:var(--card);border-left:4px solid var(--blue);border-radius:12px;padding:13px 15px;font-size:14.5px;margin:14px 0}
+  .note{font-size:13.5px;color:#7a5b16;background:#fdf6e3;border:1px solid #f3e3b3;border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note.green{color:#157a41;background:#eef8f1;border-color:#cdebd8}.note.red{color:#a3201a;background:#fdf0ef;border-color:#f3c7c3}
+  .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:var(--rs);padding:11px 17px;font-size:14px;background:var(--blue);color:#fff;transition:.15s}
+  .btn:hover{filter:brightness(.95)}.btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.dark{background:var(--ink)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+  .btn.sm{padding:8px 13px;font-size:13px}
+  .checks{list-style:none;padding:0;margin:8px 0 0}
+  .checks li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .checks li:last-child{border-bottom:none}.checks li:before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .checks.bad li:before{content:"✕";color:var(--brand)}
+  .checks.num{counter-reset:c}.checks.num li:before{counter-increment:c;content:counter(c);background:var(--ink);color:#fff;width:18px;height:18px;border-radius:50%;font-size:11px;display:grid;place-items:center;top:8px}
+  .toc{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.toc li{padding:5px 0}.toc a{color:var(--ink)}
+  /* ── Раскрывающиеся блоки документов ── */
+  details.doc{border:1px solid var(--line);border-radius:12px;margin:12px 0;background:var(--card);overflow:hidden}
+  details.doc summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:10px}
+  details.doc summary::-webkit-details-marker{display:none}
+  details.doc summary:before{content:"▸";color:var(--blue);font-size:13px;transition:.15s;flex:0 0 auto}
+  details.doc[open] summary:before{content:"▾"}
+  details.doc summary .dtag{margin-left:auto;font-size:11px;font-weight:800;color:var(--muted);background:var(--card2);border-radius:999px;padding:3px 10px;white-space:nowrap}
+  details.doc .docbody{padding:0 16px 16px;font-size:13.5px;background:#fff;border-top:1px solid var(--line)}
+  details.doc .docbody pre{white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;font-size:12.5px;color:#3a3631;margin:12px 0 0;line-height:1.55}
+  .tw{overflow-x:auto;margin-top:6px}
+  table.cmp{border-collapse:collapse;width:100%;font-size:12.5px;min-width:480px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  table.cmp th{background:var(--card);font-weight:800;font-size:11.5px;text-transform:uppercase;color:var(--muted)}
+  td.bad{background:#fde4e2;color:#8f1410;font-weight:700}td.good{background:#eef8f1}
+  /* ── Демо-диалог (чат) ── */
+  .chat{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:8px}
+  .chat .ch{display:flex;align-items:center;gap:9px;background:var(--card);border-bottom:1px solid var(--line);padding:9px 13px;font-size:13px;font-weight:700}
+  .chat .ch .gi{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#1f9d57,#2bb56a);color:#fff;display:grid;place-items:center;font-size:12px}
+  .chat .body{padding:13px;background:#fff}
+  .sys{font-size:11.5px;color:var(--muted);background:var(--card2);border-radius:7px;padding:5px 9px;margin-bottom:9px;display:inline-block}
+  .bub{font-size:13.5px;border-radius:11px;padding:9px 12px;margin:7px 0;max-width:94%;white-space:pre-wrap}
+  .bub.u{background:var(--blue);color:#fff;margin-left:auto}.bub.a{background:var(--card);border:1px solid var(--line)}
+  .chat .ctrls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:11px 13px;border-top:1px solid var(--line);background:var(--card)}
+  /* ── Карта недели: таблица день → рутина → промпт → экономия ── */
+  .weekgrid{border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden}
+  .weekday{border-bottom:1px solid var(--line)}
+  .weekday:last-child{border-bottom:none}
+  .weekday .wdh{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card);font-weight:800;font-size:14px;flex-wrap:wrap}
+  .weekday .wdtag{width:34px;height:34px;border-radius:9px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;flex:0 0 auto}
+  .weekday .wdsave{margin-left:auto;font-size:11.5px;font-weight:800;color:#157a41;background:#eef8f1;border:1px solid #cdebd8;border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .weekday .wdbody{padding:12px 16px 14px;font-size:13.5px;background:#fff}
+  .weekday .wdrow{display:grid;grid-template-columns:140px 1fr;gap:8px;padding:5px 0;font-size:13px}
+  .weekday .wdrow b{color:var(--muted);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.02em}
+  /* ── Контрольные точки ── */
+  .checkpoint{border:1px solid #f3c7c3;background:#fdf0ef;border-radius:12px;padding:14px 16px;margin:10px 0}
+  .checkpoint .cph{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px;color:#a3201a;margin-bottom:6px}
+  .checkpoint p{margin:0;font-size:13.5px;color:#7a2a26}
+  /* ── Конструктор «собери свою неделю» ── */
+  .weekbuilder{border:1px solid var(--line);border-radius:12px;margin:10px 0;background:#fff}
+  .wbrow{display:grid;grid-template-columns:90px 1fr 1fr;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .wbrow:last-child{border-bottom:none}
+  .wbrow .wbday{font-weight:800;font-size:13.5px}
+  .wbrow .wbday small{display:block;font-weight:600;color:var(--muted);font-size:11px;text-transform:none}
+  .wbrow select{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 10px;font-size:13px;font-family:inherit}
+  .wbrow select:focus{outline:none;border-color:var(--blue)}
+  @media(max-width:640px){.wbrow{grid-template-columns:1fr}.wbrow .wbday{padding-bottom:2px}}
+  .wbresult{margin-top:14px}
+  .wbresult .tw{margin-top:8px}
+  /* ── Материалы / живой чат / гейт (из шаблона v2) ── */
+  .materials{display:flex;flex-direction:column;gap:12px}
+  .materials .mlist{list-style:none;padding:0;margin:0}
+  .materials .mlist li{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .materials .mlist li:last-child{border-bottom:none}
+  .materials .mlist .mico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:13px}
+  .materials .mcap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .livechat{display:flex;flex-direction:column;gap:12px}
+  .livechat .lcbtns{display:flex;gap:10px;flex-wrap:wrap}
+  .livechat .lcbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:var(--rs);padding:11px 16px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .livechat .lcbtn:hover{border-color:var(--ink)}
+  .livechat .lcbtn .dotc{width:9px;height:9px;border-radius:50%}
+  .livechat .lcinstruction{font-size:14px}
+  .livechat .lcgate{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin-top:2px}
+  .livechat .lcgate input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--green)}
+  .lcstatus{font-size:13px;font-weight:700;color:var(--muted)}
+  .lcstatus.ready{color:var(--green)}
+  .review label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  .review textarea,.review input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+  .review textarea:focus,.review input:focus{outline:none;border-color:var(--blue)}
+  .selfcheck{list-style:none;padding:0;margin:8px 0 0}
+  .selfcheck li{border-bottom:1px solid var(--line)}
+  .selfcheck li:last-child{border-bottom:none}
+  .selfcheck label{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;cursor:pointer;margin:0}
+  .selfcheck input{width:18px;height:18px;flex:0 0 auto;margin:3px 0 0;accent-color:var(--green)}
+  .scbar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden;margin-top:14px}
+  .scbar i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;transition:.35s}
+  .scmsg{font-size:13px;font-weight:700;margin-top:7px;color:var(--muted)}
+  .dl{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .dl button,.prevbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+  .dl button:hover,.prevbtn:hover{border-color:var(--ink)}
+  .coursenav{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .coursenav a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:var(--rs);padding:11px 17px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .coursenav a:hover{border-color:var(--ink)}
+  .coursenav a.next{background:var(--ink);border-color:var(--ink);color:#fff}
+  .coursenav a small{display:block;font-weight:600;font-size:11px;color:var(--muted)}
+  .coursenav a.next small{color:rgba(255,255,255,.65)}
+  .asst{position:sticky;top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .asst .hd{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .asst .ico{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .asst .hd b{font-size:14.5px}.asst .hd span{font-size:11px;color:var(--green);font-weight:700}
+  .lvltrack{display:flex;gap:5px;margin:12px 0 2px}
+  .lvltrack i{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .lvltrack i.on{background:var(--green)}.lvltrack i.cur{background:var(--blue)}
+  .caps{list-style:none;margin:12px 0 0;padding:0}
+  .caps li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .caps li:last-child{border-bottom:none}.caps li.lock{color:var(--muted)}
+  .caps li .s{flex:0 0 auto;width:18px}
+  .caps li small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+  .caps li.cur b{color:var(--ink)}
+  .newb{font-size:9px;font-weight:800;color:#fff;background:var(--green);border-radius:4px;padding:1px 5px;margin-left:5px;white-space:nowrap}
+  .lockwrap{position:relative}
+  .locked{position:relative;opacity:.4;pointer-events:none;user-select:none;filter:grayscale(.3);transition:opacity .2s,filter .2s}
+  .locked .lockbadge{display:none}
+  .lockwrap .lockbadge{display:none;position:absolute;top:14px;right:14px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 12px;align-items:center;gap:6px;z-index:2}
+  .lockwrap.is-locked .lockbadge{display:inline-flex}
+  .transfer-note{border:1.5px dashed var(--purple);background:#faf6ff;border-radius:12px;padding:12px 14px;font-size:13px;color:#5b3a94;margin-top:12px}
+  .transfer-note .tnlabel{display:flex;align-items:center;gap:7px;font-weight:800;font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--purple);margin-bottom:5px}
+  .transfer-note.compact{margin-top:8px;padding:10px 12px}
+  .promptbadge{display:inline-block;font-size:11px;font-weight:800;color:var(--purple);background:#faf6ff;border:1px solid #e6d5fa;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}.asst{position:static}}
+  @media(max-width:420px){h1{font-size:25px}.sec{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span><span class="navlink"><a href="index.html">← Все шаги</a></span>
+  </div>
+
+  <div class="author">
+    <div class="ava"><span>ФОТО</span></div>
+    <div class="who"><b>Евгений Эрман, к.т.н.</b>
+      <div class="role">руководитель Лаборатории ИИ-решений девелоперской компании «РАЗУМ»</div></div>
+    <span class="tag">Автор урока</span>
+  </div>
+
+  <div class="kicker">Курс «30 шагов: рабочий ИИ-инструмент для строителя» · Неделя 4 · Шаг 25 · Роль: инженер ПТО <span class="rule" style="background:var(--green)"></span></div>
+  <h1>Шаг 25. Встраиваю ИИ в рутину</h1>
+  <p class="lead">Курс закончится — а через месяц в голове останется только то, что попало в календарь. Сегодня не учим новый приём, а <b>прибиваем ИИ гвоздями к конкретным точкам вашей рабочей недели</b>: понедельник, вторник, среда — там, где рутина повторяется каждую неделю.</p>
+  <div class="meta">
+    <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 3 · документы и знания</span>
+    <span class="pill">🎓 Продвинутый</span>
+  </div>
+  <div class="transfer-note compact">
+    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+    Платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли» из требований к разработке) — строка «Роль: …» выше должна обновляться без правки HTML урока.
+  </div>
+
+  <div class="grid">
+    <div>
+
+      <!-- ═══ TOC ═══ -->
+      <section class="sec">
+        <p class="stp">Что внутри урока</p>
+        <ul class="toc">
+          <li>1 · <a href="#theory">Зачем это нужно: почему навыки без привычки умирают</a></li>
+          <li>2 · <a href="#weekmap">Карта недели ПТО: где ИИ уже помогает</a></li>
+          <li>3 · <a href="#checkpoints">Правило контрольных точек</a></li>
+          <li>4 · <a href="#builder">Интерактив: соберите свою неделю</a></li>
+          <li>5 · <a href="#habit">Минимальная привычка на 2 недели</a></li>
+          <li>6 · <a href="#materials">Материалы урока</a></li>
+          <li>7 · <a href="#livechat">Сделай в живом чате</a></li>
+          <li>8 · <a href="#practice">Практика и проверка</a></li>
+        </ul>
+        <div class="note">📄 К уроку приложены: недельный трекер ПТО и чек-лист дня прораба (документ 22), промпты A1–A3, C1–C3, D1, E1–E2 из промпт-пака ПТО.</div>
+      </section>
+
+      <!-- ═══ 1 · THEORY ═══ -->
+      <section class="sec" id="theory">
+        <p class="stp">1 · Зачем это нужно</p>
+        <h2>Навык без привычки не выживает</h2>
+        <p>За четыре недели вы попробовали десяток приёмов: роль и контекст, промпт-библиотека, работа с документами, таблицы, фото, графика. Стандартный итог любого короткого курса — через месяц из всего этого в рабочем дне остаётся <b>одна, максимум две привычки</b>. Не потому, что остальное не работало, а потому, что оно не встало в конкретное время конкретного дня.</p>
+        <p>Сегодняшний урок — не про новый приём с ИИ. Он про то, чтобы <b>взять уже знакомые вам промпты и намертво привязать их к точкам недели</b>, которые и так существуют: планёрка по понедельникам, переписка по вторникам, сверки по средам. Точка рутины уже есть в календаре — вставляем в неё готовый промпт, а не придумываем новое время для «поработать с ИИ».</p>
+        <div class="why">💡 <b>Зачем это вам:</b> инструмент, который вы применяете от случая к случаю, забывается в первую загруженную неделю. Инструмент, встроенный в существующую рутину («после планёрки — сразу протокол через ИИ»), выживает, потому что вы его не выбираете заново каждый раз — вы его просто делаете.</div>
+        <h3>Типовые ошибки</h3>
+        <ul class="checks num">
+          <li><b>«Буду использовать ИИ, когда вспомню».</b> Без привязки к конкретному дню и делу — не вспомните, особенно в горячую неделю.</li>
+          <li><b>Слишком много сразу.</b> Пытаться внедрить все 20+ промптов из пака за одну неделю — верный способ не внедрить ни одного.</li>
+          <li><b>Нет контрольной точки.</b> Автоматизировали рутину — забыли, что часть решений в ней всё равно нужно проверять человеку.</li>
+        </ul>
+      </section>
+
+      <!-- ═══ 2 · WEEK MAP ═══ -->
+      <section class="sec" id="weekmap">
+        <p class="stp">2 · Карта недели ПТО</p>
+        <h2>Где ИИ уже помогает — по дням недели</h2>
+        <p class="muted">Основа — недельный трекер инженера ПТО «Уютного дома» (документ 22). Раскройте его целиком, а ниже — та же неделя, но собранная как таблица «точка рутины → промпт из библиотеки → сколько экономит».</p>
+
+        <details class="doc">
+          <summary>📋 Недельный трекер ПТО и чек-лист дня прораба <span class="dtag">документ 22 · открыть</span></summary>
+          <div class="docbody">
+<pre>Недельный трекер инженера ПТО — ЖК «Уютный дом на Матвеева»
+
+День | Повторяемая задача | Где помогает ИИ | Где нужен человек
+Пн | Свод факта за неделю, обновление графика | сводка из ОЖР, выделение отставаний | проверка цифр, решение по наверстыванию
+Пн | Протокол планёрки → поручения | автопротокол из транскрипта (06) | согласование сроков с исполнителями
+Вт | Реестр исполнительной, проверка комплектности | сверка АОСР ↔ входной контроль | подпись, юр. ответственность
+Ср | Ответы на предписания/письма | черновик ответа (05, 09) | финальная формулировка, согласование
+Чт | Заявки на материалы, входной контроль | оформление заявки, запись в журнал (16) | решение о допуске материала
+Пт | Недельный отчёт руководителю | структурирование чернового текста (21) | выводы, риски
+
+Чек-лист дня прораба:
+— Утренний обход, фиксация фото (08) — подписи к фото с ИИ
+— Запись в ОЖР голосом → текст (07) — оформление с ИИ
+— Проверка нарядов-допусков на опасные работы (17)
+— Контроль устранения замечаний предписания (05)
+— Заявка на завтра (материалы, механизмы)</pre>
+          </div>
+        </details>
+
+        <div class="weekgrid">
+          <div class="weekday">
+            <div class="wdh"><span class="wdtag">Пн</span> Планёрка → протокол <span class="wdsave">экономит ≈ 20–30 мин</span></div>
+            <div class="wdbody">
+              <div class="wdrow"><b>Точка рутины</b><span>Утренняя планёрка — и так происходит каждый понедельник.</span></div>
+              <div class="wdrow"><b>Промпт</b><span><span class="promptbadge">E1</span> Протокол планёрки из транскрипта: решения и поручения → таблица «поручение → ответственный → срок».</span></div>
+              <div class="wdrow"><b>Контроль</b><span>Согласование сроков с исполнителями — за человеком.</span></div>
+            </div>
+          </div>
+          <div class="weekday">
+            <div class="wdh"><span class="wdtag">Вт</span> Переписка <span class="wdsave">экономит ≈ 25–40 мин</span></div>
+            <div class="wdbody">
+              <div class="wdrow"><b>Точка рутины</b><span>Письма поставщикам и техзаказчику — регулярная часть вторника.</span></div>
+              <div class="wdrow"><b>Промпт</b><span><span class="promptbadge">A1–A3</span> Ответ на предписание, письмо поставщику о сертификате, ответ техзаказчику на несколько замечаний.</span></div>
+              <div class="wdrow"><b>Контроль</b><span>Финальная формулировка и согласование — за человеком.</span></div>
+            </div>
+          </div>
+          <div class="weekday">
+            <div class="wdh"><span class="wdtag">Ср</span> Сверки <span class="wdsave">экономит ≈ 30–45 мин</span></div>
+            <div class="wdbody">
+              <div class="wdrow"><b>Точка рутины</b><span>Сверка исполнительной документации — реестр, комплектность.</span></div>
+              <div class="wdrow"><b>Промпт</b><span><span class="promptbadge">D1</span> Сверка АОСР со спецификацией и предписанием: соответствует / есть вопросы.</span></div>
+              <div class="wdrow"><b>Контроль</b><span>Подпись и юридическая ответственность — за человеком.</span></div>
+            </div>
+          </div>
+          <div class="weekday">
+            <div class="wdh"><span class="wdtag">Чт</span> Таблицы и объёмы <span class="wdsave">экономит ≈ 20–30 мин</span></div>
+            <div class="wdbody">
+              <div class="wdrow"><b>Точка рутины</b><span>Заявки на материалы, входной контроль, объёмы за период.</span></div>
+              <div class="wdrow"><b>Промпт</b><span><span class="promptbadge">C1–C3</span> Извлечение объёмов из акта/ВОР в таблицу; сверка КС-2 с ВОР; сводка объёмов за период.</span></div>
+              <div class="wdrow"><b>Контроль</b><span>Решение о допуске материала — за человеком.</span></div>
+            </div>
+          </div>
+          <div class="weekday">
+            <div class="wdh"><span class="wdtag">Пт</span> Сводка недели <span class="wdsave">экономит ≈ 15–20 мин</span></div>
+            <div class="wdbody">
+              <div class="wdrow"><b>Точка рутины</b><span>Недельный отчёт руководителю из черновых записей ОЖР.</span></div>
+              <div class="wdrow"><b>Промпт</b><span><span class="promptbadge">E2</span> Недельный отчёт из записей ОЖР: 3 блока — что сделано, простои, проблемы.</span></div>
+              <div class="wdrow"><b>Контроль</b><span>Выводы и риски формулирует человек.</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="note">Итого по неделе — примерно <b>2–2,5 часа</b> высвобождаемого времени, если делать это регулярно, а не «когда вспомню».</div>
+      </section>
+
+      <!-- ═══ 3 · CHECKPOINTS ═══ -->
+      <section class="sec" id="checkpoints">
+        <p class="stp">3 · Правило контрольных точек</p>
+        <h2>Где обязательно «человек проверяет»</h2>
+        <p>Встраивая ИИ в рутину, важно явно отметить в <b>своём</b> процессе, где заканчивается зона ИИ и начинается зона человека. Три категории, которые нельзя отдавать на автомат ни при какой экономии времени:</p>
+        <div class="checkpoint">
+          <div class="cph">📄 Юридически значимые документы</div>
+          <p>Ответ на предписание, письмо техзаказчику, акт — черновик готовит ИИ, подписывает и несёт ответственность человек. Это касается всей группы A и D из промпт-пака.</p>
+        </div>
+        <div class="checkpoint">
+          <div class="cph">🔢 Цифры смет и объёмов</div>
+          <p>Извлечение и сверка объёмов (C1–C3) — ИИ считает и сопоставляет быстро, но итоговые цифры для КС-2 и расчётов идут только через профильное ПО и проверку сметчика.</p>
+        </div>
+        <div class="checkpoint">
+          <div class="cph">📐 Нормативные ссылки</div>
+          <p>Ссылки на СП, ГОСТ и проектную документацию ИИ может перепутать редакцию или пункт — сверка с первоисточником обязательна (это отдельно разбирали на Шаге 23).</p>
+        </div>
+        <div class="note green">✅ Правило одной строкой: <b>ИИ — черновик и скорость, человек — подпись и ответственность.</b> Отметьте эти точки в своём процессе явно, а не «по умолчанию».</div>
+      </section>
+
+      <!-- ═══ 4 · BUILDER ═══ -->
+      <section class="sec" id="builder">
+        <p class="stp">4 · Интерактив</p>
+        <h2>Соберите свою неделю</h2>
+        <p class="muted">По каждому дню выберите одну свою задачу и один промпт из пака, которым будете её закрывать. Ниже соберётся итоговая табличка — ваш личный план на неделю.</p>
+
+        <div class="weekbuilder">
+          <div class="wbrow" data-day="Пн">
+            <div class="wbday">Понедельник<small>якорь: планёрка</small></div>
+            <select data-field="task">
+              <option value="">— выберите задачу —</option>
+              <option value="Протокол планёрки и поручения">Протокол планёрки и поручения</option>
+              <option value="Свод факта за неделю по графику">Свод факта за неделю по графику</option>
+              <option value="Другое из своей рутины">Другое из своей рутины</option>
+            </select>
+            <select data-field="prompt">
+              <option value="">— выберите промпт —</option>
+              <option value="E1 · Протокол планёрки из транскрипта">E1 · Протокол планёрки из транскрипта</option>
+              <option value="E2 · Недельный отчёт из записей ОЖР">E2 · Недельный отчёт из записей ОЖР</option>
+              <option value="Свой промпт">Свой промпт</option>
+            </select>
+          </div>
+          <div class="wbrow" data-day="Вт">
+            <div class="wbday">Вторник<small>якорь: переписка</small></div>
+            <select data-field="task">
+              <option value="">— выберите задачу —</option>
+              <option value="Ответ на предписание стройконтроля">Ответ на предписание стройконтроля</option>
+              <option value="Письмо поставщику о сертификате">Письмо поставщику о сертификате</option>
+              <option value="Ответ техзаказчику на замечания">Ответ техзаказчику на замечания</option>
+            </select>
+            <select data-field="prompt">
+              <option value="">— выберите промпт —</option>
+              <option value="A1 · Ответ на предписание стройконтроля">A1 · Ответ на предписание стройконтроля</option>
+              <option value="A2 · Письмо поставщику о сертификате">A2 · Письмо поставщику о сертификате</option>
+              <option value="A3 · Ответ техзаказчику на замечания">A3 · Ответ техзаказчику на замечания</option>
+            </select>
+          </div>
+          <div class="wbrow" data-day="Ср">
+            <div class="wbday">Среда<small>якорь: сверки</small></div>
+            <select data-field="task">
+              <option value="">— выберите задачу —</option>
+              <option value="Сверка АОСР со спецификацией">Сверка АОСР со спецификацией</option>
+              <option value="Реестр исполнительной документации">Реестр исполнительной документации</option>
+            </select>
+            <select data-field="prompt">
+              <option value="">— выберите промпт —</option>
+              <option value="D1 · Сверка АОСР со спецификацией и предписанием">D1 · Сверка АОСР со спецификацией и предписанием</option>
+              <option value="E3 · Реестр исполнительной документации за месяц">E3 · Реестр исполнительной документации за месяц</option>
+            </select>
+          </div>
+          <div class="wbrow" data-day="Чт">
+            <div class="wbday">Четверг<small>якорь: заявки/объёмы</small></div>
+            <select data-field="task">
+              <option value="">— выберите задачу —</option>
+              <option value="Извлечение объёмов из акта/ВОР">Извлечение объёмов из акта/ВОР</option>
+              <option value="Сверка КС-2 с ВОР и актом">Сверка КС-2 с ВОР и актом</option>
+              <option value="Сводка объёмов за период">Сводка объёмов за период</option>
+            </select>
+            <select data-field="prompt">
+              <option value="">— выберите промпт —</option>
+              <option value="C1 · Извлечение объёмов из акта/ВОР в таблицу">C1 · Извлечение объёмов из акта/ВОР в таблицу</option>
+              <option value="C2 · Сверка КС-2 с ВОР и актом">C2 · Сверка КС-2 с ВОР и актом</option>
+              <option value="C3 · Сводка объёмов за период">C3 · Сводка объёмов за период</option>
+            </select>
+          </div>
+          <div class="wbrow" data-day="Пт">
+            <div class="wbday">Пятница<small>якорь: отчёт</small></div>
+            <select data-field="task">
+              <option value="">— выберите задачу —</option>
+              <option value="Недельный отчёт руководителю">Недельный отчёт руководителю</option>
+              <option value="Суммаризация писем/нормативов за неделю">Суммаризация писем/нормативов за неделю</option>
+            </select>
+            <select data-field="prompt">
+              <option value="">— выберите промпт —</option>
+              <option value="E2 · Недельный отчёт из записей ОЖР">E2 · Недельный отчёт из записей ОЖР</option>
+              <option value="B3 · Суммаризация длинного норматива/письма">B3 · Суммаризация длинного норматива/письма</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="note" id="wbSummary">Заполните задачу и промпт хотя бы по одному дню — ниже появится ваш план на неделю.</div>
+
+        <div class="wbresult" id="wbResultWrap" style="display:none">
+          <h3>Мой план недели с ИИ</h3>
+          <div class="tw">
+            <table class="cmp" id="wbTable">
+              <tr><th>День</th><th>Задача</th><th>Промпт</th></tr>
+            </table>
+          </div>
+          <div class="dl">
+            <button class="prevbtn" id="wbCopyBtn">📋 Скопировать мой план</button>
+            <span class="muted" id="wbMsg" style="font-size:12px;align-self:center"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 5 · HABIT ═══ -->
+      <section class="sec" id="habit">
+        <p class="stp">5 · Минимальная привычка</p>
+        <h2>Одна задача в день — на первые 2 недели</h2>
+        <p>Не пытайтесь внедрить всю неделю сразу. Правило на старт: <b>одна задача в день с ИИ</b>, привязанная к уже существующей рутине — планёрке, отчёту, обходу. Не новое время в календаре, а надстройка над тем, что вы и так делаете.</p>
+        <ul class="checks">
+          <li><b>Якорь — существующее действие.</b> «После планёрки» или «перед отправкой отчёта» — не «когда будет свободная минута».</li>
+          <li><b>Две недели — на автоматизм.</b> Дальше добавляете вторую точку, третью — по одной, не спеша.</li>
+          <li><b>Контрольная точка — всегда рядом.</b> Каждая привычка сразу идёт в паре с тем, что проверяет человек (раздел 3 выше).</li>
+        </ul>
+        <div class="note green">✅ Формула: <b>рутина, которая уже есть в календаре + один промпт из пака + один пункт «человек проверяет» = привычка, которая переживёт курс.</b></div>
+      </section>
+
+      <!-- ═══ MATERIALS ═══ -->
+      <section class="sec" id="materials">
+        <p class="stp">6 · Материалы урока</p>
+        <h2>Материалы урока</h2>
+        <p class="muted">Всё содержимое этого шага — текстовые материалы, документы кейса, промпты и HTML-интерактив — собрано в один архив.</p>
+        <div class="materials">
+          <ul class="mlist">
+            <li><span class="mico">📝</span><span>Конспект урока (карта недели, правило контрольных точек, минимальная привычка, .md)</span></li>
+            <li><span class="mico">📁</span><span>Документ кейса «Уютный дом на Матвеева»: 22 (недельный трекер ПТО и чек-лист дня прораба)</span></li>
+            <li><span class="mico">🧩</span><span>Промпты A1–A3, C1–C3, D1, E1–E2 из промпт-пака ПТО</span></li>
+            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+          </ul>
+          <div class="dl">
+            <a class="btn dark" href="materials/shag-25.zip">⬇ Скачать архив материалов</a>
+          </div>
+          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага.</p>
+        </div>
+      </section>
+
+      <!-- ═══ LIVE-CHAT ═══ -->
+      <section class="sec" id="livechat">
+        <p class="stp">7 · Сделай в живом чате</p>
+        <h2>Сделай в живом чате</h2>
+        <p class="lcinstruction">Возьмите сегодняшнюю задачу из своего плана недели (раздел 4) и соответствующий промпт из пака. Выполните его в реальном чат-боте — например, в одном из ниже. Затем вставьте результат в поле под кнопками.</p>
+        <div class="lcbtns">
+          <a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>
+          <a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>
+        </div>
+        <div class="review">
+          <label>Вставь сюда свой результат</label>
+          <textarea id="lcResult" rows="5" placeholder="Вставьте сюда ответ, который вернул чат-бот на сегодняшнюю задачу из вашего плана…"></textarea>
+        </div>
+        <div class="lcgate">
+          <input type="checkbox" id="lcConfirm">
+          <label for="lcConfirm">Я получил ответ на свой запрос</label>
+        </div>
+        <p class="lcstatus" id="lcStatus">Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.</p>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Демо-гейт реализован локальным JS (без сохранения данных). На платформе эта блокировка должна опираться на реальное событие взаимодействия участника с чатом (или просто на заполненное поле + чекбокс, как здесь) — ничего никуда не отправляется и в демо-версии.
+        </div>
+      </section>
+
+      <!-- ═══ SELFCHECK ═══ -->
+      <div class="lockwrap" id="selfcheckWrap">
+        <section class="sec locked" id="selfcheck">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">8 · Самопроверка</p>
+          <h2>Перед сдачей отметьте</h2>
+          <ul class="selfcheck" id="scList">
+            <li><label><input type="checkbox"> В моём плане недели есть хотя бы одна задача, привязанная к существующей рутине (планёрка, отчёт, обход).</label></li>
+            <li><label><input type="checkbox"> По каждой выбранной задаче понятно, где именно нужна проверка человеком.</label></li>
+            <li><label><input type="checkbox"> Я выполнил(а) сегодняшнюю задачу из плана в живом чате, а не только на бумаге.</label></li>
+            <li><label><input type="checkbox"> Я понимаю правило «одна задача в день» на первые две недели — и с чего начну завтра.</label></li>
+          </ul>
+          <div class="scbar"><i id="scBar"></i></div>
+          <div class="scmsg" id="scMsg">0 из 4 — пройдитесь по списку</div>
+        </section>
+      </div>
+
+      <!-- ═══ CURATOR / TRANSFER NOTE ═══ -->
+      <div class="lockwrap" id="practiceWrap">
+        <section class="sec locked" id="practice">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">9 · Практика и проверка</p>
+          <h2>Сделайте на своей задаче</h2>
+          <p class="muted">Соберите план своей рабочей недели по образцу из раздела 4: 5 дней, 5 задач, 5 промптов. Обезличьте данные: без реальных ФИО, телефонов и коммерческой тайны — только структура плана.</p>
+          <div class="review">
+            <label>Что получилось — вставьте свой план или результат от ИИ</label>
+            <textarea id="sRes" rows="4" placeholder="Ваш план недели или результат, который выдал ИИ"></textarea>
+            <label>Ваш e-mail для ответа куратора</label>
+            <input id="sEmail" type="email" placeholder="you@example.ru">
+            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
+              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
+          </div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору. В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
+          </div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «встраивание ИИ в рутину».</b> Что забрать: рутина недели уже размечена по дням — ИИ занимает свои точки, а не отдельное время; каждая точка идёт в паре с контрольной точкой человека; на старте — правило «одна задача в день», якорь на существующее дело.</div>
+        </section>
+      </div>
+
+      <!-- ═══ COURSE NAV ═══ -->
+      <div class="coursenav">
+        <a href="#prev-lesson"><span>←</span><span><small>Шаг 24</small>Расширяю библиотеку шаблонов</span></a>
+        <a href="#next-lesson" class="next"><span><small>Шаг 26</small>Как не устареть; стоимость и лимиты</span><span>→</span></a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="asst" id="asstWidget">
+        <div class="hd"><div class="ico">🤖</div><div><b>Ваш ИИ-ассистент</b><br><span id="asstLvlLabel"></span></div></div>
+        <div class="lvltrack" id="asstTrack"></div>
+        <ul class="caps" id="asstCaps"></ul>
+        <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Сейчас уровень задаётся константой ASSISTANT_LEVEL в JS ниже. На платформе виджет должен принимать текущий прогресс участника извне (проброс прогресса, П-6 из требований к разработке), не хардкодиться в HTML урока.
+        </div>
+      </div>
+      <script>
+      (function(){
+        var ASSISTANT_LEVEL = 3;
+        var ASSISTANT_LEVELS = [
+          {icon:'💬', name:'Голый чат',            desc:'отвечает «из головы», без вашего контекста'},
+          {icon:'🎭', name:'Роль и контекст',       desc:'знает, кто вы и на каком объекте работаете'},
+          {icon:'📚', name:'Библиотека промптов',   desc:'типовые задачи решает по готовым шаблонам'},
+          {icon:'📄', name:'Документы и знания',    desc:'работает с вашими сметами, КП, регламентами'},
+          {icon:'🧰', name:'Рабочий набор',         desc:'инструменты и агентные сценарии под роль'}
+        ];
+        var ASSISTANT_UNLOCK_NOTE = 'На Шаге 27 ассистент поднимется до уровня 4 — «Рабочий набор»: инструменты и агентные сценарии под вашу роль.';
+        var L=Math.max(0,Math.min(4,ASSISTANT_LEVEL));
+        document.getElementById('asstLvlLabel').textContent='Уровень '+L+' · '+ASSISTANT_LEVELS[L].name;
+        var track=document.getElementById('asstTrack');
+        for(var i=0;i<ASSISTANT_LEVELS.length;i++){var seg=document.createElement('i');if(i<L)seg.className='on';else if(i===L)seg.className='cur';track.appendChild(seg);}
+        var caps=document.getElementById('asstCaps');
+        ASSISTANT_LEVELS.forEach(function(lv,i){
+          var li=document.createElement('li');
+          if(i<L){li.innerHTML='<span class="s">✅</span><span>'+lv.name+'</span>';}
+          else if(i===L){li.className='cur';li.innerHTML='<span class="s">✅</span><span><b>'+lv.name+'</b><span class="newb">этот урок</span><small>'+lv.desc+'</small></span>';}
+          else{li.className='lock';li.innerHTML='<span class="s">🔒</span><span>'+lv.name+'<small>'+lv.desc+'</small></span>';}
+          caps.appendChild(li);
+        });
+        var noteEl=document.getElementById('asstNote');
+        if(ASSISTANT_UNLOCK_NOTE){noteEl.innerHTML='🔜 '+ASSISTANT_UNLOCK_NOTE;}else{noteEl.style.display='none';}
+      })();
+      </script>
+    </aside>
+  </div>
+</div>
+
+<script>
+/* ── BLOCK: WEEKBUILDER — конструктор «собери свою неделю»: 5 дней, задача + промпт → итоговая таблица ── */
+(function(){
+  var rows=document.querySelectorAll('.weekbuilder .wbrow');if(!rows.length)return;
+  var summary=document.getElementById('wbSummary');
+  var resultWrap=document.getElementById('wbResultWrap');
+  var table=document.getElementById('wbTable');
+  var copyBtn=document.getElementById('wbCopyBtn');
+  var msg=document.getElementById('wbMsg');
+  var lastPlanText='';
+
+  function render(){
+    var filled=[];
+    rows.forEach(function(r){
+      var day=r.getAttribute('data-day');
+      var task=r.querySelector('[data-field="task"]').value;
+      var prompt=r.querySelector('[data-field="prompt"]').value;
+      if(task && prompt){filled.push({day:day,task:task,prompt:prompt});}
+    });
+    if(!filled.length){
+      summary.className='note';
+      summary.textContent='Заполните задачу и промпт хотя бы по одному дню — ниже появится ваш план на неделю.';
+      resultWrap.style.display='none';
+      return;
+    }
+    summary.className='note green';
+    summary.textContent='✅ '+filled.length+' из 5 дней недели закрыты планом. Чем больше дней — тем крепче привычка (но начните хотя бы с одного).';
+    while(table.rows.length>1){table.deleteRow(1);}
+    var lines=['Мой план недели с ИИ',''];
+    filled.forEach(function(f){
+      var tr=table.insertRow(-1);
+      tr.insertCell(0).textContent=f.day;
+      tr.insertCell(1).textContent=f.task;
+      tr.insertCell(2).textContent=f.prompt;
+      lines.push(f.day+' — '+f.task+' → '+f.prompt);
+    });
+    lastPlanText=lines.join('\n');
+    resultWrap.style.display='block';
+  }
+
+  rows.forEach(function(r){
+    r.querySelectorAll('select').forEach(function(s){
+      s.addEventListener('change',render);
+    });
+  });
+
+  if(copyBtn){
+    copyBtn.addEventListener('click',function(){
+      if(!lastPlanText){msg.textContent='Сначала заполните план';return;}
+      navigator.clipboard.writeText(lastPlanText).then(function(){msg.textContent='Скопировано ✓';setTimeout(function(){msg.textContent='';},2500);})
+        .catch(function(){msg.textContent='Выделите и скопируйте вручную';});
+    });
+  }
+})();
+
+/* ── BLOCK: LIVE-CHAT — гейт итогов урока ── */
+(function(){
+  var result=document.getElementById('lcResult'),confirmEl=document.getElementById('lcConfirm');
+  if(!result||!confirmEl)return;
+  var status=document.getElementById('lcStatus');
+  var lockTargets=[document.getElementById('selfcheck'),document.getElementById('practice')];
+  var lockWraps=[document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
+  function upd(){
+    var ready=result.value.trim().length>0 && confirmEl.checked;
+    lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
+    lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
+    if(status){
+      status.textContent=ready?'✅ Итоги урока открыты.':'Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.';
+      status.classList.toggle('ready',ready);
+    }
+  }
+  result.addEventListener('input',upd);
+  confirmEl.addEventListener('change',upd);
+  upd();
+})();
+
+/* ── BLOCK: SELFCHECK — чек-лист самопроверки с прогрессом ── */
+(function(){
+  var list=document.getElementById('scList');if(!list)return;
+  var boxes=list.querySelectorAll('input[type=checkbox]'),bar=document.getElementById('scBar'),msg=document.getElementById('scMsg');
+  function upd(){
+    var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+    bar.style.width=(100*n/boxes.length)+'%';
+    msg.textContent=(n===boxes.length)?'✅ Все '+n+' пунктов — можно отправлять куратору':(n+' из '+boxes.length+' — пройдитесь по списку');
+    msg.style.color=(n===boxes.length)?'var(--green)':'var(--muted)';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',upd);});
+  upd();
+})();
+
+/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально ── */
+(function(){
+  var btn=document.getElementById('sendRev');if(!btn)return;
+  btn.addEventListener('click',function(){
+    var res=document.getElementById('sRes').value.trim(),
+        email=document.getElementById('sEmail').value.trim(),
+        m=document.getElementById('revMsg');
+    if(!res){m.textContent='Вставьте результат';return;}
+    var raw='Шаг 25 (Встраиваю ИИ в рутину) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
+    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='zadanie-shag-25.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    m.textContent='Файл скачан ✓';
+  });
+})();
+</script>
+</body>
+</html>

@@ -162,14 +162,10 @@
 
   <div class="kicker">Неделя 1 · Шаг 4 · Роль: инженер ПТО <span class="rule" style="background:var(--yellow)"></span></div>
   <h1>Шаг 4. Первый осмысленный запрос</h1>
-  <p class="lead">«Сделай красиво» ИИ не поймёт так, как коллега. Сегодня разберём формулу запроса, которая работает: <b>роль + контекст + задача + формат</b> — и соберём свой первый рабочий промпт на реальном письме техзаказчика.</p>
+  <p class="lead">Сегодня соберём понятный запрос по четырём опорам: <b>роль + исходные данные + задача + формат результата</b>. Это удобный стартовый шаблон; после первого ответа его можно уточнить по фактам из письма.</p>
   <div class="meta">
     <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 1 · роль и контекст</span>
     <span class="pill">🎓 Новичок</span>
-  </div>
-  <div class="transfer-note compact">
-    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-    Платформа подставляет роль пользователя автоматически из профиля (выбор роли, П-4 из требований к разработке) — строка «Роль: …» выше должна обновляться без правки HTML урока.
   </div>
 
   <div class="grid">
@@ -186,7 +182,7 @@
           <li>6 · <a href="#livechat">Сделай в живом чате</a></li>
           <li>7 · <a href="#practice">Итоги и самопроверка</a></li>
         </ul>
-        <div class="note">📄 В архиве шага: письмо техзаказчика №311, разбор промпта A3, конспект формулы и этот HTML-интерактив.</div>
+        <div class="note">📄 В архиве шага: конспект <b>urok-tekst.docx</b>, <b>09_Письмо-техзаказчика.pdf</b>, <b>Промпт-пак-ПТО.docx</b>, два автономных интерактива и Состав-материалов.docx.</div>
       </section>
 
       <!-- ══ THEORY: мотивация — сравнение двух ответов на письмо №311 ══ -->
@@ -198,7 +194,7 @@
           <div class="pcard badp">
             <div class="ph">✕ «Сделай красиво»</div>
             <div class="copy">Ответь на это письмо от заказчика.</div>
-            <p style="margin:10px 0 0;font-size:13.5px"><b>Ответ ИИ (демо):</b> «Уважаемые коллеги! Благодарим за замечания, они приняты в работу, все меры будут приняты в кратчайшие сроки...» — без дат, без привязки к пунктам, без адресата и подписанта.</p>
+            <p style="margin:10px 0 0;font-size:13.5px"><b>Пример ответа:</b> «Уважаемые коллеги! Благодарим за замечания, они приняты в работу, все меры будут приняты в кратчайшие сроки...» — без дат, без привязки к пунктам, без адресата и подписанта.</p>
             <ul class="checks bad">
               <li>Нет роли — непонятно, от чьего лица и какого объекта пишем</li>
               <li>Нет формата — сплошной текст без ссылки на пункты письма</li>
@@ -208,7 +204,7 @@
           <div class="pcard goodp">
             <div class="ph">✓ Роль + контекст + задача + формат</div>
             <div class="copy">Ты — инженер ПТО генподрядчика ЖК «Уютный дом на Матвеева». Контекст: письмо техзаказчика №311 от 24.06.2026 (текст ниже) с тремя требованиями. Задача: подготовь ответ с мероприятиями и датами по каждому пункту. Формат: официальный ответ + таблица «требование → действие → срок».</div>
-            <p style="margin:10px 0 0;font-size:13.5px"><b>Ответ ИИ (демо):</b> таблица из 3 строк — «скорректированный график секции 2, этажи 4–9 → пересмотр очерёдности и усиление бригад → до 30.06.2026» и так далее по каждому пункту письма.</p>
+            <p style="margin:10px 0 0;font-size:13.5px"><b>Пример ответа:</b> таблица из 3 строк — «скорректированный график секции 2, этажи 4–9 → пересмотр очерёдности и усиление бригад → до 30.06.2026» и так далее по каждому пункту письма.</p>
             <ul class="checks">
               <li>Ответ структурный — по пунктам письма, с датами</li>
               <li>Черновик можно сразу показать руководителю проекта</li>
@@ -216,15 +212,15 @@
             </ul>
           </div>
         </div>
-        <div class="note">⚠️ Ответы ИИ выше — <b>демо, ответ смоделирован</b> для урока. На реальном письме №311 вы соберёте и проверите свой собственный запрос в блоке «Сделай в живом чате» ниже.</div>
-        <div class="why">💡 <b>Зачем это вам:</b> один и тот же ИИ на одном и том же письме — либо отписка, либо готовый черновик. Разница не в модели, а в том, что вы ей сказали.</div>
+        <div class="note">⚠️ Даже структурный ответ остаётся черновиком: сроки, цитаты и предложенные действия нужно сверить с письмом №311.</div>
+        <div class="why">💡 <b>Зачем это вам:</b> ясные исходные данные и формат делают черновик управляемее и упрощают проверку каждого пункта.</div>
       </section>
 
       <!-- ══ FORMULA: 4 карточки ══ -->
       <section class="sec" id="formula">
         <p class="stp">2 · Формула</p>
         <h2>Роль + Контекст + Задача + Формат</h2>
-        <p class="muted">Четыре части — и запрос перестаёт быть гаданием. Порядок не строгий, но все четыре части должны быть в тексте.</p>
+        <p class="muted">Четыре опоры помогают задать границы результата. Это стартовая схема, а не гарантия правильного ответа: важные факты всё равно сверяются с источником.</p>
         <div class="formula">
           <div class="fcard">
             <div class="fhead"><span class="fico">🎭</span> Роль</div>
@@ -293,25 +289,70 @@
       <section class="sec" id="livechat">
         <p class="stp">5 · Сделай в живом чате</p>
         <h2>Сделай в живом чате</h2>
-        <p class="lcinstruction">Скопируйте промпт, который вы собрали в блоке «Конструктор запроса» (кнопка «📋 Скопировать»), и выполните его в реальном чат-боте — например, в одном из ниже. Затем вставьте свой результат в поле под кнопками.</p>
+        <p class="lcinstruction">Откройте <b>09_Письмо-техзаказчика.pdf</b> и используйте только сведения из него. Если загрузка файла недоступна, скопируйте полный текст ниже вместе с маркерами. Скопируйте собранный промпт и выполните его в чат-боте. Зафиксируйте цепочку «источник → промпт → ответ», затем проверьте три требования письма, даты 30.06.2026 и 01.07.2026, цитату по каждому пункту и отдельно отметьте гипотезы или недостающие данные.</p>
+        <details class="doc" style="margin:4px 0 14px">
+          <summary>Текст письма для варианта без загрузки DOCX</summary>
+          <div class="docbody"><pre>НАЧАЛО ПИСЬМА
+Отправитель: АО «ЕкатеринбургТехзаказчик»
+Адресат: генеральному подрядчику ООО «СтройМонолит»
+Исх. № 311 от 24.06.2026
+
+О замечаниях по ходу строительства 1-й очереди
+
+Уважаемые коллеги!
+
+По результатам выездной проверки 23–24.06.2026 направляем замечания:
+
+1. По секции 2 фиксируется отставание от календарного графика по монолитным работам этажей 4–9: фактическая готовность ниже плановой примерно на 8 %. Просим представить скорректированный график с мероприятиями по наверстыванию до 30.06.2026.
+
+2. По ряду актов отсутствуют документы входного контроля материалов. Просим привести исполнительную документацию в соответствие и представить реестр актов за июнь до 01.07.2026.
+
+3. Просим обеспечить еженедельное предоставление фотоотчёта о ходе работ по установленной форме, начиная с 30.06.2026.
+
+Приложение: перечень замечаний по качеству — на 2 л.
+
+С уважением,
+руководитель проекта со стороны технического заказчика
+____________________ / Сидоров С. С. /
+КОНЕЦ ПИСЬМА</pre></div>
+        </details>
         <div class="lcbtns">
           <a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>
           <a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>
         </div>
         <div class="review">
-          <label>Вставь сюда свой результат</label>
-          <textarea id="lcResult" rows="5" placeholder="Вставьте сюда ответ, который вернул чат-бот…"></textarea>
+          <label>Вставьте результат и проверку</label>
+          <textarea id="lcResult" rows="7" placeholder="Источник → промпт → ответ; проверка трёх требований, дат 30.06 и 01.07, цитат и гипотез…"></textarea>
         </div>
         <div class="lcgate">
           <input type="checkbox" id="lcConfirm">
-          <label for="lcConfirm">Я получил ответ на свой запрос</label>
+          <label for="lcConfirm">Я зафиксировал(а) результат или выбрал(а) продолжение без принятого результата</label>
         </div>
+        <div class="lcgate"><input type="checkbox" id="lcContinue"><label for="lcContinue">Продолжить, если внешний сервис не принял запрос или файл</label></div>
         <p class="lcstatus" id="lcStatus">Итоги урока откроются после того, как вы вставите результат и отметите чекбокс.</p>
-        <div class="transfer-note">
-          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-          Демо-гейт реализован локальным JS (без сохранения данных). На платформе эта блокировка должна опираться на реальное событие взаимодействия участника с чатом (или просто на заполненное поле + чекбокс, как здесь) — ничего никуда не отправляется и в демо-версии.
-        </div>
       </section>
+
+<!-- APPROVED_INTERACTIVE_START:lesson-shag-04 -->
+<section class="course-prompt-library" id="coursePromptLibrary"><p class="course-prompt-kicker">Промпты урока</p><h2>Откройте нужный промпт и скопируйте его кнопкой 📋.</h2><details class="course-prompt" data-prompt-code="A3"><summary>🧩 Промпт A3 · ПТО · Ответ техзаказчику на несколько замечаний</summary><div class="course-prompt-body"><div class="course-prompt-actions"><button type="button" class="course-prompt-copy" data-prompt-key="p1" aria-label="Скопировать Промпт A3 · ПТО · Ответ техзаказчику на несколько замечаний" title="Скопировать промпт">📋</button><span class="course-prompt-status" aria-live="polite"></span></div><pre>Ты — инженер ПТО. Контекст: письмо техзаказчика № 311 с тремя требованиями (скорректированный график, реестр актов, еженедельный фотоотчёт). Задача: подготовь ответ с конкретными мероприятиями и датами по каждому пункту. Формат: официальный ответ + таблица «требование → действие → срок».
+Текст письма: [вставьте]</pre></div></details></section>
+<section class="sec course-interactive-host" data-course-interactive="lesson-shag-04"><p class="stp">Проверка задания</p><h2>Соберите запрос по письму №311</h2><iframe src="interactives/lesson-shag-04.html" title="Проверка задания: Соберите запрос по письму №311" loading="lazy"></iframe><a class="course-interactive-open" href="interactives/lesson-shag-04.html" target="_blank" rel="noopener">Открыть проверку отдельно</a></section>
+<!-- APPROVED_INTERACTIVE_END:lesson-shag-04 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <!-- ══ MATERIALS ══ -->
       <section class="sec" id="materials">
@@ -320,15 +361,14 @@
         <p class="muted">Всё содержимое этого шага — текстовые материалы, документы кейса и HTML-интерактив — собрано в один архив.</p>
         <div class="materials">
           <ul class="mlist">
-            <li><span class="mico">📝</span><span>Конспект урока: формула запроса роль + контекст + задача + формат</span></li>
-            <li><span class="mico">📁</span><span>Документ кейса «Уютный дом на Матвеева»: письмо техзаказчика №311 (файл 09)</span></li>
-            <li><span class="mico">🧩</span><span>Разбор промпта A3 из промпт-пака ПТО (образец для конструктора)</span></li>
-            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+            <li><span class="mico">📝</span><span>Конспект урока: <b>urok-tekst.docx</b></span></li>
+            <li><span class="mico">📁</span><span>Документ кейса: <b>09_Письмо-техзаказчика.pdf</b> (письмо №311)</span></li>
+            <li><span class="mico">🧩</span><span>Разбор промпта A3 из <b>Промпт-пак-ПТО.docx</b></span></li>
+            <li><span class="mico">🌐</span><span>Два автономных HTML-интерактива и Состав-материалов.docx с перечнем файлов</span></li>
           </ul>
           <div class="dl">
             <a class="btn dark" href="materials/shag-04.zip">⬇ Скачать архив материалов</a>
           </div>
-          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага.</p>
         </div>
       </section>
 
@@ -355,26 +395,18 @@
           <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
           <p class="stp">8 · Практика и проверка</p>
           <h2>Сделайте на своей задаче</h2>
-          <p class="muted">Возьмите одно реальное письмо или задачу со своего объекта и соберите запрос по формуле роль + контекст + задача + формат. Перед отправкой куратору уберите реальные цены, реквизиты и персональные данные — это коммерческая тайна и ФЗ-152.</p>
+          <p class="muted">Возьмите письмо из урока или разрешённое рабочее письмо и соберите запрос по формуле «роль + исходные данные + задача + формат». Для рабочего документа соблюдайте правила вашей организации; учебное письмо можно использовать без дополнительной подготовки.</p>
           <div class="review">
             <label>Что получилось — вставьте результат от ИИ</label>
             <textarea id="sRes" rows="4" placeholder="Результат, который выдал ИИ"></textarea>
-            <label>Ваш e-mail для ответа куратора</label>
-            <input id="sEmail" type="email" placeholder="you@example.ru">
-            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
-              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
           </div>
-          <div class="transfer-note">
-            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-            Здесь платформа подключает отправку куратору — проверка №1. В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
-          </div>
-          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент прокачан до Уровня 1 «Роль и контекст».</b> Что забрать: ИИ отвечает по формуле роль + контекст + задача + формат; без роли и формата получаете отписку, а не черновик; конструктор запроса — рабочий шаблон, которым можно пользоваться каждый день.</div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Что забрать:</b> роль, исходные данные, задача и формат помогают получить управляемый черновик. Перед использованием проверьте его по письму и явно отметьте сведения, которых в источнике нет.</div>
         </section>
       </div>
 
       <div class="coursenav">
-        <a href="#prev-lesson"><span>←</span><span><small>Шаг 3</small>Безопасность данных (ФЗ-152)</span></a>
-        <a href="#next-lesson" class="next"><span><small>Шаг 5</small>Контекст решает: без документов / с документами</span><span>→</span></a>
+        <a href="lesson-shag-03.html"><span>←</span><span><small>Шаг 3</small>Безопасность данных (ФЗ-152)</span></a>
+        <a href="lesson-1.html" class="next"><span><small>Шаг 5</small>Контекст решает: без документов / с документами</span><span>→</span></a>
       </div>
 
     </div>
@@ -385,10 +417,6 @@
         <div class="lvltrack" id="asstTrack"></div>
         <ul class="caps" id="asstCaps"></ul>
         <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
-        <div class="transfer-note">
-          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
-          Сейчас уровень задаётся константой ASSISTANT_LEVEL в JS ниже. На платформе виджет должен принимать текущий прогресс участника извне (проброс прогресса, П-6 из требований к разработке), не хардкодиться в HTML урока.
-        </div>
       </div>
       <script>
       (function(){
@@ -431,7 +459,7 @@
       out=document.getElementById('assembled'),msg=document.getElementById('buildMsg');
   var EXAMPLE={
     role:'Ты — инженер ПТО генподрядчика на объекте ЖК «Уютный дом на Матвеева».',
-    ctx:'Прикладываю письмо технического заказчика АО «ЕкатеринбургТехзаказчик» исх. №311 от 24.06.2026 с тремя замечаниями по секции 2.',
+    ctx:'Прикладываю файл 09_Письмо-техзаказчика.pdf: письмо №311 от 24.06.2026 с тремя требованиями по секции 2. Используй только сведения из файла; если данных не хватает — укажи это.',
     task:'Подготовь ответ с конкретными мероприятиями и датами по каждому пункту письма.',
     fmt:'Официальный ответ + таблица «требование → действие → срок».'
   };
@@ -456,13 +484,13 @@
 
 /* ── BLOCK: LIVE-CHAT — гейт итогов урока ── */
 (function(){
-  var result=document.getElementById('lcResult'),confirm=document.getElementById('lcConfirm');
+  var result=document.getElementById('lcResult'),confirm=document.getElementById('lcConfirm'),continueEl=document.getElementById('lcContinue');
   if(!result||!confirm)return;
   var status=document.getElementById('lcStatus');
   var lockTargets=[document.getElementById('selfcheck'),document.getElementById('practice')];
   var lockWraps=[document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
   function upd(){
-    var ready=result.value.trim().length>0 && confirm.checked;
+    var ready=(result.value.trim().length>0 || (continueEl && continueEl.checked)) && confirm.checked;
     lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
     lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
     if(status){
@@ -472,6 +500,7 @@
   }
   result.addEventListener('input',upd);
   confirm.addEventListener('change',upd);
+  if(continueEl)continueEl.addEventListener('change',upd);
   upd();
 })();
 
@@ -489,24 +518,31 @@
   upd();
 })();
 
-/* ── BLOCK: CURATOR — демо: скачивание задания .txt локально ── */
-(function(){
-  var btn=document.getElementById('sendRev');if(!btn)return;
-  btn.addEventListener('click',function(){
-    var res=document.getElementById('sRes').value.trim(),
-        email=document.getElementById('sEmail').value.trim(),
-        m=document.getElementById('revMsg');
-    if(!res){m.textContent='Вставьте результат';return;}
-    var raw='Шаг 4 (Первый осмысленный запрос) — задание на проверку\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
-    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url;a.download='zadanie-shag-04.txt';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    setTimeout(function(){URL.revokeObjectURL(url);},1000);
-    m.textContent='Файл скачан ✓';
-  });
-})();
+
 </script>
+
+
+
+
+
+
+
+
+<!-- COURSE_INTERACTIVE_SUPPORT_START:lesson-shag-04 -->
+<style>
+.course-interactive-host iframe{display:block;width:100%;height:920px;border:0;background:var(--bg);margin-top:10px}.course-interactive-host .course-interactive-open{display:inline-block;margin-top:8px;font-size:13px}
+.course-prompt-library{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:18px}.course-prompt-kicker{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}.course-prompt-library h2{margin-top:0}.course-prompt{border:1px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card);overflow:hidden}.course-prompt summary{cursor:pointer;padding:11px 14px;font-weight:700}.course-prompt-body{padding:0 14px 14px;background:#fff;border-top:1px solid var(--line)}.course-prompt-body pre{white-space:pre-wrap;font:13px/1.55 Consolas,'Courier New',monospace}.course-prompt-actions{display:flex;align-items:center;gap:8px;justify-content:flex-end;margin-top:10px}.course-prompt-copy,.course-prompt-ref{font:inherit;border:1px solid var(--blue);border-radius:var(--rs);background:#fff;color:var(--blue);cursor:pointer;font-weight:700}.course-prompt-copy{padding:6px 10px}.course-prompt-ref{padding:2px 7px;margin-left:5px;font-size:13px}.course-prompt-status{font-size:13px;color:var(--green)}
+@media(max-width:620px){.course-interactive-host iframe{height:1100px}}
+</style><script id="course-interactive-data" type="application/json">{"id":"lesson-shag-04","prompts":[{"key":"p1","role":"ПТО","code":"A3","title":"Ответ техзаказчику на несколько замечаний","text":"Ты — инженер ПТО. Контекст: письмо техзаказчика № 311 с тремя требованиями (скорректированный график, реестр актов, еженедельный фотоотчёт). Задача: подготовь ответ с конкретными мероприятиями и датами по каждому пункту. Формат: официальный ответ + таблица «требование → действие → срок».\nТекст письма: [вставьте]","source":"Курс-для-перепубликации-git_2026-09-04\\docs\\Курс-ИИ_Промпт-пак-ПТО_v1.md"}],"downstream":["#selfcheck","#practice"]}</script><script>
+(function(){const cfg=JSON.parse(document.getElementById('course-interactive-data').textContent),host=document.querySelector('[data-course-interactive="'+cfg.id+'"]'),frame=host&&host.querySelector('iframe');
+function hideLegacy(){['lcResult','liveResult'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.review')||el).hidden=true});['lcConfirm','lcContinue','liveCheck'].forEach(id=>{const el=document.getElementById(id);if(el)(el.closest('.lcgate,.gatecheck')||el).hidden=true});['lcStatus','gateResult'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=true})}
+function unlock(){cfg.downstream.forEach(selector=>{const el=document.querySelector(selector);if(!el)return;el.classList.remove('locked');const wrap=el.closest('.lockwrap');if(wrap)wrap.classList.remove('is-locked')});try{localStorage.setItem('course-interactive:'+cfg.id,'done')}catch(_e){}}
+function completed(){try{return localStorage.getItem('course-interactive:'+cfg.id)==='done'}catch(_e){return false}}function init(){hideLegacy();if(completed())unlock()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+new MutationObserver(()=>{hideLegacy();if(completed())unlock()}).observe(document.documentElement,{childList:true,subtree:true});addEventListener('message',event=>{if(!frame||event.source!==frame.contentWindow||!event.data||event.data.id!==cfg.id)return;if(event.data.type==='course-interactive-height')frame.style.height=Math.max(520,Number(event.data.height)||920)+'px';if(event.data.type==='course-interactive-complete')unlock()});
+async function copyText(text){try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(text);return true}catch(_e){const t=document.createElement('textarea');t.value=text;t.readOnly=true;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_x){}t.remove();return ok}}
+document.querySelectorAll('.course-prompt-copy').forEach(button=>button.onclick=async()=>{const item=cfg.prompts.find(x=>x.key===button.dataset.promptKey),status=button.nextElementSibling;const ok=item&&await copyText(item.text);status.textContent=ok?'Скопировано':'Выделите текст и скопируйте вручную';setTimeout(()=>status.textContent='',2500)});
+const codes=[...new Set(cfg.prompts.map(x=>x.code))];document.querySelectorAll('p,li,td,th,summary,h2,h3,label,.note').forEach(el=>{if(el.closest('.course-prompt-library,.course-interactive-host,script,style,pre,select')||el.querySelector('.course-prompt-ref')||el.textContent.length>650||!/промпт/i.test(el.textContent))return;const found=codes.filter(code=>el.textContent.includes(code));if(!found.length)return;const b=document.createElement('button');b.type='button';b.className='course-prompt-ref';b.textContent='🧩';b.title='Открыть упомянутый промпт';b.setAttribute('aria-label','Открыть упомянутый промпт');b.onclick=()=>{const library=document.getElementById('coursePromptLibrary');if(!library)return;const matches=[...library.querySelectorAll('.course-prompt')].filter(x=>found.includes(x.dataset.promptCode));matches.forEach(x=>x.open=true);(matches[0]||library).scrollIntoView({behavior:'smooth',block:'start'})};el.append(' ',b)});
+})();</script>
+<!-- COURSE_INTERACTIVE_SUPPORT_END:lesson-shag-04 -->
 </body>
 </html>

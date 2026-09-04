@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<!--
+  ════════════════════════════════════════════════════════════════════
+  МИНИ-ФИНАЛ пилотного среза ОТ · Курс «ИИ в строительстве»
+  Актион, Высшая инженерная школа. ДЕМО-КОМПЛЕКТ для переноса (не продуктив).
+  Ролевой финал Шага 29. Собран из Шаблона-урока v2, референс — Урок-Мини-финал-ПТО / Мини-финал-ГИП.
+  Сквозной кейс «Уютный дом на Матвеева» — нить «утверждённый перечень -> проверка документа -> вопрос ответственному».
+  Все числа и факты — строго из документов кейса (17, 05, 20, 10).
+  Критерий из плана аудита: ИИ не разрешает работы и не выдаёт документ как готовый к подписи.
+  ════════════════════════════════════════════════════════════════════
+-->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Мини-финал: неделя инженера ОТ с ИИ — Высшая инженерная школа</title>
+<style>
+  :root{--bg:#ffffff;--card:#faf8f5;--card2:#f3efe9;--ink:#1a1814;--muted:#6f7280;--line:#e9e4dc;--brand:#e2231a;--blue:#237cf9;--green:#1f9d57;--yellow:#f5b500;--purple:#9b5de5;--r:16px;--rs:10px;--font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif}
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{overflow-x:hidden;margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img,svg,video,iframe,pre,table{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}.navlink a{font-size:13.5px;font-weight:600}
+  .author{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:18px 0 4px;flex-wrap:wrap}
+  .author .ava{width:58px;height:58px;border-radius:12px;flex:0 0 auto;background:#fff;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:10px;text-align:center}
+  .author .who b{font-size:15.5px}.author .who .role{font-size:13px;color:var(--muted)}
+  .author .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:4px 11px;white-space:nowrap}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:18px 0 6px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.12;margin:4px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .lead{color:var(--muted);font-size:15.5px;max-width:780px}
+  .lvl{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:700;margin-top:8px}
+  .lvl .dotx{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .meta .pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+  .meta .pill.long{color:var(--brand);border-color:var(--brand)}
+  .grid{display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;margin-top:18px}
+  .sec{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:18px}
+  .stp{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 6px}
+  h2{font-size:21px;margin:2px 0 12px;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:16px;margin:18px 0 8px;font-weight:800}
+  p{margin:0 0 12px}.muted{color:var(--muted)}
+  .why{background:var(--card);border-left:4px solid var(--blue);border-radius:12px;padding:13px 15px;font-size:14.5px;margin:14px 0}
+  .note{font-size:13.5px;color:#7a5b16;background:#fdf6e3;border:1px solid #f3e3b3;border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note.green{color:#157a41;background:#eef8f1;border-color:#cdebd8}.note.red{color:#a3201a;background:#fdf0ef;border-color:#f3c7c3}
+  .btn{appearance:none;border:none;cursor:pointer;font-weight:700;border-radius:var(--rs);padding:11px 17px;font-size:14px;background:var(--blue);color:#fff;transition:.15s}
+  .btn:hover{filter:brightness(.95)}.btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.dark{background:var(--ink)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+  .btn.sm{padding:8px 13px;font-size:13px}
+  .checks{list-style:none;padding:0;margin:8px 0 0}
+  .checks li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--line)}
+  .checks li:last-child{border-bottom:none}.checks li:before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .checks.bad li:before{content:"✕";color:var(--brand)}
+  .toc{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.toc li{padding:5px 0}.toc a{color:var(--ink)}
+  /* ── Эпизоды недели ── */
+  .weekmap{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0 4px}
+  .weekmap .day{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 8px;text-align:center;font-size:11.5px}
+  .weekmap .day b{display:block;font-size:13px;margin-bottom:2px}
+  .weekmap .day small{color:var(--muted);font-size:10.5px;display:block;line-height:1.35}
+  @media(max-width:560px){.weekmap{grid-template-columns:repeat(2,1fr)}}
+  .ep{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+  .ep>.ephd{display:flex;align-items:center;gap:12px;padding:15px 18px;background:var(--card)}
+  .ep .epday{flex:0 0 auto;width:44px;height:44px;border-radius:11px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;line-height:1.1;text-align:center}
+  .ep.e1 .epday{background:var(--brand)}.ep.e2 .epday{background:var(--yellow);color:var(--ink)}.ep.e3 .epday{background:var(--blue)}.ep.e4 .epday{background:var(--green)}.ep.e5 .epday{background:var(--purple)}
+  .ep .ephd .ept b{font-size:15.5px;display:block}.ep .ephd .ept small{color:var(--muted);font-size:12.5px}
+  .ep .epbody{padding:18px}
+  /* ── Раскрывающийся документ ── */
+  details.doc{border:1px solid var(--line);border-radius:12px;background:var(--card2);margin:6px 0 14px;overflow:hidden}
+  details.doc>summary{cursor:pointer;list-style:none;padding:12px 15px;font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:9px}
+  details.doc>summary::-webkit-details-marker{display:none}
+  details.doc>summary .chev{margin-left:auto;transition:.2s;color:var(--muted)}
+  details.doc[open]>summary .chev{transform:rotate(180deg)}
+  details.doc .docwrap{padding:0 15px 15px}
+  .docpaper{background:#fff;border:1px solid var(--line);border-radius:9px;padding:15px 17px;font-size:13px;line-height:1.6}
+  .docpaper .dt{font-weight:800;font-size:13.5px;text-align:center;margin-bottom:8px}
+  .docpaper .dm{color:var(--muted);font-size:11.5px}
+  .docpaper ol,.docpaper ul{margin:6px 0;padding-left:20px}
+  .docpaper li{margin:3px 0}
+  .tw{overflow-x:auto;margin-top:6px}
+  table.doctbl{border-collapse:collapse;width:100%;font-size:12px;min-width:420px}
+  table.doctbl th,table.doctbl td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+  table.doctbl th{background:var(--card);font-weight:800;font-size:11px}
+  td.hl{background:#fde4e2;color:#8f1410;font-weight:700}
+  td.gap{background:#fdf6e3;color:#7a5b16;font-weight:700}
+  /* ── Демо-ответ ИИ ── */
+  .airesp{background:#eef8f1;border:1px solid #cdebd8;border-radius:12px;padding:15px 17px;margin-top:12px}
+  .airesp .at{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--green);font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .airesp .abody{font-size:13.5px;line-height:1.6}
+  .airesp .abody b{color:var(--ink)}
+  .simlabel{font-size:11.5px;color:var(--muted);font-style:italic;border-top:1px dashed #cdebd8;padding-top:8px;margin-top:10px}
+  .promptlink{font-size:12.5px;color:var(--muted);margin:9px 0 0}
+  .promptlink b{color:var(--blue)}
+  /* ── Копируемый промпт ── */
+  .copy{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:12.5px;white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;color:#3a3631;word-break:break-word}
+  .cprow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  /* ── Выбор варианта / квиз / расхождение ── */
+  .opts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+  .opt{cursor:pointer;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;font-size:13.5px;font-family:inherit;color:var(--ink);transition:.15s}
+  .opt:hover{border-color:var(--ink)}
+  .opt.ok{border-color:var(--green);background:#eef8f1}
+  .opt.err{border-color:var(--brand);background:#fdf0ef}
+  .opt:disabled{cursor:default;opacity:.9}
+  .opt small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+  .qfb{margin-top:6px}
+  .qq{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:14.5px;font-weight:700;margin:0 0 6px}
+  /* ── Экраны «одна мысль» (интро) ── */
+  .progress{display:flex;gap:6px;margin:4px 0 18px}
+  .progress .dot{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .progress .dot.on{background:var(--blue)}
+  .screen{display:none}.screen.on{display:block}
+  .snav{display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap}
+  /* ── Мой ИИ-набор инженера ОТ ── */
+  .kit{display:flex;flex-direction:column;gap:12px}
+  .kititem{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
+  .kititem .kh{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14px;margin-bottom:8px;flex-wrap:wrap}
+  .kititem .kcode{font-size:10.5px;font-weight:800;color:#fff;background:var(--ink);border-radius:5px;padding:2px 7px}
+  .kititem .kday{font-size:11.5px;color:var(--muted);margin-left:auto}
+  .kititem .kprompt{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px;font-size:12px;white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;color:#3a3631;word-break:break-word}
+  .kititem .kbtn{margin-top:9px}
+  /* ── Попробуй сам / textarea ── */
+  .review label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  .review textarea,.review input{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+  .review textarea:focus,.review input:focus{outline:none;border-color:var(--blue)}
+  .dl{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+  .dl button,.prevbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+  .dl button:hover,.prevbtn:hover{border-color:var(--ink)}
+  /* ── Чек-лист самопроверки ── */
+  .selfcheck{list-style:none;padding:0;margin:8px 0 0}
+  .selfcheck li{border-bottom:1px solid var(--line)}.selfcheck li:last-child{border-bottom:none}
+  .selfcheck label{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;cursor:pointer;margin:0}
+  .selfcheck input{width:18px;height:18px;flex:0 0 auto;margin:3px 0 0;accent-color:var(--green)}
+  .scbar{height:9px;border-radius:6px;background:var(--card2);overflow:hidden;margin-top:14px}
+  .scbar i{display:block;height:100%;width:0;background:var(--green);border-radius:6px;transition:.35s}
+  .scmsg{font-size:13px;font-weight:700;margin-top:7px;color:var(--muted)}
+  /* ── Live-chat блок ── */
+  .livechat{display:flex;flex-direction:column;gap:12px}
+  .livechat .lcbtns{display:flex;gap:10px;flex-wrap:wrap}
+  .livechat .lcbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:var(--rs);padding:11px 16px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .livechat .lcbtn:hover{border-color:var(--ink)}
+  .livechat .lcbtn .dotc{width:9px;height:9px;border-radius:50%}
+  .livechat .lcgate{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin-top:2px}
+  .livechat .lcgate input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:var(--green)}
+  .lcstatus{font-size:13px;font-weight:700;color:var(--muted)}.lcstatus.ready{color:var(--green)}
+  /* ── Гейт ── */
+  .locked{opacity:.4;pointer-events:none;user-select:none;filter:grayscale(.3);transition:opacity .2s,filter .2s}
+  .lockwrap{position:relative}
+  .lockwrap .lockbadge{display:none;position:absolute;top:14px;right:14px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:800;border-radius:999px;padding:5px 12px;align-items:center;gap:6px;z-index:2}
+  .lockwrap.is-locked .lockbadge{display:inline-flex}
+  /* ── Материалы ── */
+  .materials .mlist{list-style:none;padding:0;margin:0}
+  .materials .mlist li{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .materials .mlist li:last-child{border-bottom:none}
+  .materials .mlist .mico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:13px}
+  .materials .mcap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  /* ── transfer-note ── */
+  .transfer-note{border:1.5px dashed var(--purple);background:#faf6ff;border-radius:12px;padding:12px 14px;font-size:13px;color:#5b3a94;margin-top:12px}
+  .transfer-note .tnlabel{display:flex;align-items:center;gap:7px;font-weight:800;font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--purple);margin-bottom:5px}
+  .transfer-note.compact{margin-top:8px;padding:10px 12px}
+  /* ── Ассистент ── */
+  .coursenav{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .coursenav a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:var(--rs);padding:11px 17px;font-size:14px;font-weight:700;color:var(--ink);transition:.15s}
+  .coursenav a:hover{border-color:var(--ink)}
+  .coursenav a small{display:block;font-weight:600;font-size:11px;color:var(--muted)}
+  .asst{position:sticky;top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .asst .hd{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .asst .ico{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .asst .hd b{font-size:14.5px}.asst .hd span{font-size:11px;color:var(--green);font-weight:700}
+  .lvltrack{display:flex;gap:5px;margin:12px 0 2px}
+  .lvltrack i{flex:1;height:5px;border-radius:4px;background:var(--card2)}
+  .lvltrack i.on{background:var(--green)}.lvltrack i.cur{background:var(--blue)}
+  .caps{list-style:none;margin:12px 0 0;padding:0}
+  .caps li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .caps li:last-child{border-bottom:none}.caps li.lock{color:var(--muted)}.caps li .s{flex:0 0 auto;width:18px}
+  .caps li small{display:block;color:var(--muted);font-size:11px;font-weight:400}.caps li.cur b{color:var(--ink)}
+  .newb{font-size:9px;font-weight:800;color:#fff;background:var(--green);border-radius:4px;padding:1px 5px;margin-left:5px;white-space:nowrap}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}.asst{position:static}}
+  @media(max-width:420px){h1{font-size:24px}.sec{padding:18px 16px}}
+.matrow{margin:10px 0 4px}.matbtn{display:inline-block;background:#111;color:#fff;padding:9px 16px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none}.matbtn:hover{opacity:.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span><span class="navlink"><a href="index.html">← Все шаги</a></span>
+  </div>
+
+  <!-- AUTHOR -->
+  <div class="author">
+    <div class="ava"><span>ФОТО</span></div>
+    <div class="who"><b>Евгений Эрман, к.т.н.</b>
+      <div class="role">руководитель Лаборатории ИИ-решений девелоперской компании «РАЗУМ»</div></div>
+    <span class="tag">Автор урока</span>
+  </div>
+
+  <!-- LESSON HEADER -->
+  <div class="kicker">Пилот ОТ · Мини-финал · Роль: инженер охраны труда <span class="rule" style="background:var(--blue)"></span></div>
+  <h1>Мини-финал: неделя инженера ОТ с ИИ</h1>
+  <div class="matrow"><a class="matbtn" href="materials/shag-final-ot.zip" download>⬇ Материалы урока (архив): тексты, файлы кейса, интерактив</a></div>
+  <p class="lead">Сквозной кейс по нити <b>«утверждённый перечень → проверка документа → вопрос ответственному»</b>. Вы проживаете рабочую неделю инженера ОТ на ЖК «Уютный дом на Матвеева» — от программы инструктажа до наряда-допуска № 12 на бетонирование захватки 2-Б, с которым связано предписание стройконтроля № 57, — и на каждом шаге собираете свой <b>«пакет по этапу»</b> с помощью ИИ. Эпизоды — условная рабочая неделя: даты документов кейса относятся к июню 2026 года.</p>
+  <div class="meta">
+    <span class="lvl"><span class="dotx"></span> Ассистент · Уровень 3 · документы и знания</span>
+    <span class="pill">🎓 Итог пилотного среза</span>
+  </div>
+  <div class="transfer-note compact">
+    <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+    Здесь платформа подставляет роль пользователя автоматически из профиля (П-4 «выбор роли») — строка «Роль: инженер охраны труда» выше должна обновляться без правки HTML урока.
+  </div>
+
+  <div class="grid">
+    <div><!-- левая колонка -->
+
+      <!-- TOC -->
+      <section class="sec">
+        <p class="stp">Что внутри урока</p>
+        <ul class="toc">
+          <li>0 · <a href="#intro">Как устроен мини-финал</a></li>
+          <li>1 · <a href="#mon">День 1 — программа инструктажа</a></li>
+          <li>2 · <a href="#tue">День 2 — наряд-допуск № 12: полнота мер</a></li>
+          <li>3 · <a href="#wed">День 3 — обход: предписание № 57</a></li>
+          <li>4 · <a href="#thu">День 4 — ПДн-фильтр по ведомости бригады</a></li>
+          <li>5 · <a href="#fri">День 5 — недельная сводка по ОТ</a></li>
+          <li>6 · <a href="#livechat">Финал: повтори эпизод в живом чате</a></li>
+          <li>7 · <a href="#kit">Мой ИИ-набор инженера ОТ</a></li>
+          <li>8 · <a href="#selfcheck">Чек-лист самопроверки</a></li>
+        </ul>
+        <div class="note">📄 К уроку приложен архив: тексты, документы кейса (17, 05, 20, 10) и промпт-пак ОТ.</div>
+      </section>
+
+      <!-- INTRO SCREENS -->
+      <section class="sec" id="intro">
+        <p class="stp">0 · Как устроен мини-финал</p>
+        <h2>Инструктаж → наряд-допуск № 12 → предписание № 57 → ПДн-фильтр → недельная сводка</h2>
+        <div class="progress" id="scrProgress"></div>
+        <div class="screen on">
+          <h3>Это не новая теория, а сборка навыков</h3>
+          <p>За неделю инженеру ОТ прилетает всё сразу: программа инструктажа для бригады, наряд-допуск на работы повышенной опасности, предписание стройконтроля по той же захватке, ведомость персонала с персональными данными и недельная сводка руководителю. Вы уже проходили эти приёмы по отдельности — теперь пройдёте их <b>подряд, на одном кейсе</b>.</p>
+        </div>
+        <div class="screen">
+          <h3>Каждый день — документ, промпт и мини-действие</h3>
+          <p>Пять эпизодов, День 1 — День 5. В каждом: реальный документ кейса (раскрывается прямо здесь), готовый промпт из вашего <b>промпт-пака ОТ</b> и короткое действие — составить, проверить, сопоставить, обезличить, свести.</p>
+        </div>
+        <div class="screen">
+          <h3>Главное правило недели: ИИ не допускает к работам и не подписывает документы</h3>
+          <p>Демо-ответы ИИ помечены «смоделировано» — это ориентир, а не спойлер. Смотрите, где в ответе <b>наблюдение</b> (что буквально написано в документе), где <b>черновик</b> (первая версия от ИИ, до проверки), а где <b>подтверждено</b> (вывод, сверенный с документом и, если нужно, с первоисточником норматива). Спецкритерий недели — тот, что действует на любом шаге: <b>ИИ не разрешает работы и не выдаёт документ как готовый к подписи</b>. Наряд-допуск утверждает и производство работ разрешает только ответственное лицо.</p>
+          <div class="note green">✅ Цель недели: пять промптов, которые останутся у вас как рабочий инструмент инженера ОТ, и привычка задавать себе вопрос «чего не хватает?» и «кому решать?» — прежде чем передавать документ на подпись.</div>
+        </div>
+        <div class="snav">
+          <button class="btn ghost" id="scrPrev">← Назад</button>
+          <button class="btn" id="scrNext">Дальше →</button>
+        </div>
+        <div class="weekmap">
+          <div class="day"><b>День 1</b><small>Программа инструктажа</small></div>
+          <div class="day"><b>День 2</b><small>Наряд-допуск № 12</small></div>
+          <div class="day"><b>День 3</b><small>Обход: предписание № 57</small></div>
+          <div class="day"><b>День 4</b><small>ПДн-фильтр</small></div>
+          <div class="day"><b>День 5</b><small>Недельная сводка</small></div>
+        </div>
+      </section>
+      <!-- ═══════ ЭПИЗОД 1 · ДЕНЬ 1 ═══════ -->
+      <div class="ep e1" id="mon">
+        <div class="ephd">
+          <div class="epday">День 1</div>
+          <div class="ept"><b>Программа первичного инструктажа на рабочем месте</b><small>Задача: утверждённый перечень пунктов под конкретную профессию</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 1, понедельник. На объект заходит бригада бетонщиков — работы на высоте, захватка 2-Б, отм. +12,000. Прежде чем кто-то из бригады окажется на площадке, инженер ОТ должен провести первичный инструктаж на рабочем месте. За основу берём уже утверждённую программу вводного инструктажа по объекту — но она общая, для всех профессий сразу. Нужно превратить её в перечень, специфичный именно для бетонщика на высоте.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: программа вводного инструктажа (файл 17) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Программа вводного инструктажа по охране труда (выписка)</div>
+              <p class="dm">Объект: ЖК «Уютный дом на Матвеева». Проводит: инженер ОТ. Структура — по Приказу Минтруда № 883н и типовым формам.</p>
+              <ol>
+                <li>Общие сведения об объекте, режим работы, правила внутреннего распорядка.</li>
+                <li>Опасные и вредные производственные факторы на стройплощадке (работа на высоте, грузоподъёмные механизмы, электробезопасность, перемещение техники).</li>
+                <li>Средства индивидуальной защиты (каска, страховочная привязь, спецобувь, жилет) — порядок выдачи и применения.</li>
+                <li>Требования при работе вблизи башенного крана; сигналы; опасные зоны.</li>
+                <li>Действия при несчастном случае, пожаре; пути эвакуации; первая помощь.</li>
+                <li>Порядок допуска к работам повышенной опасности (наряд-допуск).</li>
+              </ol>
+              <p class="dm" style="margin-top:8px">Это утверждённый общий перечень — 6 пунктов на все профессии сразу. Задача дня: сделать из него программу именно для бетонщика на участке (секция 2, работы на высоте, бетонирование), не теряя ни одного обязательного пункта и не добавляя лишнего от себя.</p>
+            </div></div>
+          </details>
+
+          <h3>📋 Утверждённый перечень — не место для импровизации</h3>
+          <p class="muted">ИИ может расширить программу инструктажа по своему усмотрению — добавить пункты «для полноты», которых нет в утверждённом документе, или, наоборот, обобщить и потерять специфику высоты и бетонирования. Оба варианта — ошибка. Прежде чем принять черновик, сверьте: программа для профессии должна быть <b>конкретизацией</b> утверждённых 6 пунктов, а не новым списком.</p>
+
+          <div class="opts" data-choice>
+            <button class="opt" data-fb="Список содержит верные общие темы, но он не специфичен для бетонщика на высоте — та же программа подошла бы электрику или геодезисту. Задача была сузить до профессии, а не пересказать вводный инструктаж без изменений.">
+              <b>Вариант A.</b> Программа копирует все 6 пунктов вводного инструктажа без изменений и добавляет только заголовок «для бетонщика».
+              <small>Формально утверждённый перечень сохранён, но нет ни одной детали именно про высоту и бетонирование</small>
+            </button>
+            <button class="opt" data-correct data-fb="Верно. Каждый из 6 утверждённых пунктов раскрыт применительно к работе бетонщика на высоте (подмости, опалубка, привязь, зона бетонирования) — без добавления пунктов, которых нет в утверждённой программе, и без потери ни одного из них.">
+              <b>Вариант B.</b> Все 6 пунктов утверждённой программы сохранены, но под профессию: «опасные факторы» раскрыты как работа на высоте и с бетоном, «СИЗ» — как страховочная привязь и её крепление к анкерным точкам, «допуск к работам повышенной опасности» — как порядок открытия наряда-допуска № 12.
+              <small>Утверждённый перечень сохранён полностью, каждый пункт конкретизирован под задачу бригады</small>
+            </button>
+            <button class="opt" data-fb="Пункты про эвакуацию при пожаре и правила внутреннего распорядка — обязательная часть утверждённой программы, их нельзя убирать ради краткости; вместо сокращения нужна конкретизация.">
+              <b>Вариант C.</b> Программа сокращена до 3 пунктов — только про высоту, привязь и бетонирование, остальное убрано как «неважное для сегодняшней смены».
+              <small>Часть утверждённых пунктов пропала — а именно этого делать нельзя</small>
+            </button>
+          </div>
+          <div class="qfb" data-choice-fb></div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: программа первичного инструктажа для бетонщика</div>
+            <div class="abody">
+              <ol style="margin:0 0 8px;padding-left:20px">
+                <li>Общие сведения об объекте, участок — секция 2, режим работы бригады на захватке 2-Б.</li>
+                <li>Опасные факторы именно этой смены: работа на высоте (отм. +12,000), бетонирование, соседство с башенным краном.</li>
+                <li>СИЗ бетонщика: каска, страховочная привязь с креплением к анкерным точкам, спецобувь — порядок проверки перед началом смены.</li>
+                <li>Зона крана: сигналы, запрет нахождения под грузом во время бетонирования.</li>
+                <li>Действия при падении, несчастном случае на высоте; пути эвакуации с отм. +12,000.</li>
+                <li>Порядок допуска: без открытого наряда-допуска № 12 и подписи допускающего к работам на захватке 2-Б приступать нельзя.</li>
+              </ol>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Проведение инструктажа и роспись бригады в журнале — действие инженера ОТ; ИИ готовит только черновик текста программы.</div>
+              <p class="promptdecision" style="margin:10px 0 0;font-weight:700">Решение — за ответственным лицом.</p>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт B1 из твоего промпт-пака ОТ</b> («Программа первичного инструктажа на рабочем месте»).</p>
+        </div>
+      </div>
+      <!-- ═══════ ЭПИЗОД 2 · ДЕНЬ 2 ═══════ -->
+      <div class="ep e2" id="tue">
+        <div class="ephd">
+          <div class="epday">День 2</div>
+          <div class="ept"><b>Наряд-допуск № 12 — проверка полноты мер безопасности</b><small>Кульминация недели — ловушка «нет контроля освещённости» ⚠️</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 2, вторник — кульминация недели. Наряд-допуск № 12 на бетонирование плиты перекрытия на высоте (отм. +12,000, захватка 2-Б) готовится к утверждению: срок действия с 28.06 по 30.06.2026, бригада 4 чел. Прежде чем документ уйдёт к ответственному лицу на подпись, инженер ОТ обязан проверить его на полноту мер безопасности — и не спешить с выводом «всё в порядке».</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: наряд-допуск № 12 (файл 17) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Наряд-допуск на работы повышенной опасности № 12 (фрагмент)</div>
+              <p class="dm">Вид работ: бетонирование плиты перекрытия на высоте (отм. +12,000), захватка 2-Б. Срок действия: с 28.06.2026 по 30.06.2026. Бригада: 4 чел.</p>
+              <p><b>Меры безопасности:</b></p>
+              <ul>
+                <li>ограждение зоны работ, установка знаков;</li>
+                <li>применение страховочных привязей с креплением к анкерным точкам;</li>
+                <li>проверка подмостей и опалубки до начала работ;</li>
+                <li>запрет работ при ветре &gt; 15 м/с и грозе.</li>
+              </ul>
+              <p class="dm">Ответственный за подготовку: ___. Ответственный за производство работ: прораб Иванов И.И. Допускающий: ___.</p>
+            </div></div>
+          </details>
+
+          <h3>🔁 Сначала — «шаг назад»</h3>
+          <p class="muted">Прежде чем сверять именно этот наряд, спросите у ИИ принцип: <i>«Какие меры безопасности обязательны в наряде-допуске на работы на высоте по типовой форме, и как их проверять по чек-листу?»</i> — и только потом переходите к документу № 12.</p>
+
+          <div data-quiz>
+            <p class="qq">В наряде-допуске № 12 перечислены четыре меры. Какой обязательной меры для бетонирования на высоте рано утром в тексте не хватает?</p>
+            <div class="opts">
+              <button class="opt" data-fb="Эта мера в наряде уже есть — «применение страховочных привязей с креплением к анкерным точкам» указана прямо в тексте. Пробел не здесь.">Страховочные привязи с креплением к анкерным точкам</button>
+              <button class="opt" data-correct data-fb="Верно. Контроль освещённости рабочей зоны в тексте не упомянут вообще. Работы стартуют 28.06 рано утром — в конце июня это может быть время, когда естественного света на высоте +12,000 ещё недостаточно. Это и есть пробел, который нужно заметить самому, а не получить готовым списком.">Контроль освещённости рабочей зоны</button>
+              <button class="opt" data-fb="Эта мера в наряде уже есть — «запрет работ при ветре &gt; 15 м/с и грозе» указана прямо в тексте. Пробел не здесь.">Погодные ограничения (ветер, гроза)</button>
+            </div>
+            <div class="qfb"></div>
+          </div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: проверка полноты мер безопасности</div>
+            <div class="abody">
+              <p style="margin:0 0 8px"><b>Наблюдение</b> (что буквально написано в наряде-допуске № 12): указаны ограждение зоны и знаки, страховочные привязи с креплением к анкерным точкам, проверка подмостей и опалубки, запрет при ветре &gt; 15 м/с и грозе. Контроль освещённости рабочей зоны в тексте не упомянут.</p>
+              <p style="margin:0 0 8px"><b>Черновик</b> (первая гипотеза без проверки первоисточника): раз работы стартуют рано утром в конце июня, освещённости, скорее всего, недостаточно — стоит внести пункт «контроль освещённости».</p>
+              <p style="margin:0 0 10px"><b>Подтверждено</b> (после сверки с документом, но не с первоисточником норматива): по тексту наряда-допуска пункт про освещённость действительно отсутствует — это подтверждённое наблюдение по документу. Требование к освещённости рабочих мест при работах на высоте — ориентировочно из Приказа Минтруда № 883н (см. файл 10, нормативная подложка кейса); <b>применимость конкретного пункта к этой захватке и этому времени суток в демо-ответе не проверена — отметка «применимость сверить»</b>: точную ссылку на пункт приказа нужно открыть и свериться самостоятельно, а не доверять названному номеру на слово.</p>
+              <div class="tw"><table class="doctbl">
+                <tr><th>Мера безопасности</th><th>Указана в наряде?</th><th>Комментарий</th></tr>
+                <tr><td>Ограждение зоны работ, знаки</td><td>да</td><td>—</td></tr>
+                <tr><td>Страховочные привязи, анкерные точки</td><td>да</td><td>—</td></tr>
+                <tr><td>Проверка подмостей и опалубки</td><td>да</td><td>—</td></tr>
+                <tr><td>Погодные ограничения (ветер, гроза)</td><td>да</td><td>—</td></tr>
+                <tr class="hl"><td>Контроль освещённости рабочей зоны</td><td class="gap">не указана</td><td class="gap">вопрос для проверки ответственным; ориентир — приказ Минтруда № 883н, применимость сверить по первоисточнику</td></tr>
+              </table></div>
+              <p style="margin:10px 0 0"><b>ИИ не разрешает работы и не выдаёт этот наряд-допуск как готовый к подписи.</b> Список выше — черновик-подсказка для проверки, не утверждение документа и не допуск к производству работ.</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Не добавлены меры, не относящиеся к описанным работам; ничего, кроме прямого текста наряда, не додумано.</div>
+              <p class="promptdecision" style="margin:10px 0 0;font-weight:700">Решение — за ответственным лицом.</p>
+            </div>
+          </div>
+
+          <div class="note">⚠️ <b>Красная линия.</b> ИИ не допускает к работам. Наряд-допуск утверждает и подписывает только ответственное лицо (допускающий) — после того как пробел по освещённости закрыт и, если нужно, применимость нормы сверена по первоисточнику. Решение — за ответственным лицом.</div>
+          <p class="promptlink">📎 Это <b>промпт C1 из твоего промпт-пака ОТ</b> («Проверка наряда-допуска на полноту мер безопасности») ⚠️ риск выдумки.</p>
+        </div>
+      </div>
+      <!-- ═══════ ЭПИЗОД 3 · ДЕНЬ 3 ═══════ -->
+      <div class="ep e3" id="wed">
+        <div class="ephd">
+          <div class="epday">День 3</div>
+          <div class="ept"><b>Обход участка: статус предписания № 57</b><small>Задача: квиз «можно / нельзя / условно»</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 3, среда. Обход захватки 2-Б перед плановым началом бетонирования по наряду-допуску № 12. По предписанию стройконтроля № 57 от 25.06.2026 бетонирование этой захватки запрещено до устранения нарушения по защитному слою (факт 12–15 мм при проектных 25 мм) и его повторного предъявления. Наряд-допуск исправлен по вчерашнему замечанию (добавлен контроль освещённости), но открывать его без ответа на второй вопрос нельзя: что с предписанием?</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: предписание № 57 (файл 05) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Предписание № 57 об устранении нарушений</div>
+              <p class="dm">Объект: ЖК «Уютный дом на Матвеева», секция 2. Дата: 25.06.2026.</p>
+              <p>Нарушение п. 1: при армировании плиты перекрытия на отм. +12,000 (захватка 2-Б) фактический защитный слой бетона в трёх местах составляет 12–15 мм при проектном 25 мм. Устранить, предъявить повторно к освидетельствованию <b>до 28.06.2026</b>.</p>
+              <p style="margin:0"><b>До устранения нарушения по п. 1 бетонирование захватки 2-Б запрещаю.</b></p>
+              <p class="dm" style="margin-top:8px">На утро среды в документах кейса нет акта повторного освидетельствования по п. 1 — устранение не подтверждено записью стройконтроля.</p>
+            </div></div>
+          </details>
+
+          <h3>Два условия должны закрыться одновременно</h3>
+          <p class="muted">Допуск по ОТ (наряд № 12, с исправленной мерой по освещённости) и снятие запрета стройконтроля по предписанию № 57 — два независимых условия. Готовности одного недостаточно. Прежде чем открывать демо-ответ, выберите верный вывод.</p>
+
+          <div class="opts" data-choice>
+            <button class="opt" data-fb="Исправленный наряд-допуск снимает только вчерашний пробел по освещённости — это условие ОТ. Запрет стройконтроля по предписанию № 57 действует отдельно и наряд-допуск его не отменяет.">
+              <b>Вариант A. Можно.</b> Наряд-допуск исправлен, меры безопасности полные — значит, бетонирование захватки 2-Б можно начинать по графику.
+              <small>Игнорирует независимый запрет стройконтроля по предписанию № 57</small>
+            </button>
+            <button class="opt" data-correct data-fb="Верно. Пока в документах нет подтверждения, что стройконтроль принял повторное освидетельствование защитного слоя по п. 1 предписания № 57, запрет на бетонирование захватки 2-Б действует — независимо от того, что наряд-допуск по ОТ уже готов. Открытие наряда становится возможным только после того, как оба условия закрыты, и решение фиксирует ответственное лицо (допускающий).">
+              <b>Вариант B. Условно — нельзя, пока не подтверждено обратное.</b> Наряд-допуск по ОТ готов, но открывать его для бетонирования захватки 2-Б нельзя, пока стройконтроль документально не подтвердит устранение нарушения по защитному слою и не снимет запрет предписания № 57. Решение об открытии — за ответственным лицом (допускающим), после проверки обоих условий.
+              <small>Оба условия — ОТ и стройконтроль — рассматриваются как независимые и обязательные</small>
+            </button>
+            <button class="opt" data-fb="«Устно уже согласовано» — не документ. Пока нет акта повторного освидетельствования, запрет предписания № 57 формально действует; на устную договорённость наряд-допуск открывать нельзя.">
+              <b>Вариант C.</b> Нельзя однозначно, но раз с прорабом уже устно согласовали, что дефект почти устранён, наряд можно открыть «под честное слово» с последующим оформлением документов.
+              <small>Подменяет документальное подтверждение устной договорённостью</small>
+            </button>
+          </div>
+          <div class="qfb" data-choice-fb></div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: сверка наряда-допуска с предписанием</div>
+            <div class="abody">
+              <p style="margin:0 0 8px"><b>Наблюдение:</b> наряд-допуск № 12 (файл 17) на бетонирование захватки 2-Б исправлен по мере освещённости; предписание № 57 (файл 05) запрещает бетонирование этой же захватки до устранения нарушения по защитному слою и повторного предъявления к освидетельствованию.</p>
+              <p style="margin:0 0 8px"><b>Черновик вывода:</b> раз наряд-допуск по ОТ готов, формально можно приступать.</p>
+              <p style="margin:0"><b>Подтверждено:</b> в приложенных документах нет акта повторного освидетельствования по п. 1 предписания № 57 — значит, запрет стройконтроля продолжает действовать. Вывод: <b>условно нельзя</b> — открытие наряда-допуска возможно только после того, как появится документальное подтверждение снятия запрета. ИИ не разрешает работы и не подтверждает, что документ готов к подписи; решение — за ответственным лицом.</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Вывод сделан только по двум приложенным документам (05, 17); статус на момент фактического обхода подтверждает инженер ОТ лично на площадке.</div>
+              <p class="promptdecision" style="margin:10px 0 0;font-weight:700">Решение — за ответственным лицом.</p>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт C3 из твоего промпт-пака ОТ</b> («Сверка наряда-допуска с предписанием и допуском к работам»).</p>
+          <div class="note">⚠️ <b>Красная линия.</b> Итоговое решение — открывать наряд-допуск или нет — принимает и фиксирует ответственное лицо (допускающий), а не ИИ и не сам инженер ОТ единолично на основании черновика.</div>
+        </div>
+      </div>
+      <!-- ═══════ ЭПИЗОД 4 · ДЕНЬ 4 ═══════ -->
+      <div class="ep e4" id="thu">
+        <div class="ephd">
+          <div class="epday">День 4</div>
+          <div class="ept"><b>ПДн-фильтр: ведомость персонала бригады</b><small>Второй квиз — что нельзя отправлять в публичный чат ⚠️</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 4, четверг. Нужно обсудить с ИИ состав бригады на захватке 2-Б — кто на площадке, какие роли, хватает ли людей на смену. Под рукой — ведомость персонала бригады. В ней не только табельные номера и должности, но и полный набор персональных данных. Прежде чем что-либо вставлять в чат-бот, нужно решить, что из документа вообще можно туда отправить.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: ведомость персонала бригады (файл 20) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Ведомость персонала бригады (имитация ПДн)</div>
+              <p class="dm">Объект: ЖК «Уютный дом на Матвеева», секция 2. Подрядчик: ООО «СтройМонолит».</p>
+              <div class="tw"><table class="doctbl">
+                <tr><th>№</th><th>ФИО</th><th>Таб. №</th><th>Должность</th><th>Дата рождения</th><th>СНИЛС</th><th>Телефон</th></tr>
+                <tr><td>1</td><td>Иванов Иван Иванович</td><td>2041</td><td>прораб</td><td>14.03.1985</td><td>111-222-333 44</td><td>+7 9ХХ ХХХ-12-34</td></tr>
+                <tr><td>2</td><td>Петров Сергей Олегович</td><td>2052</td><td>бригадир-бетонщик</td><td>02.07.1990</td><td>222-333-444 55</td><td>+7 9ХХ ХХХ-22-33</td></tr>
+                <tr><td>3</td><td>Сидоров Алексей Петрович</td><td>2053</td><td>арматурщик</td><td>19.11.1988</td><td>333-444-555 66</td><td>+7 9ХХ ХХХ-33-44</td></tr>
+                <tr><td>4</td><td>Кузнецова Мария Петровна</td><td>2054</td><td>геодезист</td><td>25.05.1992</td><td>444-555-666 77</td><td>+7 9ХХ ХХХ-44-55</td></tr>
+              </table></div>
+              <p class="dm" style="margin-top:8px">⚠️ ФИО, дата рождения, СНИЛС и телефон — персональные данные (ФЗ-152). Загружать эту таблицу как есть в публичный ИИ-сервис нельзя.</p>
+            </div></div>
+          </details>
+
+          <h3>🔍 Не всё, что в документе, можно вставлять в чат</h3>
+          <p class="muted">Задача — обсудить состав бригады с ИИ, не задача — переслать документ целиком. Прежде чем открыть демо-ответ, отметьте сами: какие столбцы ведомости безопасно отправить в публичный ИИ-сервис, а какие — никогда?</p>
+
+          <div data-quiz>
+            <p class="qq">Что можно отправить в публичный ИИ-чат из ведомости персонала бригады?</p>
+            <div class="opts">
+              <button class="opt" data-fb="Таблица целиком содержит ФИО, дату рождения, СНИЛС и телефон — прямые персональные данные по ФЗ-152. Отправлять документ как есть в публичный сервис нельзя ни при какой формулировке задачи.">Всю ведомость целиком — так у ИИ будет полный контекст по бригаде</button>
+              <button class="opt" data-correct data-fb="Верно. Табельный номер, должность и роль в бригаде не позволяют установить личность человека вне внутренней системы компании — с ними можно обсуждать состав бригады, не раскрывая ПДн. ФИО, дату рождения, СНИЛС и телефон убираем полностью.">Только табельный номер, должность и роль в бригаде — ФИО, дату рождения, СНИЛС и телефон убрать</button>
+              <button class="opt" data-fb="ФИО — это уже персональные данные само по себе, даже без телефона и СНИЛС. Оставлять имя и фамилию в публичном сервисе нельзя.">ФИО и должность — телефон и СНИЛС уберём, а имя пусть остаётся, для удобства общения</button>
+            </div>
+            <div class="qfb"></div>
+          </div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: обезличенная ведомость — «было → стало»</div>
+            <div class="abody">
+              <div class="tw"><table class="doctbl">
+                <tr><th>Было (документ, в публичный ИИ — нельзя)</th><th>Стало (обезличенный фрагмент для чата)</th></tr>
+                <tr><td>№2, Петров Сергей Олегович, таб. № 2052, бригадир-бетонщик, 02.07.1990, СНИЛС 222-333-444 55, +7 9ХХ ХХХ-22-33</td><td class="gap">Таб. № 2052 — бригадир-бетонщик</td></tr>
+              </table></div>
+              <p style="margin:10px 0 0">Остальные три строки обезличиваются по тому же принципу: остаются только табельный номер, должность и роль в бригаде. Сама ведомость с ПДн в публичный ИИ не загружается — это тренажёр на обезличенном фрагменте.</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Пример «было → стало» на одной строке, остальное — по аналогии, вручную, а не автоматической загрузкой полной таблицы куда-либо.</div>
+              <p class="promptdecision" style="margin:10px 0 0;font-weight:700">Решение — за ответственным лицом.</p>
+            </div>
+          </div>
+
+          <div class="note">⚠️ <b>Красная линия.</b> ПДн и медданные — никогда в публичный сервис. Правило «трёх нельзя»: персональные данные (ФЗ-152), коммерческая тайна, запрет политики работодателя. Для доверенного внутреннего ИИ-контура правила могут отличаться — но это отдельный контур, не публичный чат-бот.</div>
+          <p class="promptlink">📎 Это <b>промпт E4 из твоего промпт-пака ОТ</b> («Обезличивание ведомости персонала перед работой с ИИ») ⚠️ ПДн — не для публичного ИИ.</p>
+        </div>
+      </div>
+      <!-- ═══════ ЭПИЗОД 5 · ДЕНЬ 5 ═══════ -->
+      <div class="ep e5" id="fri">
+        <div class="ephd">
+          <div class="epday">День 5</div>
+          <div class="ept"><b>Недельная сводка по охране труда</b><small>Только из того, что подтверждено документами</small></div>
+        </div>
+        <div class="epbody">
+          <p>День 5, пятница, конец недели. Руководителю нужна короткая сводка: сколько инструктажей проведено, сколько нарядов-допусков открыто и закрыто, были ли нарушения. Соблазн — красиво закрыть неделю фразой «все допуски открыты, нарушений нет». Но по документам этой недели наряд-допуск № 12 так и не был открыт: предписание № 57 в среду ещё действовало, и подтверждения о его снятии в кейсе нет.</p>
+
+          <details class="doc">
+            <summary>📄 Открыть документ: данные за неделю (файлы 17, 05) <span class="chev">▾</span></summary>
+            <div class="docwrap"><div class="docpaper">
+              <div class="dt">Что подтверждено документами этой недели</div>
+              <ul>
+                <li>Понедельник: составлена программа первичного инструктажа для бетонщика (файл 17) — проведён 1 инструктаж на рабочем месте.</li>
+                <li>Вторник: наряд-допуск № 12 проверен на полноту мер; выявлен и учтён пробел — не был указан контроль освещённости.</li>
+                <li>Среда: наряд-допуск № 12 не открыт — предписание № 57 (файл 05) на бетонирование захватки 2-Б действует, акта повторного освидетельствования по п. 1 в документах нет.</li>
+                <li>Четверг: ведомость персонала бригады (файл 20) обезличена для внутреннего обсуждения состава бригады с ИИ; сама ведомость с ПДн в чат не загружалась.</li>
+              </ul>
+              <p class="dm" style="margin-top:8px">Данных о нарушениях СИЗ на этой неделе в приложенных документах нет — это не значит, что их не было, это значит, что по этим документам утверждать нельзя ни то, ни другое.</p>
+            </div></div>
+          </details>
+
+          <h3>Сводка — это то, что подтверждено, а не то, что хотелось бы написать</h3>
+          <p class="muted">Прежде чем принять черновик сводки, проверьте: не появилось ли в нём утверждение, которого нет в документах недели — например, что наряд-допуск открыт, хотя по факту он всю неделю оставался неоткрытым.</p>
+
+          <div class="opts" data-choice>
+            <button class="opt" data-fb="Формулировка «допуски открыты, нарушений нет» не подтверждена документами: наряд-допуск № 12 всю неделю оставался неоткрытым из-за предписания № 57, а данных о нарушениях СИЗ в кейсе просто нет — это не то же самое, что «нарушений не было».">
+              <b>Вариант A.</b> «За неделю проведён инструктаж, все допуски открыты, нарушений СИЗ не зафиксировано» — короткая позитивная сводка для руководителя.
+              <small>Утверждает то, что не подтверждено документами недели</small>
+            </button>
+            <button class="opt" data-correct data-fb="Верно. Сводка честно разделяет подтверждённые факты (1 инструктаж, 1 наряд-допуск проверен и доработан) и открытые вопросы (наряд не открыт из-за предписания, данных о нарушениях СИЗ в документах недели нет — не значит, что их не было). Ничего не додумано, статус каждого пункта — из документа, а не из желаемой картины.">
+              <b>Вариант B.</b> «Инструктажей проведено: 1 (первичный, бетонщик). Нарядов-допусков в работе: 1 (№12) — доработан по мере освещённости, но не открыт: действует предписание № 57 по той же захватке, подтверждения о снятии в документах нет. Данных о нарушениях СИЗ за неделю в приложенных документах нет — требует уточнения по ОЖР.»
+              <small>Разделяет подтверждённые факты и то, что «требует проверки», без додумывания</small>
+            </button>
+            <button class="opt" data-fb="Пропуск неудобного факта («наряд не открыт») ничем не лучше прямой выдумки: руководитель получит искажённую картину недели и примет решения на её основе.">
+              <b>Вариант C.</b> «Инструктаж проведён, работа по наряду-допуску идёт штатно» — про статус предписания № 57 в сводке лучше не упоминать, чтобы не создавать лишних вопросов.
+              <small>Замалчивает факт, который прямо влияет на решение руководителя</small>
+            </button>
+          </div>
+          <div class="qfb" data-choice-fb></div>
+
+          <div class="airesp">
+            <div class="at">🤖 Демо-ответ ИИ: недельная сводка по охране труда</div>
+            <div class="abody">
+              <p style="margin:0 0 8px"><b>Инструктажи:</b> проведён 1 первичный инструктаж на рабочем месте (бетонщик, участок — секция 2, работы на высоте).</p>
+              <p style="margin:0 0 8px"><b>Допуски:</b> наряд-допуск № 12 рассмотрен и доработан (добавлена мера — контроль освещённости), но не открыт: бетонирование захватки 2-Б остаётся под запретом предписания № 57 до документального подтверждения устранения нарушения по защитному слою. Открытие наряда — решение ответственного лица (допускающего), не ИИ.</p>
+              <p style="margin:0"><b>Нарушения:</b> по документам, приложенным на этой неделе, данных о нарушениях СИЗ нет. Это не подтверждение отсутствия нарушений — статус «требует проверки» по ОЖР и записям планёрок.</p>
+              <div class="simlabel">⚠️ Ответ смоделирован — демонстрация работы. Числа и статусы — только по документам недели (17, 05, 20); ничего сверх этого не добавлено.</div>
+              <p class="promptdecision" style="margin:10px 0 0;font-weight:700">Решение — за ответственным лицом.</p>
+            </div>
+          </div>
+          <p class="promptlink">📎 Это <b>промпт E2 из твоего промпт-пака ОТ</b> («Недельная сводка по охране труда руководителю»).</p>
+          <div class="note">⚠️ <b>Красная линия.</b> ИИ не допускает к работам, не утверждает наряды-допуски и не подтверждает статус, которого нет в документах. Финальное решение по каждому открытому вопросу недели — за ответственным лицом.</div>
+          <div class="note green">✅ Неделя закрыта одним пакетом: программа инструктажа → проверка наряда-допуска → сверка с предписанием → ПДн-фильтр → честная сводка. На каждом шаге ИИ готовит черновик и подсвечивает пробел — решение и подпись остаются за ответственным лицом.</div>
+        </div>
+      </div>
+      <!-- ═══════ ФИНАЛ (а): LIVE-CHAT ШЛЮЗ ═══════ -->
+      <section class="sec" id="livechat">
+        <p class="stp">6 · Финал · Сделай в живом чате</p>
+        <h2>Повтори один эпизод на своём материале</h2>
+        <div class="livechat">
+          <p>Выберите любой из пяти эпизодов, который ближе к вашей текущей работе, возьмите соответствующий промпт из блока «Мой ИИ-набор инженера ОТ» ниже и выполните его в реальном чат-боте — но <b>на своём документе</b> (обезличенно: без реальных ФИО, СНИЛС и телефонов бригады). Вставьте результат сюда.</p>
+          <div class="lcbtns">
+            <a class="lcbtn" href="https://giga.chat" target="_blank" rel="noopener"><span class="dotc" style="background:var(--blue)"></span> GigaChat</a>
+            <a class="lcbtn" href="https://alice.yandex.ru" target="_blank" rel="noopener"><span class="dotc" style="background:var(--purple)"></span> Алиса / YandexGPT</a>
+          </div>
+          <div class="review">
+            <label>Вставь сюда результат, который вернул чат-бот на твоём материале</label>
+            <textarea id="lcResult" rows="6" placeholder="Например: программа инструктажа под свою профессию, проверка своего наряда-допуска на полноту мер, сверка с предписанием, обезличенный фрагмент ведомости, недельная сводка по ОТ…"></textarea>
+          </div>
+          <div class="lcgate">
+            <input type="checkbox" id="lcConfirm">
+            <label for="lcConfirm">Я выполнил один эпизод на своём материале и сверил результат с документом</label>
+          </div>
+          <p class="lcstatus" id="lcStatus">Итог пилота откроется после того, как вы вставите результат и отметите чекбокс.</p>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору — <b>итоговая проверка пилота</b>. В демо-комплекте гейт работает локальным JS (без сохранения и отправки данных); на платформе это событие фиксируется в личном кабинете как завершение мини-финала.
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════ ФИНАЛ (б): МОЙ ИИ-НАБОР ИНЖЕНЕРА ОТ ═══════ -->
+      <div class="lockwrap" id="kitWrap">
+        <section class="sec locked" id="kit">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">7 · Финал · Мой ИИ-набор инженера ОТ</p>
+          <h2>Пять промптов недели — ваш рабочий инструмент</h2>
+          <p class="muted">Это итог пилотного среза: пять промптов из промпт-пака ОТ, по одному на каждый эпизод недели. Копируйте и используйте на своих задачах. Не забывайте прикладывать документ и грунтовку против выдумок: «используй только данные из документа; чего нет — не выдумывай, помечай <i>[уточнить]</i>». И главное — ИИ помогает с черновиком, но <b>утверждает инструктажи и наряды-допуски только ответственное лицо</b>.</p>
+          <div class="kit">
+            <div class="kititem">
+              <div class="kh"><span class="kcode">B1</span> Программа первичного инструктажа на рабочем месте <span class="kday">День 1</span></div>
+              <div class="kprompt" id="p1">Ты — инженер ОТ. Контекст: приложена программа вводного инструктажа (6 пунктов: общие сведения об объекте, опасные факторы, СИЗ, работа у башенного крана, действия при ЧС, порядок допуска к работам повышенной опасности). Задача: на её основе составь программу первичного инструктажа на рабочем месте для бетонщика на нашем объекте (участок — секция 2, работы на высоте, бетонирование). Формат: нумерованная программа, 6–8 пунктов, специфичных для профессии.
+Программа вводного инструктажа: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p1">📋 Скопировать B1</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">C1</span> Проверка наряда-допуска на полноту мер безопасности <span class="kday">День 2</span></div>
+              <div class="kprompt" id="p2">Ты — инженер ОТ. Контекст: наряд-допуск № 12 на бетонирование плиты перекрытия на высоте (отм. +12,000, захватка 2-Б), меры: ограждение зоны, страховочные привязи, проверка подмостей и опалубки, запрет при ветре &gt; 15 м/с и грозе. Задача: проверь ТОЛЬКО по приложенному тексту, все ли обязательные для работ на высоте меры перечислены, и явно укажи, чего, по-твоему, не хватает — не утверждай однозначно, а помечай как вопрос для проверки ответственным. Не добавляй меры, которые не относятся к описанным работам. Формат: таблица «мера безопасности → указана в наряде? → комментарий». Утверждение наряда-допуска — только ответственное лицо.
+Наряд-допуск: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p2">📋 Скопировать C1</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">C3</span> Сверка наряда-допуска с предписанием и допуском к работам <span class="kday">День 3</span></div>
+              <div class="kprompt" id="p3">Ты — инженер ОТ. Задача: проверь, можно ли открывать наряд-допуск № 12 на бетонирование захватки 2-Б, если по предписанию стройконтроля № 57 бетонирование этой захватки запрещено до устранения нарушения по защитному слою. Дай вывод «можно / нельзя / условно» с обоснованием. Формат: короткий вывод + перечень оснований. Финальное решение — за ответственным лицом.
+Документы: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p3">📋 Скопировать C3</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">E4</span> Обезличивание ведомости персонала перед работой с ИИ <span class="kday">День 4</span></div>
+              <div class="kprompt" id="p4">Ты — инженер ОТ. Задача: покажи, как обезличить приложенную ведомость персонала бригады так, чтобы её можно было обсуждать с ИИ: убери ФИО, СНИЛС, дату рождения, телефон — оставь только табельный номер, должность и роль в бригаде. Формат: пример «было → стало» на одной строке таблицы. Саму ведомость с ПДн в публичный ИИ не загружай — это тренажёр на обезличенном фрагменте.</div>
+              <button class="btn sm dark kbtn" data-copy="p4">📋 Скопировать E4</button>
+            </div>
+            <div class="kititem">
+              <div class="kh"><span class="kcode">E2</span> Недельная сводка по охране труда руководителю <span class="kday">День 5</span></div>
+              <div class="kprompt" id="p5">Ты — инженер ОТ. Задача: собери из приложенных данных (наряды-допуски, инструктажи, ОЖР) недельную сводку по ОТ: сколько инструктажей проведено, сколько нарядов-допусков открыто/закрыто, были ли нарушения. Формат: 3 блока (инструктажи / допуски / нарушения), до 130 слов.
+Данные за неделю: [вставьте]</div>
+              <button class="btn sm dark kbtn" data-copy="p5">📋 Скопировать E2</button>
+            </div>
+          </div>
+          <p class="promptlink" id="kitMsg" style="min-height:16px"></p>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает <b>«Паспорт навыков»</b>: прохождение мини-финала засчитывается в общий прогресс участника.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════ ФИНАЛ (в): ЧЕК-ЛИСТ САМОПРОВЕРКИ ═══════ -->
+      <div class="lockwrap" id="selfcheckWrap">
+        <section class="sec locked" id="selfcheck">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">8 · Финал · Самопроверка</p>
+          <h2>Чек-лист: неделя инженера ОТ пройдена</h2>
+          <ul class="selfcheck" id="scList">
+            <li><label><input type="checkbox"> Программу первичного инструктажа я собрал как конкретизацию утверждённых 6 пунктов под профессию, не пропустив и не выдумав ни одного пункта</label></li>
+            <li><label><input type="checkbox"> В наряде-допуске № 12 я сам заметил пробел — отсутствие контроля освещённости — и отметил, что применимость нормы (883н) нужно свериться по первоисточнику, а не поверил названному номеру на слово</label></li>
+            <li><label><input type="checkbox"> Я не открыл (и не разрешил открыть) наряд-допуск, пока предписание № 57 по той же захватке не снято документально — вывод «условно нельзя», а не «наверное, можно»</label></li>
+            <li><label><input type="checkbox"> Из ведомости персонала бригады в чат-бот ушли только табельный номер, должность и роль — ФИО, СНИЛС, дата рождения и телефон остались вне публичного ИИ</label></li>
+            <li><label><input type="checkbox"> В недельной сводке я написал «наряд не открыт» и «данных нет — требует проверки» там, где это правда, а не подменил это красивой формулировкой «всё штатно»</label></li>
+            <li><label><input type="checkbox"> Один эпизод я повторил в живом чате на своём материале и сверил результат с документом; помню красную линию — ИИ не допускает к работам, наряд-допуск утверждает ответственное лицо, ПДн и медданные — никогда в публичный сервис</label></li>
+          </ul>
+          <div class="scbar"><i id="scBar"></i></div>
+          <div class="scmsg" id="scMsg">0 из 6 — пройдитесь по списку</div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает <b>«Паспорт навыков»</b>: прохождение мини-финала засчитывается в общий прогресс участника, а самопроверка становится финальной отметкой пилотного среза инженера ОТ.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════ ФИНАЛ (г): CURATOR / отправка ═══════ -->
+      <div class="lockwrap" id="practiceWrap">
+        <section class="sec locked" id="practice">
+          <span class="lockbadge">🔒 Сначала блок «Сделай в живом чате»</span>
+          <p class="stp">9 · Сдача куратору</p>
+          <h2>Отправьте результат мини-финала</h2>
+          <p class="muted">Вставьте результат эпизода, который вы выполнили на своём материале, и e-mail для ответа куратора. Напоминаем про обезличивание: без реальных ФИО, СНИЛС, телефонов бригады и других персональных данных.</p>
+          <div class="review">
+            <label>Что получилось — вставьте результат от ИИ</label>
+            <textarea id="sRes" rows="4" placeholder="Результат вашего эпизода"></textarea>
+            <label>Ваш e-mail для ответа куратора</label>
+            <input id="sEmail" type="email" placeholder="you@example.ru">
+            <div style="margin-top:12px"><button class="btn" id="sendRev">⬇ Скачать моё задание .txt</button>
+              <span class="muted" id="revMsg" style="margin-left:10px;font-size:12.5px"></span></div>
+          </div>
+          <div class="transfer-note">
+            <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+            Здесь платформа подключает отправку куратору — <b>проверка №4</b> (см. паспорта шагов) — итоговая проверка ролевого мини-финала. В демо-комплекте вместо реальной отправки — локальное скачивание .txt с текстом задания, ничего никуда не отправляется.
+          </div>
+          <div class="note green" style="margin-top:18px">⬆️ <b>Ассистент закрепил навык «сквозной пакет инженера ОТ за неделю».</b> Что забрать: пять промптов работают в связке; у любой проверки должен быть документ-источник, а у любого пробела — прямой вопрос ответственному, а не додуманный ответ. Красная линия: ИИ не допускает к работам, наряд-допуск утверждает ответственное лицо, ПДн и медданные — никогда в публичный сервис.</div>
+        </section>
+      </div>
+
+      <!-- MATERIALS -->
+      <section class="sec" id="materials">
+        <p class="stp">Материалы урока</p>
+        <h2>Материалы мини-финала</h2>
+        <p class="muted">Всё содержимое этого шага — тексты, документы кейса и HTML-интерактив — собрано в один архив.</p>
+        <div class="materials">
+          <ul class="mlist">
+            <li><span class="mico">📝</span><span>Конспект мини-финала и драматургия недели (текст)</span></li>
+            <li><span class="mico">📁</span><span>Документы кейса «Уютный дом на Матвеева»: инструктаж и наряд-допуск № 12 (17), предписание № 57 (05), ведомость персонала и ПДн (20), нормативная подложка (10)</span></li>
+            <li><span class="mico">🧰</span><span>Промпт-пак ОТ (промпты B1, C1, C3, E4, E2)</span></li>
+            <li><span class="mico">🌐</span><span>HTML-интерактив урока (этот файл)</span></li>
+          </ul>
+          <div class="dl">
+            <a class="btn dark" href="materials/shag-final-ot.zip">⬇ Скачать архив материалов</a>
+          </div>
+          <p class="mcap">Для команды переноса: архив содержит всё содержимое шага; сам интерактив публикуется на GitHub Pages и подключается через iframe.</p>
+        </div>
+      </section>
+
+      <!-- COURSE NAV -->
+      <div class="coursenav">
+        <a href="index.html"><span>←</span><span><small>Пилот ОТ</small>Ко всем шагам</span></a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="asst" id="asstWidget">
+        <div class="hd"><div class="ico">🤖</div><div><b>Ваш ИИ-ассистент</b><br><span id="asstLvlLabel"></span></div></div>
+        <div class="lvltrack" id="asstTrack"></div>
+        <ul class="caps" id="asstCaps"></ul>
+        <div class="note" style="margin-top:12px;font-size:12px" id="asstNote"></div>
+        <div class="transfer-note">
+          <div class="tnlabel">⚙ Для переноса в платформу Актион</div>
+          Уровень задаётся константой ASSISTANT_LEVEL в JS. На платформе виджет принимает прогресс участника извне (проброс прогресса, П-6), не хардкодится в HTML урока.
+        </div>
+      </div>
+      <script>
+      (function(){
+        var ASSISTANT_LEVEL = 3;
+        var ASSISTANT_LEVELS = [
+          {icon:'💬', name:'Голый чат',            desc:'отвечает «из головы», без вашего контекста'},
+          {icon:'🎭', name:'Роль и контекст',       desc:'знает, кто вы и на каком объекте работаете'},
+          {icon:'📚', name:'Библиотека промптов',   desc:'типовые задачи инженера ОТ по готовым шаблонам'},
+          {icon:'📄', name:'Документы и знания',    desc:'работает с нарядами-допусками, инструктажами и предписаниями по охране труда'},
+          {icon:'🧰', name:'Рабочий набор',         desc:'инструменты и агентные сценарии под роль'}
+        ];
+        var ASSISTANT_UNLOCK_NOTE = 'Мини-финал закрепил уровень 3: сквозной пакет инженера ОТ за неделю на своих документах. Дальше — уровень 4: инструменты и агент.';
+        var L=Math.max(0,Math.min(4,ASSISTANT_LEVEL));
+        document.getElementById('asstLvlLabel').textContent='Уровень '+L+' · '+ASSISTANT_LEVELS[L].name;
+        var track=document.getElementById('asstTrack');
+        for(var i=0;i<ASSISTANT_LEVELS.length;i++){var seg=document.createElement('i');if(i<L)seg.className='on';else if(i===L)seg.className='cur';track.appendChild(seg);}
+        var caps=document.getElementById('asstCaps');
+        ASSISTANT_LEVELS.forEach(function(lv,i){
+          var li=document.createElement('li');
+          if(i<L){li.innerHTML='<span class="s">✅</span><span>'+lv.name+'</span>';}
+          else if(i===L){li.className='cur';li.innerHTML='<span class="s">✅</span><span><b>'+lv.name+'</b><span class="newb">этот урок</span><small>'+lv.desc+'</small></span>';}
+          else{li.className='lock';li.innerHTML='<span class="s">🔒</span><span>'+lv.name+'<small>'+lv.desc+'</small></span>';}
+          caps.appendChild(li);
+        });
+        var noteEl=document.getElementById('asstNote');
+        if(ASSISTANT_UNLOCK_NOTE){noteEl.innerHTML='🔜 '+ASSISTANT_UNLOCK_NOTE;}else{noteEl.style.display='none';}
+      })();
+      </script>
+    </aside>
+  </div>
+</div>
+
+<script>
+/* ── INTRO SCREENS ── */
+(function(){
+  var scr=document.querySelectorAll('#intro .screen');if(!scr.length)return;
+  var prog=document.getElementById('scrProgress'),prev=document.getElementById('scrPrev'),next=document.getElementById('scrNext'),cur=0;
+  for(var i=0;i<scr.length;i++){var d=document.createElement('div');d.className='dot';prog.appendChild(d);}
+  function paint(){
+    scr.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+    [].forEach.call(prog.children,function(d,i){d.classList.toggle('on',i<=cur);});
+    prev.disabled=(cur===0);
+    next.textContent=(cur===scr.length-1)?'✓ Понятно':'Дальше →';
+  }
+  prev.addEventListener('click',function(){if(cur>0){cur--;paint();}});
+  next.addEventListener('click',function(){if(cur<scr.length-1){cur++;paint();}else{next.disabled=true;}});
+  paint();
+})();
+
+/* ── CHOICE (выбор варианта с фидбеком) ── */
+(function(){
+  document.querySelectorAll('[data-choice]').forEach(function(group){
+    var fb=group.parentNode.querySelector('[data-choice-fb]');
+    group.querySelectorAll('.opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var ok=btn.hasAttribute('data-correct');
+        group.querySelectorAll('.opt').forEach(function(b){
+          b.disabled=true;
+          if(b.hasAttribute('data-correct'))b.classList.add('ok');
+        });
+        if(!ok)btn.classList.add('err');
+        if(fb)fb.innerHTML='<div class="note '+(ok?'green':'red')+'">'+(ok?'✅ <b>Верно.</b> ':'❌ <b>Не то.</b> ')+(btn.dataset.fb||'')+'</div>';
+      });
+    });
+  });
+})();
+
+/* ── QUIZ ── */
+(function(){
+  document.querySelectorAll('[data-quiz]').forEach(function(q){
+    var fb=q.querySelector('.qfb');
+    q.querySelectorAll('.opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var ok=btn.hasAttribute('data-correct');
+        q.querySelectorAll('.opt').forEach(function(b){
+          b.disabled=true;
+          if(b.hasAttribute('data-correct'))b.classList.add('ok');
+        });
+        if(!ok)btn.classList.add('err');
+        if(fb)fb.innerHTML='<div class="note '+(ok?'green':'red')+'">'+(ok?'✅ <b>Верно.</b> ':'❌ <b>Не совсем.</b> ')+(btn.dataset.fb||'')+'</div>';
+      });
+    });
+  });
+})();
+
+/* ── KIT COPY (Мой ИИ-набор) ── */
+(function(){
+  var msg=document.getElementById('kitMsg');
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.getAttribute('data-copy'));if(!el)return;
+      navigator.clipboard.writeText(el.textContent).then(function(){
+        if(msg){msg.textContent='Промпт скопирован ✓';setTimeout(function(){msg.textContent='';},2500);}
+      }).catch(function(){if(msg)msg.textContent='Выделите и скопируйте вручную';});
+    });
+  });
+})();
+
+/* ── LIVE-CHAT GATE ── */
+(function(){
+  var result=document.getElementById('lcResult'),confirm=document.getElementById('lcConfirm');
+  if(!result||!confirm)return;
+  var status=document.getElementById('lcStatus');
+  var lockTargets=[document.getElementById('kit'),document.getElementById('selfcheck'),document.getElementById('practice')];
+  var lockWraps=[document.getElementById('kitWrap'),document.getElementById('selfcheckWrap'),document.getElementById('practiceWrap')];
+  function upd(){
+    var ready=result.value.trim().length>0 && confirm.checked;
+    lockTargets.forEach(function(el){if(el)el.classList.toggle('locked',!ready);});
+    lockWraps.forEach(function(w){if(w)w.classList.toggle('is-locked',!ready);});
+    if(status){
+      status.textContent=ready?'✅ Итог пилота открыт — забирайте свой ИИ-набор ниже.':'Итог пилота откроется после того, как вы вставите результат и отметите чекбокс.';
+      status.classList.toggle('ready',ready);
+    }
+  }
+  result.addEventListener('input',upd);
+  confirm.addEventListener('change',upd);
+  upd();
+})();
+
+/* ── SELFCHECK ── */
+(function(){
+  var list=document.getElementById('scList');if(!list)return;
+  var boxes=list.querySelectorAll('input[type=checkbox]'),bar=document.getElementById('scBar'),msg=document.getElementById('scMsg');
+  function upd(){
+    var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+    bar.style.width=(100*n/boxes.length)+'%';
+    msg.textContent=(n===boxes.length)?'✅ Все '+n+' пунктов — мини-финал пройден':(n+' из '+boxes.length+' — пройдитесь по списку');
+    msg.style.color=(n===boxes.length)?'var(--green)':'var(--muted)';
+  }
+  boxes.forEach(function(b){b.addEventListener('change',upd);});
+  upd();
+})();
+
+/* ── CURATOR (демо: скачивание .txt) ── */
+(function(){
+  var btn=document.getElementById('sendRev');if(!btn)return;
+  btn.addEventListener('click',function(){
+    var res=document.getElementById('sRes').value.trim(),
+        email=document.getElementById('sEmail').value.trim(),
+        m=document.getElementById('revMsg');
+    if(!res){m.textContent='Вставьте результат';return;}
+    var raw='Мини-финал инженера ОТ (неделя инженера ОТ с ИИ) — задание на проверку · проверка №4\n\nРезультат:\n'+res+'\n\nОтвет на e-mail: '+email;
+    var blob=new Blob([raw],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='zadanie-mini-final-ot.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    m.textContent='Файл скачан ✓';
+  });
+})();
+</script>
+</body>
+</html>

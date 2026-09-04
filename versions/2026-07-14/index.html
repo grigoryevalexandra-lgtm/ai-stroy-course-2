@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ИИ в строительстве — программа курса</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --bg:#ffffff; --card:#faf8f5; --card2:#f3efe9; --ink:#1a1814; --muted:#6f7280;
+    --line:#e9e4dc; --brand:#e2231a; --blue:#237cf9; --green:#1f9d57; --yellow:#f5b500; --purple:#9b5de5;
+    --r:16px; --rs:10px; --font:'Proxima Nova','Helvetica Neue','Segoe UI',Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1560px;margin:0 auto;padding:0 18px 70px}
+  a{color:var(--blue);text-decoration:none}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);margin-bottom:22px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px}.logo .red{color:var(--brand)}.logo .sep{color:var(--muted);font-weight:600}
+  .school{font-size:13px;color:var(--muted);font-weight:600}.topbar .sp{flex:1}
+  .pill{display:inline-block;background:#efe7fb;color:var(--purple);border:1px solid #ddc9f6;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700}
+  .kicker{font-size:12.5px;letter-spacing:.04em;color:var(--muted);font-weight:700;margin:0 0 8px;text-transform:uppercase}
+  .rule{display:inline-block;width:46px;height:4px;border-radius:3px;vertical-align:middle}
+  h1{font-size:30px;line-height:1.1;margin:6px 0 4px;font-weight:800;letter-spacing:-.01em}
+  .slogan{font-size:15.5px;font-weight:700;margin:0 0 18px}
+  .layout{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}
+  /* menu */
+  .menu{position:sticky;top:14px;display:flex;flex-direction:column;gap:5px}
+  .mtitle{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:800;margin:4px 0 6px 4px}
+  .sec-head{cursor:pointer;border:1px solid var(--line);background:var(--bg);border-radius:11px;padding:11px 13px;transition:.13s;display:flex;gap:10px;align-items:center}
+  .sec-head:hover{border-color:var(--ink)}
+  .sec-head.on{border-color:var(--ink);background:var(--card)}
+  .sec-head .bar{width:4px;align-self:stretch;border-radius:3px;background:var(--line);flex:0 0 auto}
+  .sec-head.on .bar{background:var(--blue)}
+  .sec-head .tx{flex:1;min-width:0}
+  .sec-head .lbl{font-size:14px;font-weight:700}
+  .sec-head .sub{font-size:11.5px;color:var(--muted)}
+  .sec-head .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:0 0 auto}
+  .sec-head .dot.hidden{visibility:hidden}
+  .chev{flex:0 0 auto;color:var(--muted);transition:.2s;font-size:12px}
+  .sec-head.open .chev{transform:rotate(90deg)}
+  .lessons{display:none;flex-direction:column;gap:3px;margin:3px 0 6px 16px;padding-left:12px;border-left:2px solid var(--line)}
+  .lessons.open{display:flex}
+  .lrow{cursor:pointer;font-size:13px;padding:8px 9px;border-radius:8px;display:flex;gap:9px;align-items:flex-start;transition:.1s}
+  .lrow:hover{background:var(--card)}
+  .lrow.on{background:var(--card);box-shadow:inset 2px 0 0 var(--blue)}
+  .lrow .ln{font-size:11px;color:var(--muted);font-weight:700;min-width:26px;flex:0 0 auto;padding-top:1px}
+  .lrow.on .ln{color:var(--ink)}
+  .lrow .lt{flex:1}
+  .lrow .lp{width:7px;height:7px;border-radius:50%;background:var(--green);flex:0 0 auto;margin-top:5px}
+  /* content */
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 11px}
+  .badge.ready{background:#e7f6ee;color:#157a41;border:1px solid #bfe6cf}
+  .badge.soon{background:var(--card2);color:var(--muted);border:1px solid var(--line)}
+  .badge .d{width:7px;height:7px;border-radius:50%;background:var(--green)}
+  .crumb{font-size:12.5px;color:var(--muted);font-weight:600;margin-bottom:4px}
+  .crumb a{cursor:pointer}
+  h2{font-size:23px;margin:8px 0 2px;font-weight:800;letter-spacing:-.01em}
+  .csub{color:var(--muted);font-size:14.5px;margin:0 0 14px}
+  .promise{background:var(--card);border-left:4px solid var(--brand);border-radius:10px;padding:12px 15px;font-size:15px;font-weight:600;margin:14px 0}
+  .lbl2{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:800;margin:18px 0 6px}
+  .inside{list-style:none;padding:0;margin:0}
+  .inside li{padding:7px 0 7px 24px;position:relative;font-size:14px;border-bottom:1px solid var(--line)}
+  .inside li:last-child{border-bottom:none}
+  .inside li:before{content:"→";position:absolute;left:0;color:var(--blue);font-weight:800}
+  .result{background:#eef8f1;border:1px solid #cdebd8;border-radius:10px;padding:13px 15px;font-size:14.5px;margin-top:8px}
+  .result b{color:#157a41}
+  .hook{font-size:14px;margin-top:12px}.hook .h{color:var(--brand);font-weight:800}
+  .ldesc{font-size:15px;margin:14px 0}
+  .openbtn{display:inline-block;font-size:13.5px;font-weight:700;background:var(--ink);color:#fff;border-radius:9px;padding:10px 16px;margin-top:6px}
+  .protos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px}
+  .pcard{border:1px solid #bfe6cf;background:#f4fbf6;border-radius:12px;padding:14px 16px}
+  .pcard .pt{font-weight:800;font-size:14.5px;margin-bottom:3px}.pcard .pn{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+  .pcard a{display:inline-block;font-size:13px;font-weight:700;background:var(--ink);color:#fff;border-radius:9px;padding:8px 14px}
+  .navbtns{display:flex;justify-content:space-between;gap:10px;margin-top:24px}
+  .navbtns a{cursor:pointer;font-size:13px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:9px;padding:9px 14px}
+  .navbtns a:hover{border-color:var(--ink);color:var(--ink)}
+  .foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:820px){.layout{grid-template-columns:1fr}.menu{position:static}.modal{padding:0}.modal-box{border-radius:0}}
+  a[onclick]{cursor:pointer}
+  .openbtn{cursor:pointer}.pcard a{cursor:pointer}
+  /* modal */
+  .modal{position:fixed;inset:0;background:rgba(20,18,15,.6);display:none;z-index:50;padding:20px}
+  .modal.open{display:flex}
+  .modal-box{background:var(--bg);border-radius:16px;width:min(1120px,100%);height:100%;margin:auto;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);flex:0 0 auto}
+  .mh-title{font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mh-actions{display:flex;gap:10px;align-items:center;flex:0 0 auto}
+  .mh-link{font-size:13px;font-weight:700;color:var(--blue)}
+  .mh-close{cursor:pointer;border:1px solid var(--line);background:var(--bg);border-radius:9px;padding:8px 14px;font-weight:700;font-size:13px;color:var(--ink)}
+  .mh-close:hover{border-color:var(--ink)}
+  #modalFrame{border:0;width:100%;flex:1;background:#fff}
+  .modal-mobile{}
+.inl-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 10px}
+.inl-close{cursor:pointer;color:#c62828;font-weight:700;white-space:nowrap}
+.inl-frame{width:100%;height:82vh;border:1px solid #e2e5ea;border-radius:12px;background:#fff}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.matbtn2{display:inline-block;border:2px solid #111;color:#111;padding:8px 15px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer}
+.matbtn2:hover{background:#111;color:#fff}
+html,body{overflow-x:hidden}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <span class="logo"><span class="red">АКТИОН</span> <span class="sep">Строительство</span></span>
+    <span class="school">· Высшая инженерная школа</span>
+    <span class="sp"></span>
+    <span class="pill">Программа курса</span>
+  </div>
+  <div class="kicker">Онлайн-курс <span class="rule" style="background:var(--brand)"></span></div>
+  <h1>ИИ в строительстве</h1>
+  <p class="slogan">30 шагов: рабочий ИИ-инструмент для строителя</p>
+
+  <div class="layout">
+    <nav class="menu" id="menu"></nav>
+    <main class="content card" id="content"></main>
+  </div>
+  <div class="foot">Курс «ИИ в строительстве» · Высшая инженерная школа (Актион Строительство)</div>
+</div>
+
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="mh-title" id="modalTitle">Урок</div>
+      <div class="mh-actions">
+        <button class="mh-close" id="modalClose">✕ Закрыть</button>
+      </div>
+    </div>
+    <iframe id="modalFrame" title="Интерактивный урок" loading="lazy"></iframe>
+  </div>
+</div>
+
+<script>
+const SECTIONS=[
+  {id:'start', lbl:'Старт', sub:'Подготовь инструмент',
+   promise:'За 15 минут у вас есть рабочий ИИ и понимание, что ему можно доверить.',
+   aboutTxt:'Снимаем барьер входа: выбираем и регистрируем инструмент, делаем первый запрос и разбираем главное правило безопасности.',
+   inside:['Выбор и регистрация инструмента','Правило «трёх нельзя»','Бесплатное против платного'],
+   result:'Вы готовы к практике и не боитесь «слить лишнее». Ассистент — Уровень 0.',
+   steps:[{n:0,t:'Старт',url:'lesson-shag-00.html',
+     desc:'Снимаем барьер входа: за 10 минут регистрируете GigaChat или YandexGPT (оба работают в РФ без VPN), делаете первый запрос и запоминаете правило «трёх нельзя» — что нельзя загружать. В конце короткий разбор: что бесплатно, а где начинаются лимиты.'}]},
+
+  {id:'w1', lbl:'Неделя 1', sub:'Основы и первый результат',
+   promise:'К концу недели вы получаете от ИИ полезный ответ с первого раза, а не «воду».',
+   aboutTxt:'Разбираемся, как ИИ «думает» и почему уверенно ошибается, учимся давать ему роль и контекст и сразу проверять результат.',
+   inside:['Как ИИ предсказывает текст','Где он врёт и как это ловить','Безопасность данных','Формула сильного запроса','Почему ИИ «глупеет» без ваших документов','Что делать при отказе/ошибке'],
+   result:'Вы пишете рабочее письмо за минуты и отличаете надёжный ответ от выдумки. Ассистент — Уровень 1.',
+   hook:'То, на что уходил час, начинает занимать пять минут — уже на первой неделе.',
+   steps:[
+     {n:1,t:'Как ИИ «думает»',url:'lesson-shag-01.html',
+      desc:'Тренажёр предсказания следующего слова: вы сами «собираете» фразу и видите, что ИИ не достаёт факт из базы, а продолжает текст по вероятностям. Отсюда становится понятно, почему он звучит уверенно даже когда ошибается.'},
+     {n:2,t:'Где ИИ врёт и как проверять',url:'lesson-shag-02.html',
+      desc:'Учимся ловить галлюцинации. В ответе ИИ по нормативу спрятана выдумка — несуществующий пункт СП и приказ. Вы находите её и осваиваете правило: любую норму и цифру сверяем с первоисточником.'},
+     {n:3,t:'Что нельзя загружать',url:'lesson-shag-03.html',
+      desc:'Сортируете документы по корзинам «можно / только доверенный ИИ / нельзя». Разбираем персональные данные (ФЗ-152), коммерческую тайну и политику работодателя — на конкретных строительных примерах.'},
+     {n:4,t:'Формула сильного запроса',url:'lesson-shag-04.html',
+      desc:'Конструктор промпта: добавляете роль, контекст, задачу и формат — и ответ на глазах становится точным. Заберёте универсальную формулу запроса, которая работает в любом ИИ-чате.'},
+     {n:5,t:'Контекст решает: ИИ не знает вашу компанию',url:'lesson-1.html',
+      desc:'Тренажёр «без / с документами»: один и тот же вопрос даёт ответ «в среднем по рынку» — или точный со ссылкой, когда подключаешь свои файлы. Дальше практика на своей задаче и отправка на проверку куратору.'},
+     {n:6,t:'Когда ИИ отказывает или ошибается',url:'lesson-shag-06.html',
+      desc:'Разбираем типовые тупики: модель отказалась, ответ убедителен но неверен, нужная функция платная. Что делать в каждом случае и как сделать проверку фактов привычкой.'},
+     {n:7,t:'Практикум: первое рабочее письмо',url:'lesson-shag-07.html',
+      desc:'Берёте свою реальную задачу — письмо или служебную записку — и проходите весь путь с ИИ от запроса до готового текста. Первый рабочий результат отправляется в личную копилку.'}]},
+
+  {id:'w2', lbl:'Неделя 2', sub:'Документы в работе',
+   promise:'ИИ становится вашим «черновиком по умолчанию» для любого рабочего документа.',
+   aboutTxt:'Самая отдачливая неделя: ИИ снимает бумажную нагрузку — ответы на предписания, инструкции, длинные договоры, отчёты. Заводите личную библиотеку промптов.',
+   inside:['Устойчивый шаблон запроса','Обучаем ИИ стилю на примерах','Рабочие документы под роль','Выжимка из длинного договора','Презентации и отчёты','Личная библиотека шаблонов'],
+   result:'Документы собираются по вашим шаблонам в один-два запроса. Ассистент — Уровень 2.',
+   hook:'Один раз настроили шаблон ответа на предписание — и дальше он экономит часы каждую неделю.',
+   steps:[
+     {n:8,t:'Пять кирпичей надёжного промпта',url:'lesson-shag-08.html',
+      desc:'Углубляем формулу запроса до устойчивого шаблона: роль, контекст, задача, примеры, формат. С этого шага начинаете вести личную библиотеку промптов.'},
+     {n:9,t:'Учим ИИ своему стилю на примерах',url:'lesson-shag-09.html',
+      desc:'Приём few-shot: показываете 1–3 образца «вход → выход», и ИИ повторяет ваш фирменный стиль документа надёжнее любого словесного описания.'},
+     {n:10,t:'Рабочие документы под роль',url:'lesson-shag-10.html',
+      desc:'Собираете типовой документ своей роли — ответ на предписание или замечание ГГЭ, инструкцию по ОТ, деловое письмо — по шаблону. Разбираем, где обязательно проверять.'},
+     {n:11,t:'Длинный договор за минуты',url:'lesson-shag-11.html',
+      desc:'Загружаете договор подряда или отчёт — ИИ вытаскивает сроки, штрафы, порядок изменений и риски. Учитесь не тонуть в многостраничных текстах.'},
+     {n:12,t:'Презентации и отчёты',url:'lesson-shag-12.html',
+      desc:'Из тезисов — структура и слайды для отчёта руководству или защиты. Оформление за минуты в доступных РФ-сервисах.'},
+     {n:13,t:'Личная библиотека шаблонов',url:'lesson-shag-13.html',
+      desc:'Складываете удачные промпты в набор под свою роль, чтобы повторять типовые задачи в один клик. Это главный артефакт курса, который остаётся с вами.'},
+     {n:14,t:'Практикум: документ от и до',url:'lesson-shag-14.html',
+      desc:'Собираете готовый рабочий документ полностью и отправляете на проверку куратору — вторая контрольная точка курса.'}]},
+
+  {id:'w3', lbl:'Неделя 3', sub:'Данные, медиа и графика',
+   promise:'ИИ выходит за пределы текста — в таблицы, сканы, голос, фото, видео и графику с объекта.',
+   aboutTxt:'Прикладная неделя под реальную стройку. К каждому медиа-инструменту — короткая инструкция по настройке.',
+   inside:['Excel простыми словами','Сравнение смет и КП, цепочка промптов','Распознавание сканов (OCR)','Голос на стройке: диктовка и планёрки','Фото и видео с объекта','ИИ-графика: рендер и картинка под задачу'],
+   result:'Сводите пять КП в таблицу за минуту, надиктовываете запись в журнал, получаете протокол «из коробки» и рендер фасада по описанию. Ассистент — Уровень 3.',
+   hook:'Самую нелюбимую рутину — журналы, протоколы, сравнение предложений — теперь делает ассистент. А ИИ-графика показывает, каким будет фасад, ещё до защиты концепции.',
+   steps:[
+     {n:15,t:'Таблицы с ИИ',url:'lesson-shag-15.html',
+      desc:'Просите формулу или сводку на русском языке — ИИ пишет её и объясняет. Разбираете выгрузку и строите сводную таблицу без знания синтаксиса Excel.'},
+     {n:16,t:'Сравнение и анализ',url:'lesson-kp.html',
+      desc:'Тренажёр: несколько разнородных коммерческих предложений сводятся в одну таблицу с подсветкой отклонений и скрытых рисков (доставка, предоплата, не та марка). Красная линия — коммерческая тайна. Заодно осваиваете цепочку промптов — как разбить большую задачу на шаги: извлечь → нормализовать → сравнить → оформить.'},
+     {n:17,t:'PDF и сканы (OCR)',url:'lesson-shag-17.html',
+      desc:'Превращаете скан акта или спецификации в текст и таблицу, извлекаете объёмы. Разбираем доступные в РФ OCR-инструменты и как их быстро настроить.'},
+     {n:18,t:'Голос на стройке: диктовка и планёрки',url:'lesson-ozhr.html',
+      desc:'Тренажёр: надиктованная за смену речь превращается в готовую запись общего журнала работ; сомнительные цифры помечаются на проверку. Вторая вкладка — планёрка: из записи совещания получаете протокол с решениями и поручениями. Один инструмент (распознаватель речи + ИИ-чат), одна этика записи — обязательное согласие участников.'},
+     {n:19,t:'Фото и видео с объекта',url:'lesson-shag-19.html',
+      desc:'Описание и фиксация фото для фотоотчёта, подписи к снимкам, генерация референсов для согласования. Плюс субтитры и краткое содержание видеообхода. Честно: ИИ помогает с описанием, а не «сам находит дефекты».'},
+     {n:20,t:'ИИ-графика 1: рендер по описанию',url:'lesson-shag-20.html',
+      desc:'Границы жанра: концепт — не проект, разбираем закон о рекламе. Делаете первый рендер фасада по описанию и ТЭП, пробуете варианты облицовки одним изменением промпта.'},
+     {n:21,t:'ИИ-графика 2: картинка под задачу',url:'lesson-shag-21.html',
+      desc:'Люди и двор — оживляете визуализацию (lifestyle-кадр). Готовите визуал для презентации руководству (связка с Шагом 12). Разбираем типовые артефакты генерации и обязательные дисклеймеры. Третья контрольная точка.'}]},
+
+  {id:'w4', lbl:'Неделя 4', sub:'Знания и устойчивая практика',
+   promise:'ИИ перестаёт быть разовым помощником и встраивается в вашу рабочую неделю.',
+   aboutTxt:'Учим ассистента отвечать по вашим документам со ссылкой и превращаем приёмы в устойчивую привычку. Плюс честный обзор горизонта — инструменты и агенты.',
+   inside:['Вопрос-ответ по своим документам','Нормативка с проверкой','Расширение библиотеки шаблонов','Встраивание в рутину','Как не отстать','Обзор инструментов и агентов'],
+   result:'У вас есть личный рабочий набор, которым вы пользуетесь каждый день. Ассистент — рабочий набор собран.',
+   hook:'Не «прошёл курс и забыл», а реально работающая привычка, которая остаётся с вами.',
+   steps:[
+     {n:22,t:'Вопрос-ответ по своим документам',url:'lesson-shag-22.html',
+      desc:'Загружаете набор файлов — регламенты, СП, прайсы — и спрашиваете. ИИ отвечает со ссылкой на источник. Вопрос-ответ по своим документам (GigaChat+файл; «настоящий» RAG — горизонт).'},
+     {n:23,t:'Нормативка с обязательной проверкой',url:'lesson-shag-23.html',
+      desc:'Используем ИИ как «первый черновик» по СП и ГОСТ и обязательно сверяем первоисточник. Разбираем, где он чаще всего ошибается с реквизитами.'},
+     {n:24,t:'Расширяем библиотеку шаблонов',url:'lesson-shag-24.html',
+      desc:'Достраиваете набор промптов под все типовые задачи своей роли, чтобы закрыть рутину целиком.'},
+     {n:25,t:'Встраиваем ИИ в недельную рутину',url:'lesson-shag-25.html',
+      desc:'Проектируете свой рабочий процесс с ИИ: какие задачи отдать, где поставить точку проверки человеком.'},
+     {n:26,t:'Как не отстать от инструментов',url:'lesson-shag-26.html',
+      desc:'Поле меняется каждые несколько месяцев. Учимся следить за обновлениями и планировать лимиты и стоимость.'},
+     {n:27,t:'Горизонт: инструменты и агенты',url:'lesson-shag-27.html',
+      desc:'Честный обзор следующего уровня: что такое инструменты и агенты, чем ассистент отличается от агента и когда это вам реально понадобится — без сложной настройки.'},
+     {n:28,t:'Ваш персональный ИИ-набор',url:'lesson-shag-28.html',
+      desc:'Собираете всё воедино: инструменты под задачи, личная библиотека промптов и красные линии безопасности — ваш рабочий набор.'}]},
+
+  {id:'final', lbl:'Финал', sub:'Защита и «Паспорт навыков»',
+   promise:'Вы доказываете навык на своей реальной задаче — и получаете официальный документ.',
+   aboutTxt:'Собираем всё на сквозном кейсе вашей роли, отправляем куратору и получаем обратную связь.',
+   inside:['Итоговый сквозной кейс','Защита и проверка куратором','Отметка в «Паспорте навыков»','Сертификат прохождения курса установленного образца'],
+   result:'Подтверждённый навык в портфолио и документ, повышающий вашу ценность на рынке.',
+   hook:'На выходе — не сертификат «о прослушивании», а доказанное умение применять ИИ в работе.',
+   steps:[
+     {n:29,t:'Итоговый сквозной кейс по роли',url:'lesson-final-pto.html',roles:[['ПТО','lesson-final-pto.html'],['Стройконтроль','lesson-final-sk.html'],['Сметчик','lesson-final-smetchik.html'],['Прораб','lesson-final-prorab.html'],['ГИП / проектировщик','lesson-final-gip.html'],['Инженер ОТ','lesson-final-ot.html']],
+      desc:'Решаете реальную задачу своей роли с ИИ от и до: ПТО — пакет документов по этапу; стройконтроль — неделя предписаний и фотоотчёт; сметчик — сравнение КП и письмо.'},
+     {n:30,t:'Защита и «Паспорт навыков»',url:'lesson-shag-30.html',
+      desc:'Отправляете итоговый кейс куратору, получаете обратную связь, отметку в «Паспорте навыков» и сертификат прохождения курса установленного образца.'}]}
+];
+
+const PROTOS={
+  w1:[{pt:'Модуль 0 · Знакомство с ИИ',pn:'архивная версия — тренажёры шагов 1–3 в одном файле',url:'module-0.html'},
+      {pt:'Шаг 4. Первый осмысленный запрос',pn:'Шаг 4 — конструктор запроса',url:'lesson-shag-04.html'},
+      {pt:'Шаг 5. Контекст решает: ИИ не знает вашу компанию',pn:'Шаг 5 — тренажёр и практика',url:'lesson-1.html'}],
+  w2:[{pt:'Шаг 10. Рабочие документы под роль',pn:'Шаг 10 — ответ на предписание №57',url:'lesson-shag-10.html'},
+      {pt:'Шаг 11. Длинные документы',pn:'Шаг 11 — договор и ТЗ, защита от выдумок',url:'lesson-shag-11.html'},
+      {pt:'Мини-финал: неделя инженера ПТО',pn:'Сквозной кейс пилота (5 эпизодов)',url:'lesson-final-pto.html'}],
+  w3:[{pt:'Урок: Сравнение КП в таблицу',pn:'Шаг 16 — сметчик',url:'lesson-kp.html'},
+      {pt:'Шаг 18. Голос на стройке: диктовка и планёрки',pn:'Шаг 18 — прораб',url:'lesson-ozhr.html'}]
+};
+
+const menu=document.getElementById('menu'), content=document.getElementById('content');
+let expanded=null, curStep=null;
+function hasProto(s){return s.steps.some(x=>x.url);}
+
+function buildMenu(){
+  menu.innerHTML='<div class="mtitle">Разделы курса</div>';
+  const about=document.createElement('div');about.className='sec-head'+(expanded==='about'?' on':'');
+  about.innerHTML=`<span class="bar"></span><span class="tx"><span class="lbl">О курсе</span><span class="sub">с чего начать</span></span>`;
+  about.addEventListener('click',()=>{expanded='about';curStep=null;render();});
+  menu.appendChild(about);
+  SECTIONS.forEach(s=>{
+    const open=expanded===s.id;
+    const head=document.createElement('div');head.className='sec-head'+(open?' on open':'');
+    head.innerHTML=`<span class="bar"></span><span class="tx"><span class="lbl">${s.lbl}</span><span class="sub">${s.sub}</span></span>`+
+      `<span class="dot ${hasProto(s)?'':'hidden'}" title="есть прототип"></span><span class="chev">▶</span>`;
+    head.addEventListener('click',()=>{expanded=open?null:s.id;curStep=null;render();});
+    menu.appendChild(head);
+    const box=document.createElement('div');box.className='lessons'+(open?' open':'');
+    s.steps.forEach(st=>{
+      const row=document.createElement('div');row.className='lrow'+(open&&curStep&&curStep.sid===s.id&&curStep.n===st.n?' on':'');
+      row.innerHTML=`<span class="ln">${st.n}</span><span class="lt">${st.t}</span>`+(st.url?`<span class="lp" title="прототип"></span>`:'');
+      row.addEventListener('click',e=>{e.stopPropagation();expanded=s.id;curStep={sid:s.id,n:st.n};render();});
+      box.appendChild(row);
+    });
+    menu.appendChild(box);
+  });
+}
+
+function render(){
+  buildMenu();
+  if(expanded==='about'){content.innerHTML=renderAbout();}
+  else if(curStep){content.innerHTML=renderLesson();}
+  else if(expanded){content.innerHTML=renderSection(SECTIONS.find(s=>s.id===expanded));}
+  else {content.innerHTML=renderAbout();}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderAbout(){
+  return `<h2>О курсе</h2>
+   <p class="ldesc">ИИ уже не игрушка — это рабочий инструмент, который убирает рутину инженера: письма и акты, ответы на предписания, протоколы планёрок, сравнение смет, записи в журнал. Курс учит не «кнопкам одного сервиса», а способу мышления: какой инструмент взять под задачу, как им управлять и где его нельзя слепо слушать.</p>
+   <p class="ldesc">За 30 коротких шагов (в своём темпе) вы пройдёте путь от «ни разу не пробовал» до собственного рабочего ИИ-набора под вашу роль — с разбором заданий куратором и сертификат прохождения курса.</p>
+   <div class="lbl2">Коротко</div>
+   <ul class="inside">
+     <li>Для кого: ПТО, стройконтроль и технадзор, ГИП и проектировщики, сметчики и снабжение, прорабы, инженеры по охране труда.</li>
+     <li>Чем зацепит: пользу видно с первой недели — на ваших же задачах.</li>
+     <li>Чем отличается: примеры под вашу роль, инструменты доступные в России без VPN, и сквозной тренажёр «ваш ИИ-ассистент».</li>
+   </ul>
+   <div class="result" style="margin-top:16px"><b>Как пользоваться:</b> раскройте раздел в меню слева, чтобы увидеть его уроки, и нажмите на любой урок — покажется, что в нём будет. Уроки с зелёной точкой уже можно открыть и пройти.</div>`;
+}
+
+function renderSection(s){
+  const proto=hasProto(s);
+  let h=`${proto?'<span class="badge ready"><span class="d"></span> Есть прототип</span>':'<span class="badge soon">В разработке</span>'}<h2>${s.lbl}. ${s.sub}</h2>`;
+  if(s.promise)h+=`<div class="promise">${s.promise}</div>`;
+  if(s.aboutTxt)h+=`<p class="csub">${s.aboutTxt}</p>`;
+  if(s.inside)h+=`<div class="lbl2">Что внутри</div><ul class="inside">${s.inside.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+  if(s.result)h+=`<div class="result" style="margin-top:14px">${s.result}</div>`;
+  if(s.hook)h+=`<p class="hook"><span class="h">Зачем:</span> ${s.hook}</p>`;
+  if(PROTOS[s.id])h+=`<div class="lbl2">Готовые прототипы</div><div class="protos">`+PROTOS[s.id].map(p=>`<div class="pcard"><div class="pt">${p.pt}</div><div class="pn">${p.pn}</div><a onclick="openLesson('${p.url}','${p.pt}')">Открыть урок →</a></div>`).join('')+`</div>`;
+  h+=`<div class="lbl2">Уроки раздела — нажмите, чтобы увидеть содержание</div><ul class="inside">${s.steps.map(st=>`<li><a onclick="goStep('${s.id}',${st.n})">Шаг ${st.n}. ${st.t}</a>${st.url?' · <span style="color:var(--green);font-weight:700">прототип</span>':''}</li>`).join('')}</ul>`;
+  return h;
+}
+
+function renderLesson(){
+  const s=SECTIONS.find(x=>x.id===curStep.sid);
+  const idx=s.steps.findIndex(x=>x.n===curStep.n);
+  const st=s.steps[idx];
+  let h=`<div class="crumb"><a onclick="goSection('${s.id}')">${s.lbl}. ${s.sub}</a> › Урок</div>`;
+  h+=`<h2>Шаг ${st.n}. ${st.t}</h2>`;
+  if(st.url)h+=`<span class="badge ready"><span class="d"></span> Прототип готов</span>`;
+  h+=`<p class="ldesc">${st.desc}</p>`;
+  if(st.roles){h+=`<div class="lbl2">Финал — по вашей роли</div>`;st.roles.forEach(r=>{h+=`<div class="btnrow" style="margin-bottom:8px"><a class="openbtn" onclick="openLesson('${r[1]}','Шаг 29. Финал: ${r[0]}')">▶ ${r[0]}</a>`;const mz=matZip(r[1]);if(mz)h+=`<a class="matbtn2" href="${mz}" download>⬇ Материалы</a>`;h+=`</div>`;});}
+  else if(st.url){h+=`<div class="btnrow"><a class="openbtn" onclick="openLesson('${st.url}','Шаг ${st.n}. ${st.t}')">▶ Открыть интерактивный урок</a>`;const mz=matZip(st.url);if(mz)h+=`<a class="matbtn2" href="${mz}" download>⬇ Материалы урока</a>`;h+=`</div>`;}
+  // prev/next within section
+  const prev=idx>0?s.steps[idx-1]:null, next=idx<s.steps.length-1?s.steps[idx+1]:null;
+  h+=`<div class="navbtns"><a ${prev?`onclick="goStep('${s.id}',${prev.n})"`:'style="visibility:hidden"'}>← Шаг ${prev?prev.n:''}</a>`+
+     `<a onclick="goSection('${s.id}')">К разделу</a>`+
+     `<a ${next?`onclick="goStep('${s.id}',${next.n})"`:'style="visibility:hidden"'}>Шаг ${next?next.n:''} →</a></div>`;
+  return h;
+}
+
+window.goStep=(sid,n)=>{expanded=sid;curStep={sid,n};render();};
+window.goSection=(sid)=>{expanded=sid;curStep=null;render();};
+
+// modal
+const modal=document.getElementById('modal'), frame=document.getElementById('modalFrame'), mTitle=document.getElementById('modalTitle');
+window.openLesson=(url,title)=>{ mTitle.textContent=title||'Урок'; frame.src=url;
+  modal.classList.add('open'); document.body.style.overflow='hidden'; };
+function closeModal(){ modal.classList.remove('open'); frame.src='about:blank'; document.body.style.overflow=''; }
+document.getElementById('modalClose').addEventListener('click',closeModal);
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
+window.matZip=(u)=>{const m=u.match(/lesson-shag-(\d+)/); if(m)return 'materials/shag-'+m[1]+'.zip';
+  const f=u.match(/lesson-final-([a-z]+)\.html/); if(f)return 'materials/shag-final-'+f[1]+'.zip';
+  return {'lesson-1.html':'materials/shag-05.zip','lesson-kp.html':'materials/shag-16.zip','lesson-ozhr.html':'materials/shag-18.zip'}[u]||null;};
+
+expanded='about';render();
+</script>
+</body>
+</html>
